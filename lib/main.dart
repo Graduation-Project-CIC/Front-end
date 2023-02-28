@@ -1,19 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:full_circle/Screens/login-page.dart';
+import 'Screens/signup-page.dart';
+import 'Screens/welcome-page.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Scaffold(
-        backgroundColor: Colors.teal,
-        body: Container(child: Center(child: Text("Home Screen"))),
-      ),
+      initialRoute: 'Welcome page',
+      routes: {
+        'Welcome page': (context) => WelcomeScreen(),
+        'Login page': (context) => LoginScreen(),
+        'Sign-up page': (context) => RegisterScreen()
+      },
+
     );
   }
 }
