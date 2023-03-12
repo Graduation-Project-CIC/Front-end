@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "406486554105",
+    "project_id": "fullcircle-b6721",
+    "storage_bucket": "fullcircle-b6721.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:406486554105:android:2aafd6eb9591c3f5189928",
+        "android_client_info": {
+          "package_name": "com.example.full_circle"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "406486554105-ogmr0at7e3e8tnnola0cplqpkp2hc6ni.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCJUX5SwICM6s-ZW3m5YoNyLcVtA0Q7FX0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "406486554105-nde3t3ujvjtnmh09vti3if16duouj9k8.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "406486554105-junhbt6bd37h7ujk6pg5shs86khjndvo.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.fullCircle"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
