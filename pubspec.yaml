@@ -23,6 +23,7 @@ dependencies:
   firebase_core: ^2.7.0
   modal_progress_hud_nsn: ^0.3.0
   flutter_native_splash: ^2.2.0
+  smooth_page_indicator: ^1.0.0
 
 flutter_native_splash:
   color: "#3D8361"

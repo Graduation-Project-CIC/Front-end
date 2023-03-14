@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:full_circle/Screens/home-page.dart';
 import 'package:full_circle/Screens/login-page.dart';
-import 'package:full_circle/design.dart';
+import 'package:full_circle/Screens/onboarding-page.dart';
 import 'Screens/signup-page.dart';
 import 'Screens/welcome-page.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 
@@ -23,12 +22,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      initialRoute: WelcomeScreen.id,
+      initialRoute: OnBoardingScreen.id,
       routes: {
         WelcomeScreen.id: (context) => WelcomeScreen(),
         RegisterScreen.id: (context) => RegisterScreen(),
         HomeScreen.id: (context) => HomeScreen(),
         LoginScreen.id: (context) => LoginScreen(),
+        OnBoardingScreen.id: (context) => OnBoardingScreen(),
       },
     );
   }
