@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:full_circle/Screens/intro_screens/intro-page1.dart';
 import 'package:full_circle/Screens/intro_screens/intro-page2.dart';
 import 'package:full_circle/Screens/intro_screens/intro-page3.dart';
+import 'package:full_circle/Screens/intro_screens/intro-page4.dart';
+import 'package:full_circle/Screens/welcome-page.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class OnBoardingScreen extends StatefulWidget {
@@ -14,29 +16,82 @@ class OnBoardingScreen extends StatefulWidget {
 
 class _OnBoardingScreenState extends State<OnBoardingScreen> {
   PageController _controller = PageController();
+  int _currentPage = 0;
 
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    return Scaffold(
       body: Stack(
-        children:[
+        children: [
           PageView(
             controller: _controller,
-          children: [
-            IntroPage1(),
-            IntroPage2(),
-            IntroPage3(),
-          ],
+            onPageChanged: (index) {
+              setState(() {
+                _currentPage = index;
+              });
+            },
+            children: [
+              IntroPage1(),
+              IntroPage2(),
+              IntroPage3(),
+              IntroPage4(),
+            ],
           ),
-
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Padding(
+              padding: const EdgeInsets.only(bottom: 30.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, WelcomeScreen.id);
+                    },
+                    child: Text(
+                      'Skip',
+                      style: TextStyle(
+                        color: Colors.grey[600],
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      if (_currentPage == 3) {
+                        Navigator.pushNamed(context, WelcomeScreen.id);
+                      } else {
+                        _controller.nextPage(
+                          duration: Duration(milliseconds: 500),
+                          curve: Curves.ease,
+                        );
+                      }
+                    },
+                    child: Text(
+                      _currentPage == 3 ? 'Continue' : 'Next',
+                      style: TextStyle(
+                        color: Colors.grey[600],
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
           Container(
-            alignment: Alignment(0,0.75),
-            child: SmoothPageIndicator(controller: _controller,count: 3),
+            alignment: Alignment(0, 0.87),
+            child: SmoothPageIndicator(
+              controller: _controller,
+              count: 4,
+              effect: WormEffect(
+                dotColor: Colors.grey,
+                activeDotColor: Color(0xFF3D8361),
+              ),
+            ),
           ),
         ],
-
-        ),
-      );
-
+      ),
+    );
   }
-  }
+}

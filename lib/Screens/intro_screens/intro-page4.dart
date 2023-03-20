@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:full_circle/design.dart';
 
-class IntroPage1 extends StatelessWidget {
-  const IntroPage1({Key? key}) : super(key: key);
+class IntroPage4 extends StatelessWidget {
+  const IntroPage4({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,16 +22,16 @@ class IntroPage1 extends StatelessWidget {
                     ),
                     SizedBox(height:70),
                     Text(
-                      'DONATE',
+                      'DELIVER',
                       style: mainLogoName,
                     ),
                     Image.asset(
-                      'images/donate.png',
+                      'images/collectPoints.png',
                       width: 260,
                       height: 260,
                     ),
                     Text(
-                      'Full Circle will help you to easily donate your surplus food to those who need it most. Our app connects you with local charities and organizations that are working tirelessly to feed people in need.',
+                      'Every donation counts! you will earn points for every donation you make. These points can be converted into rewards like gifts and vouchers.',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontSize: 20,
