@@ -105,10 +105,10 @@ var formBoxDecoration = BoxDecoration(
   borderRadius: BorderRadius.circular(4),
   boxShadow: [
     BoxShadow(
-      color: Color(0xFF8F95B2),
-      blurRadius: 1,
+      color: Color(0xFFB9BBD3),
+      blurRadius: 0.5,
       offset: Offset(0, 0),
-      spreadRadius: 1,
+      spreadRadius: 0.5,
     ),
   ],
 );
