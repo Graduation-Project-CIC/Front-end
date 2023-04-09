@@ -20,11 +20,16 @@ class _DonationFormState extends State<DonationForm> {
   XFile? _imageFile1;
   XFile? _imageFile2;
   XFile? _imageFile3;
+  int _selectedIndex = 0;
 
   DateTime _selectedDate = DateTime.now();
   TimeOfDay _selectedTime = TimeOfDay.now();
 
-
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
         context: context,
@@ -131,6 +136,9 @@ class _DonationFormState extends State<DonationForm> {
                       SizedBox(height: 20),
                       Text('Upload pictures of your food',
                           style: textStyle.copyWith(color: Color(0xFF838181))),
+                      Text('At least 2 photos',
+                        style : TextStyle(
+                          color: Color(0xffD7D8DB),),),
                       SizedBox(height: 5),
                       Row(
                         children: [
@@ -371,9 +379,33 @@ class _DonationFormState extends State<DonationForm> {
                 SizedBox(height: 20),
               ],
             ),
-          ),
-        ),
-      ),
-    );
+          ),),
+        bottomNavigationBar: BottomNavigationBar(
+          type: BottomNavigationBarType.fixed,
+          currentIndex: _selectedIndex,
+          onTap: _onItemTapped,
+          items: [
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home),
+              label: 'Screen 1',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.favorite),
+              label: 'Screen 2',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.mail),
+              label: 'Screen 3',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.person),
+              label: 'Screen 4',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.settings),
+              label: 'Screen 5',
+            ),
+          ],
+        ),),);
   }
 }

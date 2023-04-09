@@ -1,5 +1,11 @@
 // this file will contain all needed constant decoration designs.
 import 'package:flutter/material.dart';
+import 'package:full_circle/Screens/signup-page.dart';
+
+import 'Screens/donationForm.dart';
+import 'Screens/home-page.dart';
+import 'Screens/login-page.dart';
+import 'Screens/welcome-page.dart';
 
 //buttons text styles
 //textStyle: buttonTextStyle,
@@ -81,6 +87,8 @@ const mainLogoName = TextStyle(
   color: Color(0xFF3D8361), // Color code for #3D8361
 );
 
+
+final List<Widget> screens = [  HomeScreen(), DonationForm(),    WelcomeScreen(),    RegisterScreen(),    LoginScreen(),  ];
 const lineDecoration = BoxDecoration(
   border: Border(
     bottom: BorderSide(
