@@ -1,6 +1,30 @@
 // this file will contain all needed constant decoration designs.
 import 'package:flutter/material.dart';
 
+var boxDecoration =  BoxDecoration(
+  color: Colors.grey[200],
+  border: Border.all(
+    color: Colors.grey,
+  ),
+);
+
+var formBoxDecoration = BoxDecoration(
+  color: Colors.white,
+  borderRadius: BorderRadius.circular(4),
+  boxShadow: [
+    BoxShadow(
+      color: Color(0xFFB9BBD3),
+      blurRadius: 0.5,
+      offset: Offset(0, 0),
+      spreadRadius: 0.5,
+    ),
+  ],
+);
+
+final List<String> organizationType = [    "Type 1",    "Type 2",    "Type 3",  ];
+List<String> chipLabels = ['Less than 5', 'Less than 10', 'less than 50', 'less than 100', 'more than 100'];
+
+
 //buttons text styles
 //textStyle: buttonTextStyle,
 const buttonTextStyle = TextStyle(

@@ -3,6 +3,7 @@ import 'package:full_circle/Screens/getStarted-page.dart';
 import 'package:full_circle/Screens/home-page.dart';
 import 'package:full_circle/Screens/login-page.dart';
 import 'package:full_circle/Screens/onboarding-page.dart';
+import 'Screens/recipient-signUp.dart';
 import 'Screens/signup-page.dart';
 import 'Screens/welcome-page.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -22,7 +23,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      initialRoute: GetStarted.id,
+      initialRoute: RecipientSignUp.id,
       routes: {
         WelcomeScreen.id: (context) => WelcomeScreen(),
         RegisterScreen.id: (context) => RegisterScreen(),
@@ -30,6 +31,7 @@ class MyApp extends StatelessWidget {
         LoginScreen.id: (context) => LoginScreen(),
         OnBoardingScreen.id: (context) => OnBoardingScreen(),
         GetStarted.id: (context) => GetStarted(),
+        RecipientSignUp.id: (context) => RecipientSignUp(),
       },
     );
   }
