@@ -10,12 +10,15 @@ const buttonTextStyle = TextStyle(
       fontWeight: FontWeight.normal,
     );
 
+final List<String> categories = [    "Category 1",    "Category 2",    "Category 3",  ];
+
 const textStyle =TextStyle(
   fontFamily: 'Roboto',
   fontSize: 20.0,
   fontWeight: FontWeight.w400,
   height: 1.0,
   color: Color(0xFF676666),);
+
 
 var buttonStyle = ButtonStyle(
   backgroundColor:
@@ -58,7 +61,18 @@ const dropShadowDecoration = BoxDecoration(
     ),
   ],
 );
-
+var formBoxDecoration = BoxDecoration(
+  color: Colors.white,
+  borderRadius: BorderRadius.circular(4),
+  boxShadow: [
+    BoxShadow(
+      color: Color(0xFF8F95B2),
+      blurRadius: 1,
+      offset: Offset(0, 0),
+      spreadRadius: 1,
+    ),
+  ],
+);
 const mainLogoName = TextStyle(
   fontFamily: 'Roboto',
   fontSize: 28,
@@ -93,7 +107,12 @@ const textFieldDecoration = InputDecoration(
     borderRadius: BorderRadius.all(Radius.circular(5.0)),),
 );
 
-
+var boxDecoration =  BoxDecoration(
+  color: Colors.grey[200],
+  border: Border.all(
+    color: Colors.grey,
+  ),
+);
 //checkBox design
 //https://api.flutter.dev/flutter/material/Checkbox-class.html
 Color getColor(Set<MaterialState> states) {
@@ -107,8 +126,3 @@ Color getColor(Set<MaterialState> states) {
   }
   return Colors.green;
 }
-
-const List<String> ageList =[
-  '< 18 ',
-  ''
-];

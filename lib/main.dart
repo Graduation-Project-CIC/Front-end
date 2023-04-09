@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:full_circle/Screens/home-page.dart';
 import 'package:full_circle/Screens/login-page.dart';
 import 'package:full_circle/design.dart';
+import 'Screens/donationForm.dart';
 import 'Screens/signup-page.dart';
 import 'Screens/welcome-page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -23,12 +24,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      initialRoute: WelcomeScreen.id,
+      initialRoute: DonationForm.id,
       routes: {
         WelcomeScreen.id: (context) => WelcomeScreen(),
         RegisterScreen.id: (context) => RegisterScreen(),
         HomeScreen.id: (context) => HomeScreen(),
         LoginScreen.id: (context) => LoginScreen(),
+        DonationForm.id: (context) => DonationForm(),
       },
     );
   }
