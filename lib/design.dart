@@ -1,7 +1,6 @@
 // this file will contain all needed constant decoration designs.
 import 'package:flutter/material.dart';
 import 'package:full_circle/Screens/signup-page.dart';
-
 import 'Screens/donationForm.dart';
 import 'Screens/home-page.dart';
 import 'Screens/login-page.dart';
@@ -17,6 +16,40 @@ const buttonTextStyle = TextStyle(
     );
 
 final List<String> categories = [    "Category 1",    "Category 2",    "Category 3",  ];
+final List<Widget> screens = [  HomeScreen(), DonationForm(),    WelcomeScreen(),    RegisterScreen(),    LoginScreen(),  ];
+
+BottomNavigationBar NavBar(v,s)  {
+  return BottomNavigationBar(
+    type: BottomNavigationBarType.fixed,
+    currentIndex: v,
+    iconSize: 30,
+    selectedFontSize: 2,
+    selectedItemColor: Color(0xFF3D8361),
+    onTap: s,
+    items: [
+      BottomNavigationBarItem(
+        icon: Icon(Icons.home_outlined),
+        label: '', // provide a default label text
+      ),
+      BottomNavigationBarItem(
+        icon: Icon(Icons.fastfood_outlined),
+        label: '', // provide a default label text
+      ),
+      BottomNavigationBarItem(
+        icon: Icon(Icons.star_border_outlined),
+        label: '', // provide a default label text
+      ),
+      BottomNavigationBarItem(
+        icon: Icon(Icons.delivery_dining_outlined),
+        label: '', // provide a default label text
+      ),
+      BottomNavigationBarItem(
+        icon: Icon(Icons.account_circle_outlined),
+        label: '', // provide a default label text
+      ),
+    ],
+  );
+}
 
 const textStyle =TextStyle(
   fontFamily: 'Roboto',
@@ -87,8 +120,6 @@ const mainLogoName = TextStyle(
   color: Color(0xFF3D8361), // Color code for #3D8361
 );
 
-
-final List<Widget> screens = [  HomeScreen(), DonationForm(),    WelcomeScreen(),    RegisterScreen(),    LoginScreen(),  ];
 const lineDecoration = BoxDecoration(
   border: Border(
     bottom: BorderSide(

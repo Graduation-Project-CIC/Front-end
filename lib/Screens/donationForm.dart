@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:full_circle/Screens/welcome-page.dart';
 import 'package:full_circle/design.dart';
 import 'package:image_picker/image_picker.dart';
 import '../design.dart';
@@ -29,7 +28,13 @@ class _DonationFormState extends State<DonationForm> {
     setState(() {
       _selectedIndex = index;
     });
+    // Navigate to the selected screen
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => screens[index]),
+    );
   }
+
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
         context: context,
@@ -380,32 +385,9 @@ class _DonationFormState extends State<DonationForm> {
               ],
             ),
           ),),
-        bottomNavigationBar: BottomNavigationBar(
-          type: BottomNavigationBarType.fixed,
-          currentIndex: _selectedIndex,
-          onTap: _onItemTapped,
-          items: [
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              label: 'Screen 1',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.favorite),
-              label: 'Screen 2',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.mail),
-              label: 'Screen 3',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.person),
-              label: 'Screen 4',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.settings),
-              label: 'Screen 5',
-            ),
-          ],
+        bottomNavigationBar: NavBar(
+           _selectedIndex,
+           _onItemTapped,
         ),),);
   }
 }
