@@ -5,7 +5,7 @@
          to allow setting breakpoints, to provide hot reload, etc.
     -->
     <meta-data android:name="com.google.android.geo.API_KEY"
-        android:value="AIzaSyCcRd1FswtopXqMzQoRYukO1381XmOGlvE"/>
+        android:value="AIzaSyCJUX5SwICM6s-ZW3m5YoNyLcVtA0Q7FX0"/>
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
