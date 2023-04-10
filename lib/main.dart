@@ -25,13 +25,13 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       initialRoute: RecipientSignUp.id,
       routes: {
-        WelcomeScreen.id: (context) => WelcomeScreen(),
-        RegisterScreen.id: (context) => RegisterScreen(),
-        HomeScreen.id: (context) => HomeScreen(),
-        LoginScreen.id: (context) => LoginScreen(),
-        OnBoardingScreen.id: (context) => OnBoardingScreen(),
-        GetStarted.id: (context) => GetStarted(),
-        RecipientSignUp.id: (context) => RecipientSignUp(),
+        WelcomeScreen.id: (context) => const WelcomeScreen(),
+        RegisterScreen.id: (context) => const RegisterScreen(),
+        HomeScreen.id: (context) => const HomeScreen(),
+        LoginScreen.id: (context) => const LoginScreen(),
+        OnBoardingScreen.id: (context) => const OnBoardingScreen(),
+        GetStarted.id: (context) => const GetStarted(),
+        RecipientSignUp.id: (context) => const RecipientSignUp(),
       },
     );
   }

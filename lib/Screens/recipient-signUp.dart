@@ -3,29 +3,24 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import '../design.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:intl/intl.dart';
+import '../map.dart';
 
 class RecipientSignUp extends StatefulWidget {
   const RecipientSignUp({Key? key}) : super(key: key);
   static const String id = 'recipient_SignUp';
 
   @override
+  // ignore: library_private_types_in_public_api
   _RecipientSignUpState createState() => _RecipientSignUpState();
 }
-
 class _RecipientSignUpState extends State<RecipientSignUp> {
   XFile? _imageFile1;
   XFile? _imageFile2;
   XFile? _imageFile3;
   XFile? _imageFile4;
   String? selectedType;
+  LatLng? _selectedLocation; // variable to store selected location
   int selectedChipIndex = 0; // index of initially selected chip
-
-  GoogleMapController? mapController;
-  CameraPosition initialPosition = CameraPosition(
-    target: LatLng(40.7128, -74.0060), // default position
-    zoom: 10.0, // default zoom
-  );
 
   Future<void> pickImage1() async {
     final picker = ImagePicker();
@@ -88,7 +83,7 @@ class _RecipientSignUpState extends State<RecipientSignUp> {
                         'Sign up your organization',
                         style: mainLogoName.copyWith(color: Colors.black),
                       ),
-                      SizedBox(height: 12),
+                      const SizedBox(height: 12),
                       Row(
                         children: [
                           Expanded(
@@ -103,16 +98,15 @@ class _RecipientSignUpState extends State<RecipientSignUp> {
                                         child: Row(
                                           mainAxisAlignment:
                                               MainAxisAlignment.center,
-                                          children: [
+                                          children: const [
                                             Icon(Icons.add),
-                                            Text('LOGO'),
-                                          ],
+                                            Text('LOGO'),],
                                         ),
                                       ),
                               ),
                             ),
                           ),
-                          SizedBox(width: 5),
+                          const SizedBox(width: 5),
                           Expanded(
                             flex: 4,
                             child: TextField(
@@ -123,7 +117,7 @@ class _RecipientSignUpState extends State<RecipientSignUp> {
                           ),
                         ],
                       ),
-                      SizedBox(height: 30),
+                      const SizedBox(height: 30),
                       DropdownButtonFormField<String>(
                         decoration: textFieldDecoration.copyWith(
                           hintText: "Choose Organization type",
@@ -141,10 +135,10 @@ class _RecipientSignUpState extends State<RecipientSignUp> {
                           );
                         }).toList(),
                       ),
-                      SizedBox(height: 30),
+                      const SizedBox(height: 30),
                       Text('Upload pictures of your place',
-                          style: textStyle.copyWith(color: Color(0xFF838181))),
-                      SizedBox(height: 5),
+                          style: textStyle.copyWith(color: const Color(0xFF838181))),
+                      const SizedBox(height: 5),
                       Row(
                         children: [
                           Expanded(
@@ -156,13 +150,13 @@ class _RecipientSignUpState extends State<RecipientSignUp> {
                                 decoration: boxDecoration,
                                 child: _imageFile2 != null
                                     ? Image.file(File(_imageFile2!.path))
-                                    : Center(
+                                    : const Center(
                                         child: Icon(Icons.add),
                                       ),
                               ),
                             ),
                           ),
-                          SizedBox(width: 5),
+                          const SizedBox(width: 5),
                           Expanded(
                             child: GestureDetector(
                               onTap: pickImage3,
@@ -172,13 +166,12 @@ class _RecipientSignUpState extends State<RecipientSignUp> {
                                 decoration: boxDecoration,
                                 child: _imageFile3 != null
                                     ? Image.file(File(_imageFile3!.path))
-                                    : Center(
-                                        child: Icon(Icons.add),
-                                      ),
+                                    : const Center(
+                                        child: Icon(Icons.add), ),
                               ),
                             ),
                           ),
-                          SizedBox(width: 5),
+                          const SizedBox(width: 5),
                           Expanded(
                             child: GestureDetector(
                               onTap: pickImage4,
@@ -188,7 +181,7 @@ class _RecipientSignUpState extends State<RecipientSignUp> {
                                 decoration: boxDecoration,
                                 child: _imageFile4 != null
                                     ? Image.file(File(_imageFile4!.path))
-                                    : Center(
+                                    : const Center(
                                         child: Icon(Icons.add),
                                       ),
                               ),
@@ -196,39 +189,17 @@ class _RecipientSignUpState extends State<RecipientSignUp> {
                           ),
                         ],
                       ),
-                      SizedBox(height: 30),
-                      Text('Add your location',
-                          style: textStyle.copyWith(color: Color(0xFF838181))),
-                      SizedBox(height: 5),
-                      GestureDetector(
-                        onTap: () {
-                          showDialog(
-                            context: context,
-                            builder: (BuildContext context) => AlertDialog(
-                              content: SizedBox(
-                                height: 300,
-                                child: GoogleMap(
-                                  initialCameraPosition: initialPosition,
-                                  onMapCreated: (controller) =>
-                                      mapController = controller,
-                                ),
-                              ),
-                              actions: [
-                                TextButton(
-                                  onPressed: () => Navigator.pop(context),
-                                  child: Text('Close'),
-                                ),
-                              ],
-                            ),
-                          );
-                        },
+                      const SizedBox(height: 30),
+                      Text('Choose Pick-up location',
+                          style: textStyle.copyWith(color: const Color(0xFF838181))),
+                      const SizedBox(height: 5),
+                      TextButton(
                         child: Container(
                           height: 35,
                           width: 218,
                           decoration: formBoxDecoration,
                           child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
+                            children: const [
                               SizedBox(width: 10),
                               Icon(
                                 Icons.location_on,
@@ -237,18 +208,34 @@ class _RecipientSignUpState extends State<RecipientSignUp> {
                               SizedBox(width: 10),
                               Text(
                                 'Choose Location',
-                                style: TextStyle(
-                                    color: Colors.black, fontSize: 17),
+                                style: TextStyle(color: Colors.black, fontSize: 17),
                               ),
                             ],
                           ),
                         ),
+                        onPressed: () async {
+                          final LatLng? selectedLocation = await Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => LocationPicker(onSelect: (LatLng location) {
+                              setState(() {
+                                _selectedLocation = location; // store selected location in variable
+                              });
+                            },)),
+                          );
+                          if (selectedLocation != null) {
+                            setState(() {
+                              _selectedLocation = selectedLocation; // store selected location in variable
+                            });
+                          }
+                        },
                       ),
-                      SizedBox(height: 30),
+                      if (_selectedLocation != null) // show selected location text if location is selected
+                        Text('Selected location: ${_selectedLocation!.latitude}'),
+                      const SizedBox(height: 30),
                       Text(
                           'How many people are you responsible for feeding daily?',
-                          style: textStyle.copyWith(color: Color(0xFF838181))),
-                      SizedBox(height: 5),
+                          style: textStyle.copyWith(color: const Color(0xFF838181))),
+                      const SizedBox(height: 5),
                       Wrap(
                         children: chipLabels.map((String label) {
                           int index = chipLabels.indexOf(label);
@@ -271,29 +258,27 @@ class _RecipientSignUpState extends State<RecipientSignUp> {
                                       (selected ? index : null)!;
                                 });
                               },
-                              selectedColor: Color(0xFF3D8361),
+                              selectedColor: const Color(0xFF3D8361),
                             ),
                           );
                         }).toList(),
                       ),
-                      SizedBox(height: 30),
+                      const SizedBox(height: 30),
                       TextField(
                           maxLines: null,
-                          decoration: textFieldDecoration.copyWith(
-                              hintText: 'Description')),
+                          decoration: textFieldDecoration.copyWith(hintText: 'Description')),
                     ],
                   ),
                 ),
-                SizedBox(height: 50),
-                Container(
-                  child: ElevatedButton(
-                    child: Text('Sign Up'),
-                    style: buttonStyle.copyWith(
-                      minimumSize:
-                      MaterialStateProperty.all<Size>(Size(213, 50)),
-                    ),
-                    onPressed:(){},),),
-                SizedBox(height: 20),
+                const SizedBox(height: 50),
+                ElevatedButton(
+                  style: buttonStyle.copyWith(
+                    minimumSize:
+                    MaterialStateProperty.all<Size>(const Size(213, 50)),
+                  ),
+                  onPressed:(){},
+                  child: const Text('Sign Up'),),
+                const SizedBox(height: 20),
               ],
             ),
           ),

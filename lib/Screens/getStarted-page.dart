@@ -10,11 +10,11 @@ class GetStarted extends StatefulWidget {
   static const String id = 'getStarted_screen';
 
   @override
+  // ignore: library_private_types_in_public_api
   _GetStartedState createState() => _GetStartedState();
 }
 
 class _GetStartedState extends State<GetStarted> {
-  bool _showOnboarding = true;
 
   @override
   void initState() {
@@ -26,9 +26,9 @@ class _GetStartedState extends State<GetStarted> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     bool showOnboarding = prefs.getBool('showOnboarding') ?? true;
     setState(() {
-      _showOnboarding = showOnboarding;
     });
     if (!showOnboarding) {
+      // ignore: use_build_context_synchronously
       Navigator.pushReplacementNamed(context, WelcomeScreen.id);
     }
   }
@@ -47,25 +47,21 @@ class _GetStartedState extends State<GetStarted> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Container(
-                  child: Image.asset(
-                    'images/SplashScreen-green.png',
-                    width: 290,
-                    height: 290,
-                  ),
+                Image.asset(
+                  'images/SplashScreen-green.png',
+                  width: 290,
+                  height: 290,
                 ),
-                Container(
-                  child: ElevatedButton(
-                    child: Text('Get Started'),
-                    style: buttonStyle.copyWith(
-                      minimumSize:
-                      MaterialStateProperty.all<Size>(Size(295, 50)),
-                    ),
-                    onPressed: () {
-                      Navigator.pushNamed(context, OnBoardingScreen.id);
-                      _setShowOnboardingFlag();
-                    },
+                ElevatedButton(
+                  style: buttonStyle.copyWith(
+                    minimumSize:
+                    MaterialStateProperty.all<Size>(const Size(295, 50)),
                   ),
+                  onPressed: () {
+                    Navigator.pushNamed(context, OnBoardingScreen.id);
+                    _setShowOnboardingFlag();
+                  },
+                  child: const Text('Get Started'),
                 ),
               ],
             ),

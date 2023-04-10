@@ -1,71 +1,91 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:location/location.dart';
 
-class MapScreen extends StatefulWidget {
+class LocationPicker extends StatefulWidget {
+  final Function(LatLng) onSelect;
+
+  // ignore: use_key_in_widget_constructors
+  const LocationPicker({required this.onSelect});
+
   @override
-  _MapScreenState createState() => _MapScreenState();
+  // ignore: library_private_types_in_public_api
+  _LocationPickerState createState() => _LocationPickerState();
 }
 
-class _MapScreenState extends State<MapScreen> {
-  late GoogleMapController _controller;
-  Marker? _selectedMarker;
+class _LocationPickerState extends State<LocationPicker> {
+  late GoogleMapController mapController;
+  LatLng? selectedLocation;
 
-  void _onMapCreated(GoogleMapController controller) {
-    _controller = controller;
+  static CameraPosition initialPosition = const CameraPosition(
+    target: LatLng(40.7128, -74.0060), // default position
+    zoom: 10.0, // default zoom
+  );
+
+  @override
+  void initState() {
+    super.initState();
+    _getCurrentLocation();
   }
 
-  void _onMarkerTapped(MarkerId markerId) {
+  void _onMapCreated(GoogleMapController controller) {
     setState(() {
-      _selectedMarker = _markers[markerId];
+      mapController = controller;
     });
   }
 
-  final Map<MarkerId, Marker> _markers = {
-    MarkerId('marker_1'): Marker(
-      markerId: MarkerId('marker_1'),
-      position: LatLng(37.42796133580664, -122.085749655962),
-      infoWindow: InfoWindow(
-        title: 'Marker 1',
-        snippet: 'Google Headquarters',
-      ),
-      onTap: () {
-      },
-    ),
-  };
+  void _onMapTapped(LatLng location) {
+    setState(() {
+      selectedLocation = location;
+    });
+  }
+
+  void _onSelect() {
+    if (selectedLocation != null) {
+      widget.onSelect(selectedLocation!);
+      Navigator.pop(context);
+    }
+  }
+
+  Future<void> _getCurrentLocation() async {
+    final locationData = await Location().getLocation();
+    setState(() {
+      initialPosition = CameraPosition(
+        target: LatLng(locationData.latitude!, locationData.longitude!),
+        zoom: 15,
+      );
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('Choose Location'),
+        backgroundColor: const Color(0xFF3D8361),
+      ),
       body: GoogleMap(
         onMapCreated: _onMapCreated,
-        initialCameraPosition: CameraPosition(
-          target: LatLng(37.42796133580664, -122.085749655962),
-          zoom: 14,
-        ),
-        markers: Set<Marker>.of(_markers.values),
-        onTap: (LatLng latLng) {
-          setState(() {
-            _selectedMarker = null;
-          });
-        },
+        onTap: _onMapTapped,
+        initialCameraPosition: initialPosition,
+        markers: selectedLocation != null
+            // ignore: prefer_collection_literals
+            ? Set<Marker>.of([Marker(
+            markerId: const MarkerId('selectedLocation'),
+            position: selectedLocation!,
+          )
+        ])
+            : {},
       ),
-      floatingActionButton: _selectedMarker == null
-          ? null
-          : FloatingActionButton(
-        onPressed: () {
-          showDialog(
-            context: context,
-            builder: (context) {
-              return AlertDialog(
-                title: Text('Selected Marker'),
-                content: Text(
-                    'Lat: ${_selectedMarker?.position.latitude}, Lng: ${_selectedMarker?.position.longitude}'),
-              );
-            },
-          );
-        },
-        child: Icon(Icons.location_on),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: _onSelect,
+        label: const Text('Select Location'),
+        icon: const Icon(Icons.check),
+        backgroundColor: selectedLocation != null
+            ? const Color(0xFF3D8361)
+            : Colors.grey[600],
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 }
