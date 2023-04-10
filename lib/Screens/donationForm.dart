@@ -1,37 +1,42 @@
+// ignore_for_file: depend_on_referenced_packages
+
 import 'package:flutter/material.dart';
 import 'package:full_circle/design.dart';
 import 'package:image_picker/image_picker.dart';
 import '../design.dart';
 import 'dart:io';
+import '../map.dart';
 import 'home-page.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:intl/intl.dart';
 
+// ignore: must_be_immutable
 class DonationForm extends StatefulWidget {
   DonationForm({Key? key}) : super(key: key);
   static const String id = 'donationForm_screen';
   String? selectedCategory;
   @override
+  // ignore: library_private_types_in_public_api
   _DonationFormState createState() => _DonationFormState();
 }
 
 class _DonationFormState extends State<DonationForm> {
+  LatLng? _selectedLocation; // variable to store selected location
   XFile? _imageFile1;
   XFile? _imageFile2;
   XFile? _imageFile3;
   int _selectedIndex = 0;
 
   DateTime _selectedDate = DateTime.now();
+  DateTime _selectedDate2 = DateTime.now();
   TimeOfDay _selectedTime = TimeOfDay.now();
+  TimeOfDay _selectedTime2 = TimeOfDay.now();
 
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
     });
-    // Navigate to the selected screen
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => screens[index]),
+    Navigator.push(context, MaterialPageRoute(builder: (context) => screens[index]),
     );
   }
 
@@ -41,20 +46,45 @@ class _DonationFormState extends State<DonationForm> {
         initialDate: _selectedDate,
         firstDate: DateTime(2015, 8),
         lastDate: DateTime(2101));
-    if (picked != null && picked != _selectedDate)
+    if (picked != null && picked != _selectedDate) {
       setState(() {
         _selectedDate = picked;
       });
+    }
+  }
+
+  Future<void> _selectDate2(BuildContext context) async {
+    final DateTime? picked2 = await showDatePicker(
+        context: context,
+        initialDate: _selectedDate2,
+        firstDate: DateTime(2015, 8),
+        lastDate: DateTime(2101));
+    if (picked2 != null && picked2 != _selectedDate2) {
+      setState(() {
+        _selectedDate2 = picked2;
+      });
+    }
   }
   Future<void> _selectTime(BuildContext context) async {
     final TimeOfDay? newTime = await showTimePicker(
       context: context,
       initialTime: _selectedTime,
     );
-
     if (newTime != null) {
       setState(() {
         _selectedTime = newTime;
+      });
+    }
+  }
+
+  Future<void> _selectTime2(BuildContext context) async {
+    final TimeOfDay? newTime = await showTimePicker(
+      context: context,
+      initialTime: _selectedTime2,
+    );
+    if (newTime != null) {
+      setState(() {
+        _selectedTime2 = newTime;
       });
     }
   }
@@ -82,11 +112,6 @@ class _DonationFormState extends State<DonationForm> {
     });
   }
 
-  GoogleMapController? mapController;
-  CameraPosition initialPosition = CameraPosition(
-    target: LatLng(40.7128, -74.0060), // default position
-    zoom: 10.0, // default zoom
-  );
 
   @override
   Widget build(BuildContext context) {
@@ -108,7 +133,7 @@ class _DonationFormState extends State<DonationForm> {
                   ],
                 ),
                 Padding(
-                  padding: EdgeInsets.only(left: 8.0, right: 8.0),
+                  padding: const EdgeInsets.only(left: 8.0, right: 8.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -116,11 +141,11 @@ class _DonationFormState extends State<DonationForm> {
                         'Tell us more about \n your donation',
                         style: mainLogoName.copyWith(color: Colors.black),
                       ),
-                      SizedBox(height: 20),
+                      const SizedBox(height: 20),
                       TextField(
                           decoration: textFieldDecoration.copyWith(
                               hintText: 'Tittle : Rice with vegtables')),
-                      SizedBox(height: 20),
+                      const SizedBox(height: 20),
                       DropdownButtonFormField<String>(
                         decoration: textFieldDecoration.copyWith(
                           hintText: "Choose food category",
@@ -138,13 +163,13 @@ class _DonationFormState extends State<DonationForm> {
                           );
                         }).toList(),
                       ),
-                      SizedBox(height: 20),
+                      const SizedBox(height: 20),
                       Text('Upload pictures of your food',
-                          style: textStyle.copyWith(color: Color(0xFF838181))),
-                      Text('At least 2 photos',
+                          style: textStyle.copyWith(color: const Color(0xFF838181))),
+                      const Text('At least 2 photos',
                         style : TextStyle(
                           color: Color(0xffD7D8DB),),),
-                      SizedBox(height: 5),
+                      const SizedBox(height: 5),
                       Row(
                         children: [
                           Expanded(
@@ -156,13 +181,13 @@ class _DonationFormState extends State<DonationForm> {
                                 decoration: boxDecoration,
                                 child: _imageFile1 != null
                                     ? Image.file(File(_imageFile1!.path))
-                                    : Center(
-                                        child: Icon(Icons.add),
-                                      ),
+                                    : const Center(
+                                  child: Icon(Icons.add),
+                                ),
                               ),
                             ),
                           ),
-                          SizedBox(width: 5),
+                          const SizedBox(width: 5),
                           Expanded(
                             child: GestureDetector(
                               onTap: pickImage2,
@@ -172,13 +197,13 @@ class _DonationFormState extends State<DonationForm> {
                                 decoration: boxDecoration,
                                 child: _imageFile2 != null
                                     ? Image.file(File(_imageFile2!.path))
-                                    : Center(
-                                        child: Icon(Icons.add),
-                                      ),
+                                    : const Center(
+                                  child: Icon(Icons.add),
+                                ),
                               ),
                             ),
                           ),
-                          SizedBox(width: 5),
+                          const SizedBox(width: 5),
                           Expanded(
                             child: GestureDetector(
                               onTap: pickImage3,
@@ -188,47 +213,40 @@ class _DonationFormState extends State<DonationForm> {
                                 decoration: boxDecoration,
                                 child: _imageFile3 != null
                                     ? Image.file(File(_imageFile3!.path))
-                                    : Center(
-                                        child: Icon(Icons.add),
-                                      ),
+                                    : const Center(
+                                  child: Icon(Icons.add),
+                                ),
                               ),
                             ),
                           ),
                         ],
                       ),
-                      SizedBox(height: 20),
+                      const SizedBox(height: 20),
                       Text('Choose Pick-up location',
-                          style: textStyle.copyWith(color: Color(0xFF838181))),
-                      SizedBox(height: 5),
-                      GestureDetector(
-                        onTap: () {
-                          showDialog(
-                            context: context,
-                            builder: (BuildContext context) => AlertDialog(
-                              content: SizedBox(
-                                height: 300,
-                                child: GoogleMap(
-                                  initialCameraPosition: initialPosition,
-                                  onMapCreated: (controller) =>
-                                      mapController = controller,
-                                ),
-                              ),
-                              actions: [
-                                TextButton(
-                                  onPressed: () => Navigator.pop(context),
-                                  child: Text('Close'),
-                                ),
-                              ],
-                            ),
+                          style: textStyle.copyWith(color: const Color(0xFF838181))),
+                      const SizedBox(height: 5),
+                      FlatButton(
+                        onPressed: () async {
+                          final LatLng? selectedLocation = await Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => LocationPicker(onSelect: (LatLng location) {
+                              setState(() {
+                                _selectedLocation = location; // store selected location in variable
+                              });
+                            },)),
                           );
+                          if (selectedLocation != null) {
+                            setState(() {
+                              _selectedLocation = selectedLocation; // store selected location in variable
+                            });
+                          }
                         },
                         child: Container(
                           height: 35,
                           width: 218,
-                          decoration:formBoxDecoration,
+                          decoration: formBoxDecoration,
                           child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
+                            children: const [
                               SizedBox(width: 10),
                               Icon(
                                 Icons.location_on,
@@ -237,17 +255,18 @@ class _DonationFormState extends State<DonationForm> {
                               SizedBox(width: 10),
                               Text(
                                 'Choose Location',
-                                style: TextStyle(
-                                    color: Colors.black, fontSize: 17),
+                                style: TextStyle(color: Colors.black, fontSize: 17),
                               ),
                             ],
                           ),
                         ),
                       ),
-                      SizedBox(height: 20),
+                      if (_selectedLocation != null) // show selected location text if location is selected
+                        Text('Selected location: ${_selectedLocation!.latitude}, ${_selectedLocation!.longitude}'),
+                      const SizedBox(height: 20),
                       Text('Pick-up date',
-                          style: textStyle.copyWith(color: Color(0xFF838181))),
-                      SizedBox(height: 5),
+                          style: textStyle.copyWith(color: const Color(0xFF838181))),
+                      const SizedBox(height: 5),
                       Container(
                         height: 35,
                         width: 218,
@@ -255,8 +274,8 @@ class _DonationFormState extends State<DonationForm> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            SizedBox(width: 10),
-                            Icon(
+                            const SizedBox(width: 10),
+                            const Icon(
                               Icons.calendar_month,
                               color: Color(0xFF3D8361),
                             ),
@@ -264,16 +283,16 @@ class _DonationFormState extends State<DonationForm> {
                               onPressed: () => _selectDate(context),
                               child: Text(
                                 'Selected date: ${DateFormat('dd/MM/yyyy').format(_selectedDate)}',
-                                style: TextStyle(color: Colors.black),
+                                style: const TextStyle(color: Colors.black),
                               ),
                             ),
                           ],
                         ),
                       ),
-                      SizedBox(height: 20),
+                      const SizedBox(height: 20),
                       Text('Pick-up Time',
-                          style: textStyle.copyWith(color: Color(0xFF838181))),
-                      SizedBox(height: 5),
+                          style: textStyle.copyWith(color: const Color(0xFF838181))),
+                      const SizedBox(height: 5),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
@@ -285,8 +304,8 @@ class _DonationFormState extends State<DonationForm> {
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
-                                  SizedBox(width: 10),
-                                  Icon(
+                                  const SizedBox(width: 10),
+                                  const Icon(
                                     Icons.access_time,
                                     color: Color(0xFF3D8361),
                                   ),
@@ -295,7 +314,7 @@ class _DonationFormState extends State<DonationForm> {
                                       onPressed: () => _selectTime(context),
                                       child: Text(
                                         'From: ${_selectedTime.format(context)}',
-                                        style: TextStyle(color: Colors.black),
+                                        style: const TextStyle(color: Colors.black),
                                       ),
                                     ),
                                   ),
@@ -303,7 +322,7 @@ class _DonationFormState extends State<DonationForm> {
                               ),
                             ),
                           ),
-                          SizedBox(width: 10),
+                          const SizedBox(width: 10),
                           Expanded(
                             child: Container(
                               height: 35,
@@ -312,17 +331,17 @@ class _DonationFormState extends State<DonationForm> {
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
-                                  SizedBox(width: 10),
-                                  Icon(
+                                  const SizedBox(width: 10),
+                                  const Icon(
                                     Icons.access_time,
                                     color: Color(0xFF3D8361),
                                   ),
                                   Expanded(
                                     child: TextButton(
-                                      onPressed: () => _selectTime(context),
+                                      onPressed: () => _selectTime2(context),
                                       child: Text(
-                                        'To: ${_selectedTime.format(context)}',
-                                        style: TextStyle(color: Colors.black),
+                                        'To: ${_selectedTime2.format(context)}',
+                                        style: const TextStyle(color: Colors.black),
                                       ),
                                     ),
                                   ),
@@ -332,10 +351,10 @@ class _DonationFormState extends State<DonationForm> {
                           ),
                         ],
                       ),
-                      SizedBox(height: 20),
+                      const SizedBox(height: 20),
                       Text('Expiry Date',
-                          style: textStyle.copyWith(color: Color(0xFF838181))),
-                      SizedBox(height: 5),
+                          style: textStyle.copyWith(color: const Color(0xFF838181))),
+                      const SizedBox(height: 5),
                       Container(
                         height: 35,
                         width: 218,
@@ -343,51 +362,50 @@ class _DonationFormState extends State<DonationForm> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            SizedBox(width: 10),
-                            Icon(
+                            const SizedBox(width: 10),
+                            const Icon(
                               Icons.calendar_month,
                               color: Color(0xFF3D8361),
                             ),
                             TextButton(
-                              onPressed: () => _selectDate(context),
+                              onPressed: () => _selectDate2(context),
                               child: Text(
-                                'Selected date: ${DateFormat('dd/MM/yyyy').format(_selectedDate)}',
-                                style: TextStyle(color: Colors.black),
+                                'Selected date: ${DateFormat('dd/MM/yyyy').format(_selectedDate2)}',
+                                style: const TextStyle(color: Colors.black),
                               ),
                             ),
                           ],
                         ),
                       ),
-                      SizedBox(height: 20),
+                      const SizedBox(height: 20),
                       Text('Description',
-                          style: textStyle.copyWith(color: Color(0xFF838181))),
-                      Text('Any additional information that would help.',
+                          style: textStyle.copyWith(color: const Color(0xFF838181))),
+                      const Text('Any additional information that would help.',
                         style : TextStyle(
                           color: Color(0xffD7D8DB),),),
-                      SizedBox(height: 5),
+                      const SizedBox(height: 5),
                       TextField(
-                        maxLines: null,
+                          maxLines: null,
                           decoration: textFieldDecoration.copyWith(
                               hintText: 'Ex: the meal is enough for 2:3 people.')),
                     ],
                   ),
                 ),
-                SizedBox(height: 20),
-                Container(
-                  child: ElevatedButton(
-                    child: Text('Donate'),
-                    style: buttonStyle.copyWith(
-                      minimumSize:
-                      MaterialStateProperty.all<Size>(Size(213, 50)),
-                    ),
-                    onPressed:(){},),),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
+                ElevatedButton(
+                  style: buttonStyle.copyWith(
+                    minimumSize:
+                    MaterialStateProperty.all<Size>(const Size(213, 50)),
+                  ),
+                  onPressed:(){},
+                  child: const Text('Donate'),),
+                const SizedBox(height: 20),
               ],
             ),
           ),),
         bottomNavigationBar: NavBar(
-           _selectedIndex,
-           _onItemTapped,
+          _selectedIndex,
+          _onItemTapped,
         ),),);
   }
 }
