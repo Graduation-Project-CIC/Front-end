@@ -25,7 +25,7 @@ class _DonationFormState extends State<DonationForm> {
   XFile? _imageFile1;
   XFile? _imageFile2;
   XFile? _imageFile3;
-  int _selectedIndex = 0;
+  int _selectedIndex = 1;
 
   DateTime _selectedDate = DateTime.now();
   DateTime _selectedDate2 = DateTime.now();
@@ -144,7 +144,7 @@ class _DonationFormState extends State<DonationForm> {
                       const SizedBox(height: 20),
                       TextField(
                           decoration: textFieldDecoration.copyWith(
-                              hintText: 'Tittle : Rice with vegtables')),
+                              hintText: 'Tittle : Rice with vegetables')),
                       const SizedBox(height: 20),
                       DropdownButtonFormField<String>(
                         decoration: textFieldDecoration.copyWith(
@@ -225,22 +225,7 @@ class _DonationFormState extends State<DonationForm> {
                       Text('Choose Pick-up location',
                           style: textStyle.copyWith(color: const Color(0xFF838181))),
                       const SizedBox(height: 5),
-                      FlatButton(
-                        onPressed: () async {
-                          final LatLng? selectedLocation = await Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => LocationPicker(onSelect: (LatLng location) {
-                              setState(() {
-                                _selectedLocation = location; // store selected location in variable
-                              });
-                            },)),
-                          );
-                          if (selectedLocation != null) {
-                            setState(() {
-                              _selectedLocation = selectedLocation; // store selected location in variable
-                            });
-                          }
-                        },
+                      TextButton(
                         child: Container(
                           height: 35,
                           width: 218,
@@ -260,6 +245,21 @@ class _DonationFormState extends State<DonationForm> {
                             ],
                           ),
                         ),
+                        onPressed: () async {
+                          final LatLng? selectedLocation = await Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => LocationPicker(onSelect: (LatLng location) {
+                              setState(() {
+                                _selectedLocation = location; // store selected location in variable
+                              });
+                            },)),
+                          );
+                          if (selectedLocation != null) {
+                            setState(() {
+                              _selectedLocation = selectedLocation; // store selected location in variable
+                            });
+                          }
+                        },
                       ),
                       if (_selectedLocation != null) // show selected location text if location is selected
                         Text('Selected location: ${_selectedLocation!.latitude}, ${_selectedLocation!.longitude}'),
