@@ -23,8 +23,15 @@ dependencies:
   firebase_core: ^2.7.0
   modal_progress_hud_nsn: ^0.3.0
   flutter_native_splash: ^2.2.0
+<<<<<<< HEAD
   smooth_page_indicator: ^1.0.0
   shared_preferences: ^2.0.11
+=======
+  image_picker: ^0.8.4+3
+  google_maps_flutter: ^2.0.4
+  location: ^4.3.0
+
+>>>>>>> donationForm
 
 flutter_native_splash:
   color: "#3D8361"

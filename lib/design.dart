@@ -1,5 +1,10 @@
 // this file will contain all needed constant decoration designs.
 import 'package:flutter/material.dart';
+import 'package:full_circle/Screens/signup-page.dart';
+import 'Screens/donationForm.dart';
+import 'Screens/home-page.dart';
+import 'Screens/login-page.dart';
+import 'Screens/welcome-page.dart';
 
 //buttons text styles
 //textStyle: buttonTextStyle,
@@ -10,12 +15,49 @@ const buttonTextStyle = TextStyle(
       fontWeight: FontWeight.normal,
     );
 
+final List<String> categories = [    "Category 1",    "Category 2",    "Category 3",  ];
+final List<Widget> screens = [  HomeScreen(), DonationForm(),    WelcomeScreen(),    RegisterScreen(),    LoginScreen(),  ];
+
+BottomNavigationBar NavBar(v,s)  {
+  return BottomNavigationBar(
+    type: BottomNavigationBarType.fixed,
+    currentIndex: v,
+    iconSize: 30,
+    selectedFontSize: 2,
+    selectedItemColor: Color(0xFF3D8361),
+    onTap: s,
+    items: [
+      BottomNavigationBarItem(
+        icon: Icon(Icons.home_outlined),
+        label: '', // provide a default label text
+      ),
+      BottomNavigationBarItem(
+        icon: Icon(Icons.fastfood_outlined),
+        label: '', // provide a default label text
+      ),
+      BottomNavigationBarItem(
+        icon: Icon(Icons.star_border_outlined),
+        label: '', // provide a default label text
+      ),
+      BottomNavigationBarItem(
+        icon: Icon(Icons.delivery_dining_outlined),
+        label: '', // provide a default label text
+      ),
+      BottomNavigationBarItem(
+        icon: Icon(Icons.account_circle_outlined),
+        label: '', // provide a default label text
+      ),
+    ],
+  );
+}
+
 const textStyle =TextStyle(
   fontFamily: 'Roboto',
   fontSize: 20.0,
   fontWeight: FontWeight.w400,
   height: 1.0,
   color: Color(0xFF676666),);
+
 
 var buttonStyle = ButtonStyle(
   backgroundColor:
@@ -58,7 +100,18 @@ const dropShadowDecoration = BoxDecoration(
     ),
   ],
 );
-
+var formBoxDecoration = BoxDecoration(
+  color: Colors.white,
+  borderRadius: BorderRadius.circular(4),
+  boxShadow: [
+    BoxShadow(
+      color: Color(0xFFB9BBD3),
+      blurRadius: 0.5,
+      offset: Offset(0, 0),
+      spreadRadius: 0.5,
+    ),
+  ],
+);
 const mainLogoName = TextStyle(
   fontFamily: 'Roboto',
   fontSize: 28,
@@ -93,7 +146,12 @@ const textFieldDecoration = InputDecoration(
     borderRadius: BorderRadius.all(Radius.circular(5.0)),),
 );
 
-
+var boxDecoration =  BoxDecoration(
+  color: Colors.grey[200],
+  border: Border.all(
+    color: Colors.grey,
+  ),
+);
 //checkBox design
 //https://api.flutter.dev/flutter/material/Checkbox-class.html
 Color getColor(Set<MaterialState> states) {
@@ -107,8 +165,3 @@ Color getColor(Set<MaterialState> states) {
   }
   return Colors.green;
 }
-
-const List<String> ageList =[
-  '< 18 ',
-  ''
-];
