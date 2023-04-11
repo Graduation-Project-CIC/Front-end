@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
 import 'package:full_circle/Screens/intro_screens/intro-page1.dart';
 import 'package:full_circle/Screens/intro_screens/intro-page2.dart';
@@ -15,7 +17,7 @@ class OnBoardingScreen extends StatefulWidget {
 }
 
 class _OnBoardingScreenState extends State<OnBoardingScreen> {
-  PageController _controller = PageController();
+  final PageController _controller = PageController();
   int _currentPage = 0;
 
   @override
@@ -30,7 +32,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                 _currentPage = index;
               });
             },
-            children: [
+            children: const [
               IntroPage1(),
               IntroPage2(),
               IntroPage3(),
@@ -62,7 +64,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                         Navigator.pushNamed(context, WelcomeScreen.id);
                       } else {
                         _controller.nextPage(
-                          duration: Duration(milliseconds: 500),
+                          duration: const Duration(milliseconds: 500),
                           curve: Curves.ease,
                         );
                       }
@@ -80,11 +82,11 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
             ),
           ),
           Container(
-            alignment: Alignment(0, 0.87),
+            alignment: const Alignment(0, 0.87),
             child: SmoothPageIndicator(
               controller: _controller,
               count: 4,
-              effect: WormEffect(
+              effect: const WormEffect(
                 dotColor: Colors.grey,
                 activeDotColor: Color(0xFF3D8361),
               ),

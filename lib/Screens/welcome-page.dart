@@ -1,3 +1,6 @@
+// ignore_for_file: library_private_types_in_public_api, use_build_context_synchronously
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:full_circle/Screens/home-page.dart';
 import 'package:full_circle/Screens/login-page.dart';
@@ -37,61 +40,61 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                       height: 80,
                     ),
                   ), // el sora
-                  Text(
+                  const Text(
                     'FULL CIRCLE',
                     style: mainLogoName,
                   ),
-                  SizedBox(height: 100),
+                  const SizedBox(height: 100),
                   //start buttons
                   Container(
-                    margin: EdgeInsets.symmetric(vertical: 10, horizontal: 25),
+                    margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 25),
                     child: ElevatedButton(
                       onPressed: () {
                         Navigator.pushNamed(context, RegisterScreen.id);
                       },
-                      child: Text('Sign Up'),
                       style: buttonStyle,
+                      child: const Text('Sign Up'),
                     ),
                   ),
                   Container(
-                    margin: EdgeInsets.symmetric(vertical: 10, horizontal: 25),
+                    margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 25),
                     child: ElevatedButton(
                       onPressed: () {
                         Navigator.pushNamed(context, LoginScreen.id);
                       },
-                      child: Text('Sign in'),
                       style: buttonStyle,
+                      child: const Text('Sign in'),
                     ),
                   ),
-                  SizedBox(height: 25),
+                  const SizedBox(height: 25),
                   Row(
                     children: [
                       Container(
                         height: 0.5,
                         width: 155,
                         margin:
-                            EdgeInsets.symmetric(vertical: 5, horizontal: 0),
+                            const EdgeInsets.symmetric(vertical: 5, horizontal: 0),
                         decoration: lineDecoration.copyWith(color: Colors.grey),
                       ),
-                      SizedBox(width: 31),
+                      const SizedBox(width: 31),
                       Text(
                         'OR',
                         style: mainLogoName.copyWith(
                             fontSize: 25, color: Colors.grey),
                       ),
-                      SizedBox(width: 31),
+                      const SizedBox(width: 31),
                       Container(
                         height: 0.5,
                         width: 157,
                         margin:
-                            EdgeInsets.symmetric(vertical: 5, horizontal: 0),
+                            const EdgeInsets.symmetric(vertical: 5, horizontal: 0),
                         decoration: lineDecoration.copyWith(color: Colors.grey),
                       ),
                     ],
                   ), //Line
-                  SizedBox(height: 25),
+                  const SizedBox(height: 25),
                   Container(
-                    margin: EdgeInsets.symmetric(vertical: 10, horizontal: 25),
+                    margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 25),
                     child: ElevatedButton(
                       onPressed: () async {
                         setState(() {
@@ -115,7 +118,9 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                                 context, HomeScreen.id);
                           }
                         } catch (e) {
-                          print(e.toString());
+                          if (kDebugMode) {
+                            print(e.toString());
+                          }
                           // Handle sign-in errors
                         }
                       },
@@ -128,7 +133,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                             width: 24,
                             height: 24,
                           ),
-                          SizedBox(width: 16),
+                          const SizedBox(width: 16),
                           Text('Sign in with Google',
                               style: buttonTextStyle.copyWith(
                                   color: Colors.black)),

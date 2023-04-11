@@ -1,16 +1,12 @@
 // this file will contain all needed constant decoration designs.
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:flutter/material.dart';
 import 'package:full_circle/Screens/signup-page.dart';
-<<<<<<< HEAD
 import 'Screens/donationForm.dart';
 import 'Screens/home-page.dart';
 import 'Screens/login-page.dart';
-=======
-import 'Screens/home-page.dart';
-import 'Screens/login-page.dart';
 import 'Screens/recipient-signUp.dart';
->>>>>>> recipientSignUp
-import 'Screens/welcome-page.dart';
 
 //buttons text styles
 //textStyle: buttonTextStyle,
@@ -22,7 +18,7 @@ const buttonTextStyle = TextStyle(
 );
 final List<String> preferencesCheckBox = ['Canned & Jarred Food',    'Pasta & Rice',    'Cooking Essentials',    'Fruits & Vegetables',    'Cheese & Dairy',    'Meat',    'Chicken & Poultry',    'Bakery',  ];
 final List<String> categories = [    "Category 1",    "Category 2",    "Category 3",  ];
-final List<Widget> screens = [  HomeScreen(), RecipientSignUp(),    WelcomeScreen(),    RegisterScreen(),    LoginScreen(),  ];
+final List<Widget> screens = [  const HomeScreen(), DonationForm(),    const RecipientSignUp(),    const RegisterScreen(),    const LoginScreen(),  ];
 final List<String> organizationType = [    "Type 1",    "Type 2",    "Type 3",  ];
 List<String> chipLabels = ['Less than 5', 'Less than 10', 'less than 50', 'less than 100', 'more than 100'];
 List<String> preferencesChipLabels = ['Ready meals', 'Groceries', 'Both'];
@@ -33,9 +29,9 @@ BottomNavigationBar NavBar(v,s)  {
     currentIndex: v,
     iconSize: 30,
     selectedFontSize: 2,
-    selectedItemColor: Color(0xFF3D8361),
+    selectedItemColor: const Color(0xFF3D8361),
     onTap: s,
-    items: [
+    items: const [
       BottomNavigationBarItem(
         icon: Icon(Icons.home_outlined),
         label: '', // provide a default label text
@@ -59,43 +55,6 @@ BottomNavigationBar NavBar(v,s)  {
     ],
   );
 }
-
-final List<String> categories = [    "Category 1",    "Category 2",    "Category 3",  ];
-final List<Widget> screens = [  HomeScreen(), DonationForm(),    WelcomeScreen(),    RegisterScreen(),    LoginScreen(),  ];
-
-BottomNavigationBar NavBar(v,s)  {
-  return BottomNavigationBar(
-    type: BottomNavigationBarType.fixed,
-    currentIndex: v,
-    iconSize: 30,
-    selectedFontSize: 2,
-    selectedItemColor: Color(0xFF3D8361),
-    onTap: s,
-    items: [
-      BottomNavigationBarItem(
-        icon: Icon(Icons.home_outlined),
-        label: '', // provide a default label text
-      ),
-      BottomNavigationBarItem(
-        icon: Icon(Icons.fastfood_outlined),
-        label: '', // provide a default label text
-      ),
-      BottomNavigationBarItem(
-        icon: Icon(Icons.star_border_outlined),
-        label: '', // provide a default label text
-      ),
-      BottomNavigationBarItem(
-        icon: Icon(Icons.delivery_dining_outlined),
-        label: '', // provide a default label text
-      ),
-      BottomNavigationBarItem(
-        icon: Icon(Icons.account_circle_outlined),
-        label: '', // provide a default label text
-      ),
-    ],
-  );
-}
-
 const textStyle =TextStyle(
   fontFamily: 'Roboto',
   fontSize: 20.0,
@@ -106,16 +65,16 @@ const textStyle =TextStyle(
 
 var buttonStyle = ButtonStyle(
   backgroundColor:
-  MaterialStateProperty.all<Color>(Color(0xFF3D8361)),
-  minimumSize: MaterialStateProperty.all<Size>(Size(372, 53)),
+  MaterialStateProperty.all<Color>(const Color(0xFF3D8361)),
+  minimumSize: MaterialStateProperty.all<Size>(const Size(372, 53)),
   shape: MaterialStateProperty.all<RoundedRectangleBorder>(
     RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(4.0),
-      side: BorderSide(color: Color(0xFF3D8361)),
+      side: const BorderSide(color: Color(0xFF3D8361)),
     ),
   ),
   padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
-    EdgeInsets.fromLTRB(16.0, 8.0, 16.0, 8.0),
+    const EdgeInsets.fromLTRB(16.0, 8.0, 16.0, 8.0),
   ),
   textStyle: MaterialStateProperty.all<TextStyle>(
     buttonTextStyle,
@@ -129,8 +88,8 @@ var elevatedButtonStyle = ElevatedButton.styleFrom(
   shape: RoundedRectangleBorder(
     borderRadius: BorderRadius.circular(4), // Set border radius to 4px
   ),
-  padding: EdgeInsets.fromLTRB(16, 8, 16, 8), // Set padding to 16px left and right, 8px top and bottom
-  minimumSize: Size(372, 53), // Set button size to 372px width and 53px height
+  padding: const EdgeInsets.fromLTRB(16, 8, 16, 8), // Set padding to 16px left and right, 8px top and bottom
+  minimumSize: const Size(372, 53), // Set button size to 372px width and 53px height
 );
 
 // add a container with this decoration then add the pic as a child.
@@ -148,7 +107,7 @@ const dropShadowDecoration = BoxDecoration(
 var formBoxDecoration = BoxDecoration(
   color: Colors.white,
   borderRadius: BorderRadius.circular(4),
-  boxShadow: [
+  boxShadow: const [
     BoxShadow(
       color: Color(0xFFB9BBD3),
       blurRadius: 0.5,
@@ -209,8 +168,4 @@ Color getColor(Set<MaterialState> states) {
     return Colors.green;
   }
   return Colors.green;
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> recipientSignUp

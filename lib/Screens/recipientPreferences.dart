@@ -96,7 +96,7 @@ class _RecipientPreferencesState extends State<RecipientPreferences> {
                                   checkedItems[index] = value!;
                                 });
                               },
-                              activeColor: Color(0xFF3D8361),
+                              activeColor: const Color(0xFF3D8361),
                             ),
                             Text(preferencesCheckBox[index], style: textStyle),
                           ],

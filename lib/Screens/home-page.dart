@@ -2,8 +2,6 @@
 import 'package:flutter/material.dart';
 import '../design.dart';
 
-import '../design.dart';
-
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
   static const String id = 'Home_Screen';
@@ -24,24 +22,14 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-<<<<<<< HEAD
         home: Scaffold(
-        body: SafeArea(
+        body: const SafeArea(
         child: SingleChildScrollView(
         ),),
             bottomNavigationBar: NavBar(
               _selectedIndex,
               _onItemTapped),
         ),);
-=======
-      home: Scaffold(
-        body: SafeArea(
-          child: SingleChildScrollView(
-          ),),
-        bottomNavigationBar: NavBar(
-            _selectedIndex,
-            _onItemTapped),
-      ),);
->>>>>>> recipientSignUp
+
   }
 }

@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api, non_constant_identifier_names, use_build_context_synchronously
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -54,7 +56,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     return MaterialApp(
       home: Scaffold(
         body: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 10),
+          padding: const EdgeInsets.symmetric(horizontal: 10),
           child: SafeArea(
             child: SingleChildScrollView(
               child: Column(
@@ -69,18 +71,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               context, WelcomeScreen.id);
                         },
                       ),
-                      SizedBox(width: 135),
+                      const SizedBox(width: 135),
                       OutlinedButton(
                         onPressed: () {Navigator.pushNamed(context, LoginScreen.id);},
-                        child: Text(
+                        child: const Text(
                           'Sign In',
                           style: TextStyle(color: Colors.black, fontSize: 12),
                         ),
                       ),
-                      SizedBox(width: 10),
+                      const SizedBox(width: 10),
                       OutlinedButton(
                         onPressed: () {},
-                        child: Text(
+                        child: const Text(
                           'Sign Up As Driver',
                           style: TextStyle(
                             color: Colors.black,
@@ -91,7 +93,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     ],
                   ),
                   Padding(
-                    padding: EdgeInsets.only(left: 14.0, right: 11.0),
+                    padding: const EdgeInsets.only(left: 14.0, right: 11.0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -99,7 +101,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           'Welcome,\nSet up your profile:',
                           style: mainLogoName.copyWith(color: Colors.black),
                         ),
-                        SizedBox(height: 10),
+                        const SizedBox(height: 10),
                         Row(
                           children: [
                             Expanded(
@@ -114,7 +116,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 ),
                               ),
                             ),
-                            SizedBox(width: 10),
+                            const SizedBox(width: 10),
                             Expanded(
                               flex: 1,
                               child: TextField(
@@ -129,7 +131,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             ),
                           ],
                         ),
-                        SizedBox(height: 10),
+                        const SizedBox(height: 10),
                         TextField(
                           controller: emailController,
                           onChanged: (value) {
@@ -137,7 +139,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               setState(() {
                                 emailErrorMessage = '';
                               });
-                            };
+                            }
                             email = value;
                             checkSignUpEnabled();
                           },
@@ -147,7 +149,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   ? emailErrorMessage
                                   : null),
                         ),
-                        SizedBox(height: 10),
+                        const SizedBox(height: 10),
                         TextField(
                           obscureText: true,
                           controller: passwordController,
@@ -156,7 +158,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               setState(() {
                                 passwordErrorMessage = '';
                               });
-                            };
+                            }
                             password = value;
                             checkSignUpEnabled();
                           },
@@ -166,7 +168,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   ? passwordErrorMessage
                                   : null),
                         ),
-                        SizedBox(height: 10),
+                        const SizedBox(height: 10),
                         TextField(
                           obscureText: true,
                           controller: confirmedPasswordController,
@@ -184,7 +186,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               errorText: confirmedErrorMessage.isNotEmpty ? confirmedErrorMessage
                                 : null),
                         ),
-                        SizedBox(height: 10),
+                        const SizedBox(height: 10),
                         TextField(
                           onChanged: (value) {
                             phoneNumber = value;
@@ -193,7 +195,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           decoration: textFieldDecoration.copyWith(
                               hintText: 'Phone Number'),
                         ),
-                        SizedBox(height: 10),
+                        const SizedBox(height: 10),
                         TextField(
                           onChanged: (value) {
                             Address = value;
@@ -202,7 +204,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           decoration:
                               textFieldDecoration.copyWith(hintText: 'Address'),
                         ),
-                        SizedBox(height: 10),
+                        const SizedBox(height: 10),
                         Row(
                           children: [
                             Expanded(
@@ -222,10 +224,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 ),
                               ),
                             ),
-                            SizedBox(width: 10),
+                            const SizedBox(width: 10),
                           ],
                         ),
-                        SizedBox(height: 10),
+                        const SizedBox(height: 10),
                         Row(
                           children: [
                             Checkbox(
@@ -245,7 +247,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               child: Text(
                                 'Accept Terms and conditions',
                                 style: textStyle.copyWith(
-                                    fontSize: 16, color: Color(0xFF3D8361)),
+                                    fontSize: 16, color: const Color(0xFF3D8361)),
                               ),
                             ),
                           ],
@@ -254,41 +256,39 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     ),
                   ),
                   //SIGN UP BUTTON
-                  Container(
-                    child: ElevatedButton(
-                      child: Text('Sign Up'),
-                      style: buttonStyle.copyWith(
-                        minimumSize:
-                            MaterialStateProperty.all<Size>(Size(213, 50)),
-                      ),
-                      //Disable the button if any field is empty or checkbox is unchecked
-                      //otherwise enable it
-                      onPressed: canSignUp ? () async {
-                        try {
-                          final credential = await FirebaseAuth.instance
-                              .createUserWithEmailAndPassword(
-                            email: emailController.text,
-                            password: passwordController.text,
-                          );
-                          Navigator.pushNamed(context, HomeScreen.id);
-                        } on FirebaseAuthException catch (e) {
-                          if (e.code == 'weak-password') {
-                            passwordErrorMessage = 'The password provided is too weak.';
-                          } else if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
-                              .hasMatch(emailController.text)) {
-                            emailErrorMessage = 'Please enter a valid email address.';
-                          } else if (e.code == 'email-already-in-use') {
-                            emailErrorMessage = 'The account already exists for that email.';
-                          } else if (passwordController.text != confirmedPasswordController.text) {
-                            confirmedErrorMessage = 'Passwords do not match.';
-                          }
-                          setState(() {}); // trigger a rebuild to show the error message
-                        } catch (e) {
-                          emailErrorMessage = e.toString();
-                          setState(() {}); // trigger a rebuild to show the error message
-                        }
-                      } : null,
+                  ElevatedButton(
+                    style: buttonStyle.copyWith(
+                      minimumSize:
+                          MaterialStateProperty.all<Size>(const Size(213, 50)),
                     ),
+                    //Disable the button if any field is empty or checkbox is unchecked
+                    //otherwise enable it
+                    onPressed: canSignUp ? () async {
+                      try {
+                        final credential = await FirebaseAuth.instance
+                            .createUserWithEmailAndPassword(
+                          email: emailController.text,
+                          password: passwordController.text,
+                        );
+                        Navigator.pushNamed(context, HomeScreen.id);
+                      } on FirebaseAuthException catch (e) {
+                        if (e.code == 'weak-password') {
+                          passwordErrorMessage = 'The password provided is too weak.';
+                        } else if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
+                            .hasMatch(emailController.text)) {
+                          emailErrorMessage = 'Please enter a valid email address.';
+                        } else if (e.code == 'email-already-in-use') {
+                          emailErrorMessage = 'The account already exists for that email.';
+                        } else if (passwordController.text != confirmedPasswordController.text) {
+                          confirmedErrorMessage = 'Passwords do not match.';
+                        }
+                        setState(() {}); // trigger a rebuild to show the error message
+                      } catch (e) {
+                        emailErrorMessage = e.toString();
+                        setState(() {}); // trigger a rebuild to show the error message
+                      }
+                    } : null,
+                    child: const Text('Sign Up'),
                   ),
                 ],
               ),

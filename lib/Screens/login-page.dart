@@ -1,4 +1,7 @@
+// ignore_for_file: library_private_types_in_public_api, use_build_context_synchronously
+
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:full_circle/Screens/home-page.dart';
 import 'package:full_circle/Screens/signup-page.dart';
@@ -23,7 +26,7 @@ class _LoginScreenState extends State<LoginScreen> {
     return MaterialApp(
       home: Scaffold(
         body: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 10),
+          padding: const EdgeInsets.symmetric(horizontal: 10),
           child: SafeArea(
             child: SingleChildScrollView(
               child: Column(
@@ -38,22 +41,22 @@ class _LoginScreenState extends State<LoginScreen> {
                               context, WelcomeScreen.id);
                         },
                       ),
-                      SizedBox(width: 69),
+                      const SizedBox(width: 69),
                       OutlinedButton(
                         onPressed: () {
                           Navigator.pushReplacementNamed(
                               context, RegisterScreen.id);
 
                         },
-                        child: Text(
+                        child: const Text(
                           'Sign Up As A Donor',
                           style: TextStyle(color: Colors.black, fontSize: 12),
                         ),
                       ),
-                      SizedBox(width: 10),
+                      const SizedBox(width: 10),
                       OutlinedButton(
                         onPressed: () {},
-                        child: Text(
+                        child: const Text(
                           'Sign Up As Driver',
                           style: TextStyle(
                             color: Colors.black,
@@ -63,7 +66,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ],
                   ),
-                  SizedBox(height: 40),
+                  const SizedBox(height: 40),
                   //LOGO AND NAME
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -77,11 +80,11 @@ class _LoginScreenState extends State<LoginScreen> {
                               spreadRadius: 2,
                               blurRadius: 5,
                               offset:
-                                  Offset(0, 2), // changes position of shadow
+                                  const Offset(0, 2), // changes position of shadow
                             ),
                           ],
                         ),
-                        child: CircleAvatar(
+                        child: const CircleAvatar(
                           backgroundColor: Color(0xFF3D8361),
                           radius: 30,
                           // half the width and height of the image
@@ -89,24 +92,24 @@ class _LoginScreenState extends State<LoginScreen> {
                               AssetImage('images/fullCircle-GreenBG.png'),
                         ),
                       ),
-                      SizedBox(width: 10),
+                      const SizedBox(width: 10),
                       Text(
                         'FULL CIRCLE',
                         style: mainLogoName.copyWith(fontSize: 25),
                       ),
                     ],
                   ),
-                  SizedBox(height: 40),
+                  const SizedBox(height: 40),
                   //EMAIL ADDRESS and password
                   Padding(
-                    padding: EdgeInsets.only(left: 14.0, right: 11.0),
+                    padding: const EdgeInsets.only(left: 14.0, right: 11.0),
                     child: Column(
                       children: [
-                        Align(
+                        const Align(
                           alignment: Alignment.centerLeft,
                           child: Text(' Your Email Address', style: textStyle),
                         ),
-                        SizedBox(height: 10),
+                        const SizedBox(height: 10),
                         TextField(
                           onChanged: (value){
                             email = value;
@@ -114,12 +117,12 @@ class _LoginScreenState extends State<LoginScreen> {
                           decoration: textFieldDecoration.copyWith(
                               hintText: 'example@domain.com' ),
                         ),
-                        SizedBox(height: 34),
-                        Align(
+                        const SizedBox(height: 34),
+                        const Align(
                           alignment: Alignment.centerLeft,
                           child: Text(' Password', style: textStyle),
                         ),
-                        SizedBox(height: 10),
+                        const SizedBox(height: 10),
                         TextField(
                           obscureText: true,
                           decoration: textFieldDecoration.copyWith(
@@ -132,7 +135,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             child: Text(
                               'Forget Password?',
                               style: textStyle.copyWith(
-                                  fontSize: 16, color: Color(0xFF3D8361)),
+                                  fontSize: 16, color: const Color(0xFF3D8361)),
                             ),
                           ),
                         ),
@@ -140,7 +143,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
                   Container(
-                    margin: EdgeInsets.symmetric(vertical: 10, horizontal: 25),
+                    margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 25),
                     child: ElevatedButton(
                       onPressed: () async {
                         try {
@@ -150,20 +153,24 @@ class _LoginScreenState extends State<LoginScreen> {
                           );
                         } on FirebaseAuthException catch (e) {
                           if (e.code == 'user-not-found') {
-                            print('No user found for that email.');
+                            if (kDebugMode) {
+                              print('No user found for that email.');
+                            }
                           } else if (e.code == 'wrong-password') {
-                            print('Wrong password provided for that user.');
+                            if (kDebugMode) {
+                              print('Wrong password provided for that user.');
+                            }
                           }
                         }
                         Navigator.pushNamed(context, HomeScreen.id);
                       },
-                      child: Text('Sign In'),
                       style: buttonStyle.copyWith(
                           minimumSize:
-                              MaterialStateProperty.all<Size>(Size(213, 53))),
+                              MaterialStateProperty.all<Size>(const Size(213, 53))),
+                      child: const Text('Sign In'),
                     ),
                   ),
-                  SizedBox(height: 15),
+                  const SizedBox(height: 15),
                   Row(
                     children: [
                       Container(
@@ -171,13 +178,13 @@ class _LoginScreenState extends State<LoginScreen> {
                         width: 150,
                         decoration: lineDecoration.copyWith(color: Colors.grey),
                       ),
-                      SizedBox(width: 25),
+                      const SizedBox(width: 25),
                       Text(
                         'OR',
                         style: textStyle.copyWith(
                             fontSize: 25, color: Colors.grey),
                       ),
-                      SizedBox(width: 25),
+                      const SizedBox(width: 25),
                       Container(
                         height: 0.5,
                         width: 150,
@@ -185,9 +192,9 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ],
                   ), //Line
-                  SizedBox(height: 15),
+                  const SizedBox(height: 15),
                   Container(
-                    margin: EdgeInsets.symmetric(vertical: 10, horizontal: 25),
+                    margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 25),
                     child: ElevatedButton(
                       onPressed: () async {
                         setState(() {
@@ -211,7 +218,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                 context, HomeScreen.id);
                           }
                         } catch (e) {
-                          print(e.toString());
+                          if (kDebugMode) {
+                            print(e.toString());
+                          }
                           // Handle sign-in errors
                         }
                       },
@@ -224,7 +233,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             width: 24,
                             height: 24,
                           ),
-                          SizedBox(width: 16),
+                          const SizedBox(width: 16),
                           Text('Sign in with Google',
                               style: buttonTextStyle.copyWith(
                                   color: Colors.black)),
