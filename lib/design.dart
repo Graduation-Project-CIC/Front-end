@@ -1,38 +1,58 @@
 // this file will contain all needed constant decoration designs.
 import 'package:flutter/material.dart';
-
-var boxDecoration =  BoxDecoration(
-  color: Colors.grey[200],
-  border: Border.all(
-    color: Colors.grey,
-  ),
-);
-
-var formBoxDecoration = BoxDecoration(
-  color: Colors.white,
-  borderRadius: BorderRadius.circular(4),
-  boxShadow: [
-    BoxShadow(
-      color: Color(0xFFB9BBD3),
-      blurRadius: 0.5,
-      offset: Offset(0, 0),
-      spreadRadius: 0.5,
-    ),
-  ],
-);
-
-final List<String> organizationType = [    "Type 1",    "Type 2",    "Type 3",  ];
-List<String> chipLabels = ['Less than 5', 'Less than 10', 'less than 50', 'less than 100', 'more than 100'];
-List<String> preferencesChipLabels = ['Ready meals', 'Groceries', 'Both'];
+import 'package:full_circle/Screens/signup-page.dart';
+import 'Screens/home-page.dart';
+import 'Screens/login-page.dart';
+import 'Screens/recipient-signUp.dart';
+import 'Screens/welcome-page.dart';
 
 //buttons text styles
 //textStyle: buttonTextStyle,
 const buttonTextStyle = TextStyle(
-      fontFamily: 'Roboto',
-      color: Colors.white,
-      fontSize: 20.0,
-      fontWeight: FontWeight.normal,
-    );
+  fontFamily: 'Roboto',
+  color: Colors.white,
+  fontSize: 20.0,
+  fontWeight: FontWeight.normal,
+);
+final List<String> preferencesCheckBox = ['Canned & Jarred Food',    'Pasta & Rice',    'Cooking Essentials',    'Fruits & Vegetables',    'Cheese & Dairy',    'Meat',    'Chicken & Poultry',    'Bakery',  ];
+final List<String> categories = [    "Category 1",    "Category 2",    "Category 3",  ];
+final List<Widget> screens = [  HomeScreen(), RecipientSignUp(),    WelcomeScreen(),    RegisterScreen(),    LoginScreen(),  ];
+final List<String> organizationType = [    "Type 1",    "Type 2",    "Type 3",  ];
+List<String> chipLabels = ['Less than 5', 'Less than 10', 'less than 50', 'less than 100', 'more than 100'];
+List<String> preferencesChipLabels = ['Ready meals', 'Groceries', 'Both'];
+
+BottomNavigationBar NavBar(v,s)  {
+  return BottomNavigationBar(
+    type: BottomNavigationBarType.fixed,
+    currentIndex: v,
+    iconSize: 30,
+    selectedFontSize: 2,
+    selectedItemColor: Color(0xFF3D8361),
+    onTap: s,
+    items: [
+      BottomNavigationBarItem(
+        icon: Icon(Icons.home_outlined),
+        label: '', // provide a default label text
+      ),
+      BottomNavigationBarItem(
+        icon: Icon(Icons.fastfood_outlined),
+        label: '', // provide a default label text
+      ),
+      BottomNavigationBarItem(
+        icon: Icon(Icons.star_border_outlined),
+        label: '', // provide a default label text
+      ),
+      BottomNavigationBarItem(
+        icon: Icon(Icons.delivery_dining_outlined),
+        label: '', // provide a default label text
+      ),
+      BottomNavigationBarItem(
+        icon: Icon(Icons.account_circle_outlined),
+        label: '', // provide a default label text
+      ),
+    ],
+  );
+}
 
 const textStyle =TextStyle(
   fontFamily: 'Roboto',
@@ -40,6 +60,7 @@ const textStyle =TextStyle(
   fontWeight: FontWeight.w400,
   height: 1.0,
   color: Color(0xFF676666),);
+
 
 var buttonStyle = ButtonStyle(
   backgroundColor:
@@ -82,7 +103,18 @@ const dropShadowDecoration = BoxDecoration(
     ),
   ],
 );
-
+var formBoxDecoration = BoxDecoration(
+  color: Colors.white,
+  borderRadius: BorderRadius.circular(4),
+  boxShadow: [
+    BoxShadow(
+      color: Color(0xFFB9BBD3),
+      blurRadius: 0.5,
+      offset: Offset(0, 0),
+      spreadRadius: 0.5,
+    ),
+  ],
+);
 const mainLogoName = TextStyle(
   fontFamily: 'Roboto',
   fontSize: 28,
@@ -117,7 +149,12 @@ const textFieldDecoration = InputDecoration(
     borderRadius: BorderRadius.all(Radius.circular(5.0)),),
 );
 
-
+var boxDecoration =  BoxDecoration(
+  color: Colors.grey[200],
+  border: Border.all(
+    color: Colors.grey,
+  ),
+);
 //checkBox design
 //https://api.flutter.dev/flutter/material/Checkbox-class.html
 Color getColor(Set<MaterialState> states) {
@@ -131,8 +168,3 @@ Color getColor(Set<MaterialState> states) {
   }
   return Colors.green;
 }
-
-const List<String> ageList =[
-  '< 18 ',
-  ''
-];

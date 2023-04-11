@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:full_circle/Screens/home-page.dart';
 import 'package:full_circle/Screens/recipientPreferences.dart';
 import 'package:image_picker/image_picker.dart';
 import '../design.dart';
@@ -70,7 +71,7 @@ class _RecipientSignUpState extends State<RecipientSignUp> {
                     IconButton(
                       icon: const Icon(Icons.arrow_back),
                       onPressed: () {
-                        Navigator.pop(context);
+                        Navigator.pushNamed(context, HomeScreen.id);
                       },
                     ),
                   ],
