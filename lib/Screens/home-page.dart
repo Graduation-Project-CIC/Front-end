@@ -1,5 +1,6 @@
 // ignore_for_file: library_private_types_in_public_api
 import 'package:flutter/material.dart';
+import '../design.dart';
 
 import '../design.dart';
 
@@ -23,6 +24,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+<<<<<<< HEAD
         home: Scaffold(
         body: SafeArea(
         child: SingleChildScrollView(
@@ -31,5 +33,15 @@ class _HomeScreenState extends State<HomeScreen> {
               _selectedIndex,
               _onItemTapped),
         ),);
+=======
+      home: Scaffold(
+        body: SafeArea(
+          child: SingleChildScrollView(
+          ),),
+        bottomNavigationBar: NavBar(
+            _selectedIndex,
+            _onItemTapped),
+      ),);
+>>>>>>> recipientSignUp
   }
 }

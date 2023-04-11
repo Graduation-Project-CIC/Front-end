@@ -5,9 +5,17 @@ import 'package:location/location.dart';
 class LocationPicker extends StatefulWidget {
   final Function(LatLng) onSelect;
 
+<<<<<<< HEAD
   LocationPicker({required this.onSelect});
 
   @override
+=======
+  // ignore: use_key_in_widget_constructors
+  const LocationPicker({required this.onSelect});
+
+  @override
+  // ignore: library_private_types_in_public_api
+>>>>>>> recipientSignUp
   _LocationPickerState createState() => _LocationPickerState();
 }
 
@@ -15,7 +23,11 @@ class _LocationPickerState extends State<LocationPicker> {
   late GoogleMapController mapController;
   LatLng? selectedLocation;
 
+<<<<<<< HEAD
   static late CameraPosition initialPosition = CameraPosition(
+=======
+  static CameraPosition initialPosition = const CameraPosition(
+>>>>>>> recipientSignUp
     target: LatLng(40.7128, -74.0060), // default position
     zoom: 10.0, // default zoom
   );
@@ -60,16 +72,26 @@ class _LocationPickerState extends State<LocationPicker> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Choose Location'),
+<<<<<<< HEAD
         backgroundColor: Color(0xFF3D8361),
+=======
+        backgroundColor: const Color(0xFF3D8361),
+>>>>>>> recipientSignUp
       ),
       body: GoogleMap(
         onMapCreated: _onMapCreated,
         onTap: _onMapTapped,
         initialCameraPosition: initialPosition,
         markers: selectedLocation != null
+<<<<<<< HEAD
             ? Set<Marker>.of([
           Marker(
             markerId: MarkerId('selectedLocation'),
+=======
+            // ignore: prefer_collection_literals
+            ? Set<Marker>.of([Marker(
+            markerId: const MarkerId('selectedLocation'),
+>>>>>>> recipientSignUp
             position: selectedLocation!,
           )
         ])

@@ -46,8 +46,13 @@ android {
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId "com.example.full_circle"
+        multiDexEnabled true
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-build-configuration.
+<<<<<<< HEAD
+=======
+        minSdkVersion flutter.minSdkVersion
+>>>>>>> recipientSignUp
         minSdkVersion 20
         //minSdkVersion localProperties.getProperty('flutter.minSdkVersion').toIntger()
         targetSdkVersion flutter.targetSdkVersion
@@ -71,5 +76,9 @@ flutter {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+<<<<<<< HEAD
     implementation 'com.android.support:multidex:1.0.3'
+=======
+    implementation 'androidx.multidex:multidex:2.0.1'
+>>>>>>> recipientSignUp
 }

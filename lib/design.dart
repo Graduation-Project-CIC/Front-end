@@ -1,19 +1,64 @@
 // this file will contain all needed constant decoration designs.
 import 'package:flutter/material.dart';
 import 'package:full_circle/Screens/signup-page.dart';
+<<<<<<< HEAD
 import 'Screens/donationForm.dart';
 import 'Screens/home-page.dart';
 import 'Screens/login-page.dart';
+=======
+import 'Screens/home-page.dart';
+import 'Screens/login-page.dart';
+import 'Screens/recipient-signUp.dart';
+>>>>>>> recipientSignUp
 import 'Screens/welcome-page.dart';
 
 //buttons text styles
 //textStyle: buttonTextStyle,
 const buttonTextStyle = TextStyle(
-      fontFamily: 'Roboto',
-      color: Colors.white,
-      fontSize: 20.0,
-      fontWeight: FontWeight.normal,
-    );
+  fontFamily: 'Roboto',
+  color: Colors.white,
+  fontSize: 20.0,
+  fontWeight: FontWeight.normal,
+);
+final List<String> preferencesCheckBox = ['Canned & Jarred Food',    'Pasta & Rice',    'Cooking Essentials',    'Fruits & Vegetables',    'Cheese & Dairy',    'Meat',    'Chicken & Poultry',    'Bakery',  ];
+final List<String> categories = [    "Category 1",    "Category 2",    "Category 3",  ];
+final List<Widget> screens = [  HomeScreen(), RecipientSignUp(),    WelcomeScreen(),    RegisterScreen(),    LoginScreen(),  ];
+final List<String> organizationType = [    "Type 1",    "Type 2",    "Type 3",  ];
+List<String> chipLabels = ['Less than 5', 'Less than 10', 'less than 50', 'less than 100', 'more than 100'];
+List<String> preferencesChipLabels = ['Ready meals', 'Groceries', 'Both'];
+
+BottomNavigationBar NavBar(v,s)  {
+  return BottomNavigationBar(
+    type: BottomNavigationBarType.fixed,
+    currentIndex: v,
+    iconSize: 30,
+    selectedFontSize: 2,
+    selectedItemColor: Color(0xFF3D8361),
+    onTap: s,
+    items: [
+      BottomNavigationBarItem(
+        icon: Icon(Icons.home_outlined),
+        label: '', // provide a default label text
+      ),
+      BottomNavigationBarItem(
+        icon: Icon(Icons.fastfood_outlined),
+        label: '', // provide a default label text
+      ),
+      BottomNavigationBarItem(
+        icon: Icon(Icons.star_border_outlined),
+        label: '', // provide a default label text
+      ),
+      BottomNavigationBarItem(
+        icon: Icon(Icons.delivery_dining_outlined),
+        label: '', // provide a default label text
+      ),
+      BottomNavigationBarItem(
+        icon: Icon(Icons.account_circle_outlined),
+        label: '', // provide a default label text
+      ),
+    ],
+  );
+}
 
 final List<String> categories = [    "Category 1",    "Category 2",    "Category 3",  ];
 final List<Widget> screens = [  HomeScreen(), DonationForm(),    WelcomeScreen(),    RegisterScreen(),    LoginScreen(),  ];
@@ -164,4 +209,8 @@ Color getColor(Set<MaterialState> states) {
     return Colors.green;
   }
   return Colors.green;
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> recipientSignUp

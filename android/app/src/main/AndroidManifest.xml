@@ -31,6 +31,10 @@
             android:name="flutterEmbedding"
             android:value="2" />
        <meta-data android:name="com.google.android.geo.API_KEY"
+<<<<<<< HEAD
            android:value="AIzaSyCJUX5SwICM6s-ZW3m5YoNyLcVtA0Q7FX0"/>
+=======
+           android:value="AIzaSyCcRd1FswtopXqMzQoRYukO1381XmOGlvE"/>
+>>>>>>> recipientSignUp
     </application>
 </manifest>

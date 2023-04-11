@@ -26,9 +26,16 @@ dependencies:
   smooth_page_indicator: ^1.0.0
   shared_preferences: ^2.0.11
   image_picker: ^0.8.4+3
+<<<<<<< HEAD
   google_maps_flutter: ^2.0.4
   location: ^4.3.0
 
+=======
+  dio: ^4.0.0
+  flutter_polyline_points: ^0.2.6
+  google_maps_flutter: ^2.0.4
+  location: ^4.3.0
+>>>>>>> recipientSignUp
 
 flutter_native_splash:
   color: "#3D8361"
