@@ -1,6 +1,7 @@
 // this file will contain all needed constant decoration designs.
 // ignore_for_file: non_constant_identifier_names
 
+
 import 'package:flutter/material.dart';
 import 'package:full_circle/Screens/signup-page.dart';
 import 'Screens/donationForm.dart';
@@ -22,6 +23,28 @@ final List<Widget> screens = [  const HomeScreen(), DonationForm(),    const Rec
 final List<String> organizationType = [    "Type 1",    "Type 2",    "Type 3",  ];
 List<String> chipLabels = ['Less than 5', 'Less than 10', 'less than 50', 'less than 100', 'more than 100'];
 List<String> preferencesChipLabels = ['Ready meals', 'Groceries', 'Both'];
+List<String> menuItems = ['Donating' , 'Add Organization' ];
+
+var homeMainButton = BoxDecoration(
+   borderRadius:  BorderRadius.circular(4),
+   gradient: LinearGradient(
+     begin: Alignment.centerLeft,
+     end: Alignment.centerRight,
+     colors: [
+       Color.fromRGBO(61, 131, 97, 0.54),
+       Color.fromRGBO(58, 126, 93, 0.9),
+     ],
+     stops: [0.2178, 0.5477],
+   ),
+   boxShadow: [
+     BoxShadow(
+       color: Colors.black.withOpacity(0.25),
+       offset: Offset(0, 4),
+       blurRadius: 4,
+     ),
+   ],
+ );
+
 
 BottomNavigationBar NavBar(v,s)  {
   return BottomNavigationBar(
