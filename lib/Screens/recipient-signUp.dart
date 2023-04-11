@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:full_circle/Screens/recipientPreferences.dart';
 import 'package:image_picker/image_picker.dart';
 import '../design.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -276,8 +277,10 @@ class _RecipientSignUpState extends State<RecipientSignUp> {
                     minimumSize:
                     MaterialStateProperty.all<Size>(const Size(213, 50)),
                   ),
-                  onPressed:(){},
-                  child: const Text('Sign Up'),),
+                  onPressed:(){
+                    Navigator.pushNamed(context, RecipientPreferences.id);
+                  },
+                  child: const Text('Next')),
                 const SizedBox(height: 20),
               ],
             ),

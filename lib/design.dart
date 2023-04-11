@@ -23,7 +23,7 @@ var formBoxDecoration = BoxDecoration(
 
 final List<String> organizationType = [    "Type 1",    "Type 2",    "Type 3",  ];
 List<String> chipLabels = ['Less than 5', 'Less than 10', 'less than 50', 'less than 100', 'more than 100'];
-
+List<String> preferencesChipLabels = ['Ready meals', 'Groceries', 'Both'];
 
 //buttons text styles
 //textStyle: buttonTextStyle,

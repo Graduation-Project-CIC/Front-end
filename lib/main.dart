@@ -4,6 +4,7 @@ import 'package:full_circle/Screens/home-page.dart';
 import 'package:full_circle/Screens/login-page.dart';
 import 'package:full_circle/Screens/onboarding-page.dart';
 import 'Screens/recipient-signUp.dart';
+import 'Screens/recipientPreferences.dart';
 import 'Screens/signup-page.dart';
 import 'Screens/welcome-page.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -32,6 +33,7 @@ class MyApp extends StatelessWidget {
         OnBoardingScreen.id: (context) => const OnBoardingScreen(),
         GetStarted.id: (context) => const GetStarted(),
         RecipientSignUp.id: (context) => const RecipientSignUp(),
+        RecipientPreferences.id: (context) => const RecipientPreferences(),
       },
     );
   }

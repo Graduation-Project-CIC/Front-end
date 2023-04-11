@@ -22,7 +22,7 @@ class IntroPage4 extends StatelessWidget {
                     ),
                     SizedBox(height:70),
                     Text(
-                      'DELIVER',
+                      'COLLECT POINTS',
                       style: mainLogoName,
                     ),
                     Image.asset(

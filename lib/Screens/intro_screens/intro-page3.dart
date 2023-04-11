@@ -22,7 +22,7 @@ class IntroPage3 extends StatelessWidget {
                     ),
                     SizedBox(height:70),
                     Text(
-                      'DELIVER',
+                      'MARK HOMELESS',
                       style: mainLogoName,
                     ),
                     Image.asset(
