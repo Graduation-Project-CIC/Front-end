@@ -4,6 +4,7 @@ import 'package:full_circle/Screens/home-page.dart';
 import 'package:full_circle/Screens/login-page.dart';
 import 'package:full_circle/Screens/onboarding-page.dart';
 import 'Screens/donationForm.dart';
+import 'Screens/instructionsScreen.dart';
 import 'Screens/recipient-signUp.dart';
 import 'Screens/recipientPreferences.dart';
 import 'Screens/signup-page.dart';
@@ -25,10 +26,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      initialRoute: GetStarted.id,
+      //initialRoute: GetStarted.id,
+      initialRoute: MyScreen.id,
       routes: {
         WelcomeScreen.id: (context) => const WelcomeScreen(),
         RegisterScreen.id: (context) => const RegisterScreen(),
+        //id bta3 el page bta3k example: instructions.id
+        MyScreen.id: (context) => const MyScreen(),
         HomeScreen.id: (context) => const HomeScreen(),
         LoginScreen.id: (context) => const LoginScreen(),
         OnBoardingScreen.id: (context) => const OnBoardingScreen(),
