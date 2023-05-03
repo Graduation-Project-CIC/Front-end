@@ -1,4 +1,4 @@
-// ignore_for_file: library_private_types_in_public_api, use_build_context_synchronously
+// ignore_for_file: library_private_types_in_public_api, use_build_context_synchronously, file_names
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +7,6 @@ import 'package:full_circle/Screens/login-page.dart';
 import 'package:full_circle/Screens/signup-page.dart';
 import 'package:full_circle/design.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
 class WelcomeScreen extends StatefulWidget {
@@ -104,15 +103,6 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                           final GoogleSignInAccount? googleUser =
                               await GoogleSignIn().signIn();
                           if (googleUser != null) {
-                            final GoogleSignInAuthentication googleAuth =
-                                await googleUser.authentication;
-                            final credential = GoogleAuthProvider.credential(
-                              accessToken: googleAuth.accessToken,
-                              idToken: googleAuth.idToken,
-                            );
-                            final UserCredential userCredential =
-                                await FirebaseAuth.instance
-                                    .signInWithCredential(credential);
                             // Navigate to home screen after successful sign-in
                             Navigator.pushReplacementNamed(
                                 context, HomeScreen.id);

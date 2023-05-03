@@ -1,4 +1,4 @@
-// ignore_for_file: depend_on_referenced_packages
+// ignore_for_file: depend_on_referenced_packages, file_names
 
 import 'package:flutter/material.dart';
 import 'package:full_circle/design.dart';
@@ -65,6 +65,7 @@ class _DonationFormState extends State<DonationForm> {
       });
     }
   }
+
   Future<void> _selectTime(BuildContext context) async {
     final TimeOfDay? newTime = await showTimePicker(
       context: context,
@@ -88,6 +89,7 @@ class _DonationFormState extends State<DonationForm> {
       });
     }
   }
+
   Future<void> pickImage1() async {
     final picker = ImagePicker();
     final pickedImage = await picker.pickImage(source: ImageSource.gallery);
@@ -111,7 +113,6 @@ class _DonationFormState extends State<DonationForm> {
       _imageFile3 = pickedImage;
     });
   }
-
 
   @override
   Widget build(BuildContext context) {

@@ -216,7 +216,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   FilteringTextInputFormatter.digitsOnly // restricts input to digits only
                                 ],
                                 onChanged: (value) {
-                                  int? age = int.tryParse(value);
                                   checkSignUpEnabled();
                                 },
                                 decoration: textFieldDecoration.copyWith(
@@ -265,11 +264,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     //otherwise enable it
                     onPressed: canSignUp ? () async {
                       try {
-                        final credential = await FirebaseAuth.instance
-                            .createUserWithEmailAndPassword(
-                          email: emailController.text,
-                          password: passwordController.text,
-                        );
                         Navigator.pushNamed(context, HomeScreen.id);
                       } on FirebaseAuthException catch (e) {
                         if (e.code == 'weak-password') {

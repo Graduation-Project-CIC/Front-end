@@ -15,8 +15,8 @@ const buttonTextStyle = TextStyle(
   fontFamily: 'Roboto',
   color: Colors.white,
   fontSize: 20.0,
-  fontWeight: FontWeight.normal,
-);
+  fontWeight: FontWeight.normal);
+
 final List<String> preferencesCheckBox = ['Canned & Jarred Food',    'Pasta & Rice',    'Cooking Essentials',    'Fruits & Vegetables',    'Cheese & Dairy',    'Meat',    'Chicken & Poultry',    'Bakery',  ];
 final List<String> categories = [    "Category 1",    "Category 2",    "Category 3",  ];
 final List<Widget> screens = [  const HomeScreen(), DonationForm(),    const RecipientSignUp(),    const RegisterScreen(),    const LoginScreen(),  ];
@@ -27,7 +27,7 @@ List<String> menuItems = ['Donating' , 'Add Organization' ];
 
 var homeMainButton = BoxDecoration(
    borderRadius:  BorderRadius.circular(4),
-   gradient: LinearGradient(
+   gradient: const LinearGradient(
      begin: Alignment.centerLeft,
      end: Alignment.centerRight,
      colors: [
@@ -39,12 +39,11 @@ var homeMainButton = BoxDecoration(
    boxShadow: [
      BoxShadow(
        color: Colors.black.withOpacity(0.25),
-       offset: Offset(0, 4),
+       offset: const Offset(0, 4),
        blurRadius: 4,
      ),
    ],
  );
-
 
 BottomNavigationBar NavBar(v,s)  {
   return BottomNavigationBar(
@@ -78,13 +77,13 @@ BottomNavigationBar NavBar(v,s)  {
     ],
   );
 }
+
 const textStyle =TextStyle(
   fontFamily: 'Roboto',
   fontSize: 20.0,
   fontWeight: FontWeight.w400,
   height: 1.0,
   color: Color(0xFF676666),);
-
 
 var buttonStyle = ButtonStyle(
   backgroundColor:
@@ -127,6 +126,7 @@ const dropShadowDecoration = BoxDecoration(
     ),
   ],
 );
+
 var formBoxDecoration = BoxDecoration(
   color: Colors.white,
   borderRadius: BorderRadius.circular(4),
@@ -139,6 +139,7 @@ var formBoxDecoration = BoxDecoration(
     ),
   ],
 );
+
 const mainLogoName = TextStyle(
   fontFamily: 'Roboto',
   fontSize: 28,
@@ -179,6 +180,7 @@ var boxDecoration =  BoxDecoration(
     color: Colors.grey,
   ),
 );
+
 //checkBox design
 //https://api.flutter.dev/flutter/material/Checkbox-class.html
 Color getColor(Set<MaterialState> states) {

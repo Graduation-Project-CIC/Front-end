@@ -4,7 +4,6 @@ import 'package:full_circle/Screens/welcome-page.dart';
 import '../design.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-
 class GetStarted extends StatefulWidget {
   const GetStarted({Key? key}) : super(key: key);
   static const String id = 'getStarted_screen';

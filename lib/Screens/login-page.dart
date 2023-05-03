@@ -18,7 +18,6 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final _auth = FirebaseAuth.instance;
   String email ='' ;
   String password= '';
   @override
@@ -147,10 +146,6 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: ElevatedButton(
                       onPressed: () async {
                         try {
-                          final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
-                              email: email,
-                              password: password
-                          );
                         } on FirebaseAuthException catch (e) {
                           if (e.code == 'user-not-found') {
                             if (kDebugMode) {
@@ -210,9 +205,6 @@ class _LoginScreenState extends State<LoginScreen> {
                               accessToken: googleAuth.accessToken,
                               idToken: googleAuth.idToken,
                             );
-                            final UserCredential userCredential =
-                            await FirebaseAuth.instance
-                                .signInWithCredential(credential);
                             // Navigate to home screen after successful sign-in
                             Navigator.pushReplacementNamed(
                                 context, HomeScreen.id);

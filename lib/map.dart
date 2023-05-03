@@ -18,7 +18,7 @@ class _LocationPickerState extends State<LocationPicker> {
   late GoogleMapController mapController;
   LatLng? selectedLocation;
 
-  static late CameraPosition initialPosition = CameraPosition(
+  static CameraPosition initialPosition = const CameraPosition(
     target: LatLng(40.7128, -74.0060), // default position
     zoom: 10.0, // default zoom
   );
@@ -63,19 +63,19 @@ class _LocationPickerState extends State<LocationPicker> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Choose Location'),
-        backgroundColor: Color(0xFF3D8361),
+        backgroundColor: const Color(0xFF3D8361),
       ),
       body: GoogleMap(
         onMapCreated: _onMapCreated,
         onTap: _onMapTapped,
         initialCameraPosition: initialPosition,
         markers: selectedLocation != null
-            ? Set<Marker>.of([
+            ? <Marker>{
           Marker(
-            markerId: MarkerId('selectedLocation'),
+            markerId: const MarkerId('selectedLocation'),
             position: selectedLocation!,
           )
-        ])
+        }
             : {},
       ),
       floatingActionButton: FloatingActionButton.extended(

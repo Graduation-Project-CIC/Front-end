@@ -9,7 +9,7 @@ class IntroPage3 extends StatelessWidget {
     return MaterialApp(
       home: Scaffold(
         body: Padding(
-          padding: EdgeInsets.symmetric(vertical: 30,horizontal: 30),
+          padding: const EdgeInsets.symmetric(vertical: 30,horizontal: 30),
           child: Stack(
             children: [
               Center(
@@ -20,8 +20,8 @@ class IntroPage3 extends StatelessWidget {
                       width: 100,
                       height: 100,
                     ),
-                    SizedBox(height:70),
-                    Text(
+                    const SizedBox(height:70),
+                    const Text(
                       'MARK HOMELESS',
                       style: mainLogoName,
                     ),
@@ -30,7 +30,7 @@ class IntroPage3 extends StatelessWidget {
                       width: 260,
                       height: 260,
                     ),
-                    Text(
+                    const Text(
                       'You can easily drop a pin on a map to indicate a location where a homeless person is in need. By doing so, you will help connect them with potential food donors who can deliver surplus food and other resources directly to them.',
                       textAlign: TextAlign.center,
                       style: TextStyle(
@@ -51,12 +51,12 @@ class IntroPage3 extends StatelessWidget {
                   height: 0,
                   decoration: BoxDecoration(
                     border: Border.all(
-                      color: Color(0xFF3D8361),
+                      color: const Color(0xFF3D8361),
                       width: 1,
                     ),
                     boxShadow: [
                       BoxShadow(
-                        color: Color(0xFF3D8361).withOpacity(0.2),
+                        color: const Color(0xFF3D8361).withOpacity(0.2),
                         blurRadius: 2,
                       ),
                     ],
