@@ -1,6 +1,7 @@
 // ignore_for_file: library_private_types_in_public_api
 import 'package:flutter/material.dart';
 import 'package:full_circle/Screens/donationForm.dart';
+import 'package:full_circle/Screens/horizontalList.dart';
 import 'package:full_circle/Screens/recipient-signUp.dart';
 import '../design.dart';
 
@@ -104,10 +105,6 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                             ],
                           ),
-                          SizedBox(
-                              height: isPortrait
-                                  ? MediaQuery.of(context).size.width * 0.1
-                                  : 0),
                           Text(
                             'Hello,',
                             style: textStyle.copyWith(
@@ -212,6 +209,132 @@ class _HomeScreenState extends State<HomeScreen> {
                                 ),
                               ),
                             ],
+                          ),
+                          const HorizontalList(),
+                          SizedBox(
+                              height: isPortrait
+                                  ? MediaQuery.of(context).size.width * 0.1
+                                  : MediaQuery.of(context).size.height * 0.1),
+                          AspectRatio(
+                            aspectRatio: isPortrait
+                                ? MediaQuery.of(context).size.width /
+                                (MediaQuery.of(context).size.height / 4)
+                                : 1,
+                            child: Container(
+                              decoration: homeMainButton,
+                              child: MaterialButton(
+                                onPressed: () {},
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                      child: Column(
+                                        mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+
+                                        children: [
+                                          Text(
+                                            'Help the homeless',
+                                            style: mainLogoName.copyWith(
+                                              color: Colors.white,
+                                              fontSize: isPortrait
+                                                  ? MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                                  0.06
+                                                  : 40,
+                                            ),
+                                          ),
+                                          Text(
+                                            'Help in finding homeless by marking their location on map',
+                                            style: textStyle.copyWith(
+                                              color: Colors.white,
+                                              fontSize: isPortrait ? MediaQuery.of(context)
+                                                  .size.width * 0.03
+                                                  : MediaQuery.of(context)
+                                                  .size
+                                                  .height *
+                                                  0.03,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    Expanded(
+                                      flex: 2,
+                                      child: Image.asset(
+                                        'images/homelessImg.png',
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                              height: isPortrait
+                                  ? MediaQuery.of(context).size.width * 0.1
+                                  : MediaQuery.of(context).size.height * 0.1),
+                          AspectRatio(
+                            aspectRatio: isPortrait
+                                ? MediaQuery.of(context).size.width /
+                                (MediaQuery.of(context).size.height / 6)
+                                : 1,
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: const Color((0xFFF0EAEA)),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.black.withOpacity(0.25),
+                                    offset: const Offset(0, 4),
+                                    blurRadius: 4,
+                                  ),
+                                ],
+                              ),
+                              child: MaterialButton(
+                                onPressed: () {},
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        Icon(Icons.home, color: Color(0xFF3D8361)),
+                                        Text(
+                                          ' Need Help?',
+                                          style: mainLogoName.copyWith(
+                                            color: Color(0xFF3D8361),
+                                            fontSize: isPortrait ? MediaQuery.of(context).size.width * 0.06 : 40,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    Text(
+                                      'Sign up your organization to receive donations.',
+                                      style: textStyle.copyWith(
+                                        color: Colors.black,
+                                        fontSize: isPortrait
+                                            ? MediaQuery.of(context).size.width * 0.03
+                                            : MediaQuery.of(context).size.height * 0.03,
+                                      ),
+                                    ),
+                                    Container(
+                                      alignment: Alignment.centerRight,
+                                      child: Text(
+                                        'Sign Up Here >>',
+                                        textAlign: TextAlign.right,
+                                        style: textStyle.copyWith(
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: isPortrait
+                                              ? MediaQuery.of(context).size.width * 0.03
+                                              : MediaQuery.of(context).size.height * 0.03,
+                                        ),
+                                      ),
+                                    )
+                                ],
+                                ),
+                              ),
+                            ),
                           ),
                         ],
                       ),

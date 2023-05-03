@@ -1,7 +1,6 @@
 // this file will contain all needed constant decoration designs.
 // ignore_for_file: non_constant_identifier_names
 
-
 import 'package:flutter/material.dart';
 import 'package:full_circle/Screens/signup-page.dart';
 import 'Screens/donationForm.dart';
