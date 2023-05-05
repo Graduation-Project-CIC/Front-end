@@ -1,3 +1,4 @@
+// ignore_for_file: file_names
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:full_circle/Screens/home-page.dart';
@@ -15,6 +16,7 @@ class RecipientSignUp extends StatefulWidget {
   // ignore: library_private_types_in_public_api
   _RecipientSignUpState createState() => _RecipientSignUpState();
 }
+
 class _RecipientSignUpState extends State<RecipientSignUp> {
   XFile? _imageFile1;
   XFile? _imageFile2;

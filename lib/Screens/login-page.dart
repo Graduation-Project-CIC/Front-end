@@ -75,7 +75,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ],
                 ),
-                 SizedBox(height: screenHeight*0.05),
+                SizedBox(height: screenHeight*0.05),
                 //LOGO AND NAME
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -87,7 +87,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         radius: 30,
                         // half the width and height of the image
                         backgroundImage:
-                            AssetImage('images/fullCircle-GreenBG.png'),
+                        AssetImage('images/fullCircle-GreenBG.png'),
                       ),
                     ),
                     const SizedBox(width: 10),
@@ -167,11 +167,11 @@ class _LoginScreenState extends State<LoginScreen> {
                     },
                     style: buttonStyle.copyWith(
                         minimumSize:
-                            MaterialStateProperty.all<Size>(const Size(213, 53))),
+                        MaterialStateProperty.all<Size>(const Size(213, 53))),
                     child: const Text('Sign In'),
                   ),
                 ),
-                 SizedBox(height: screenHeight *0.015),
+                SizedBox(height: screenHeight *0.015),
                 Row(
                   children: [
                     Expanded(

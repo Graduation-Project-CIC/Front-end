@@ -103,7 +103,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   ],
                 ),
                 //Line
-                 SizedBox(height: screenHeight* 0.025),
+                SizedBox(height: screenHeight* 0.025),
                 Container(
                   margin: EdgeInsets.symmetric(vertical: screenHeight > 600 ? 20 : 10,horizontal: screenWidth > 600 ? 20 : 10),
                   child: ElevatedButton(
@@ -128,35 +128,35 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                           Navigator.pushReplacementNamed(
                               context, HomeScreen.id);
                         }
-                        } catch (e) {
-                          if (kDebugMode) {
-                            print(e.toString());
-                          }
-                          // Handle sign-in errors
+                      } catch (e) {
+                        if (kDebugMode) {
+                          print(e.toString());
                         }
-                      },
-                      style: elevatedButtonStyle,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Image.asset(
-                            'icons/google.png',
-                            width: screenWidth * 0.04,
-                            height: screenHeight * 0.04,
-                          ),
-                          SizedBox(width: screenWidth * 0.03),
-                          Text('Sign in with Google',
-                              style: buttonTextStyle.copyWith(
-                                  color: Colors.black)),
-                        ],
-                      ),
+                        // Handle sign-in errors
+                      }
+                    },
+                    style: elevatedButtonStyle,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset(
+                          'icons/google.png',
+                          width: screenWidth * 0.04,
+                          height: screenHeight * 0.04,
+                        ),
+                        SizedBox(width: screenWidth * 0.03),
+                        Text('Sign in with Google',
+                            style: buttonTextStyle.copyWith(
+                                color: Colors.black)),
+                      ],
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ),
-      );
+      ),
+    );
   }
 }

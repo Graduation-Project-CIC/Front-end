@@ -14,14 +14,35 @@ const buttonTextStyle = TextStyle(
   fontFamily: 'Roboto',
   color: Colors.white,
   fontSize: 20.0,
-  fontWeight: FontWeight.normal,
-);
+  fontWeight: FontWeight.normal);
+
 final List<String> preferencesCheckBox = ['Canned & Jarred Food',    'Pasta & Rice',    'Cooking Essentials',    'Fruits & Vegetables',    'Cheese & Dairy',    'Meat',    'Chicken & Poultry',    'Bakery',  ];
 final List<String> categories = [    "Category 1",    "Category 2",    "Category 3",  ];
 final List<Widget> screens = [  const HomeScreen(), DonationForm(),    const RecipientSignUp(),    const RegisterScreen(),    const LoginScreen(),  ];
 final List<String> organizationType = [    "Type 1",    "Type 2",    "Type 3",  ];
 List<String> chipLabels = ['Less than 5', 'Less than 10', 'less than 50', 'less than 100', 'more than 100'];
 List<String> preferencesChipLabels = ['Ready meals', 'Groceries', 'Both'];
+List<String> menuItems = ['Donating' , 'Add Organization' ];
+
+var homeMainButton = BoxDecoration(
+   borderRadius:  BorderRadius.circular(4),
+   gradient: const LinearGradient(
+     begin: Alignment.centerLeft,
+     end: Alignment.centerRight,
+     colors: [
+       Color.fromRGBO(61, 131, 97, 0.54),
+       Color.fromRGBO(58, 126, 93, 0.9),
+     ],
+     stops: [0.2178, 0.5477],
+   ),
+   boxShadow: [
+     BoxShadow(
+       color: Colors.black.withOpacity(0.25),
+       offset: const Offset(0, 4),
+       blurRadius: 4,
+     ),
+   ],
+ );
 
 BottomNavigationBar NavBar(v,s)  {
   return BottomNavigationBar(
@@ -55,13 +76,13 @@ BottomNavigationBar NavBar(v,s)  {
     ],
   );
 }
+
 const textStyle =TextStyle(
   fontFamily: 'Roboto',
   fontSize: 20.0,
   fontWeight: FontWeight.w400,
   height: 1.0,
   color: Color(0xFF676666),);
-
 
 var buttonStyle = ButtonStyle(
   backgroundColor:
@@ -106,6 +127,7 @@ var dropShadowDecoration = BoxDecoration(
     ),
   ],
 );
+
 var formBoxDecoration = BoxDecoration(
   color: Colors.white,
   borderRadius: BorderRadius.circular(4),
@@ -118,6 +140,7 @@ var formBoxDecoration = BoxDecoration(
     ),
   ],
 );
+
 const mainLogoName = TextStyle(
   fontFamily: 'Roboto',
   fontSize: 28,
@@ -158,6 +181,7 @@ var boxDecoration =  BoxDecoration(
     color: Colors.grey,
   ),
 );
+
 //checkBox design
 //https://api.flutter.dev/flutter/material/Checkbox-class.html
 Color getColor(Set<MaterialState> states) {

@@ -91,7 +91,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         ),
                       ),
                     ),
-                     SizedBox(width: screenWidth*0.01),
+                    SizedBox(width: screenWidth*0.01),
                     Expanded(
                       flex:3,
                       child: OutlinedButton(
@@ -109,7 +109,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 ),
                 Padding(
                   padding:  EdgeInsets.only(left: MediaQuery.of(context).size.width > 600 ? 17.0 : 15.0,
-                    right: MediaQuery.of(context).size.width > 600 ? 17.0 : 15.0),
+                      right: MediaQuery.of(context).size.width > 600 ? 17.0 : 15.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -132,7 +132,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               ),
                             ),
                           ),
-                           SizedBox(width: screenWidth*0.010),
+                          SizedBox(width: screenWidth*0.010),
                           Expanded(
                             flex: 1,
                             child: TextField(
@@ -147,7 +147,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           ),
                         ],
                       ),
-                       SizedBox(height: screenHeight*0.03),
+                      SizedBox(height: screenHeight*0.03),
                       TextField(
                         controller: emailController,
                         onChanged: (value) {
@@ -219,7 +219,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           checkSignUpEnabled();
                         },
                         decoration:
-                            textFieldDecoration.copyWith(hintText: 'Address'),
+                        textFieldDecoration.copyWith(hintText: 'Address'),
                       ),
                       SizedBox(height: screenHeight*0.03),
                       TextField(
@@ -243,7 +243,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           Checkbox(
                             checkColor: Colors.white,
                             fillColor:
-                                MaterialStateProperty.resolveWith(getColor),
+                            MaterialStateProperty.resolveWith(getColor),
                             value: isChecked,
                             onChanged: (bool? value) {
                               setState(() {
@@ -270,44 +270,44 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 ElevatedButton(
                   style: buttonStyle.copyWith(
                     minimumSize:
-                        MaterialStateProperty.all<Size>(const Size(213, 50)),
+                    MaterialStateProperty.all<Size>(const Size(213, 50)),
                   ),
                   //Disable the button if any field is empty or checkbox is unchecked
                   //otherwise enable it
                   onPressed: canSignUp
                       ? () async {
-                          try {
-                            final credential = await FirebaseAuth.instance
-                                .createUserWithEmailAndPassword(
-                              email: emailController.text,
-                              password: passwordController.text,
-                            );
-                            Navigator.pushNamed(context, HomeScreen.id);
-                          } on FirebaseAuthException catch (e) {
-                            if (e.code == 'weak-password') {
-                              passwordErrorMessage =
-                                  'The password provided is too weak.';
-                            } else if (!RegExp(
-                                    r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
-                                .hasMatch(emailController.text)) {
-                              emailErrorMessage =
-                                  'Please enter a valid email address.';
-                            } else if (e.code == 'email-already-in-use') {
-                              emailErrorMessage =
-                                  'The account already exists for that email.';
-                            } else if (passwordController.text !=
-                                confirmedPasswordController.text) {
-                              confirmedErrorMessage =
-                                  'Passwords do not match.';
-                            }
-                            setState(
-                                () {}); // trigger a rebuild to show the error message
-                          } catch (e) {
-                            emailErrorMessage = e.toString();
-                            setState(
-                                () {}); // trigger a rebuild to show the error message
-                          }
-                        }
+                    try {
+                      final credential = await FirebaseAuth.instance
+                          .createUserWithEmailAndPassword(
+                        email: emailController.text,
+                        password: passwordController.text,
+                      );
+                      Navigator.pushNamed(context, HomeScreen.id);
+                    } on FirebaseAuthException catch (e) {
+                      if (e.code == 'weak-password') {
+                        passwordErrorMessage =
+                        'The password provided is too weak.';
+                      } else if (!RegExp(
+                          r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
+                          .hasMatch(emailController.text)) {
+                        emailErrorMessage =
+                        'Please enter a valid email address.';
+                      } else if (e.code == 'email-already-in-use') {
+                        emailErrorMessage =
+                        'The account already exists for that email.';
+                      } else if (passwordController.text !=
+                          confirmedPasswordController.text) {
+                        confirmedErrorMessage =
+                        'Passwords do not match.';
+                      }
+                      setState(
+                              () {}); // trigger a rebuild to show the error message
+                    } catch (e) {
+                      emailErrorMessage = e.toString();
+                      setState(
+                              () {}); // trigger a rebuild to show the error message
+                    }
+                  }
                       : null,
                   child: const Text('Sign Up'),
                 ),
