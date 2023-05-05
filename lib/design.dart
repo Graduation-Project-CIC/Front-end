@@ -94,13 +94,15 @@ var elevatedButtonStyle = ElevatedButton.styleFrom(
 
 // add a container with this decoration then add the pic as a child.
 //decoration: dropShadowDecoration,
-const dropShadowDecoration = BoxDecoration(
+var dropShadowDecoration = BoxDecoration(
+  shape: BoxShape.circle,
   boxShadow: [
     BoxShadow(
-      color: Color(0x40000000),
-      blurRadius: 30,
-      spreadRadius: 0,
-      offset: Offset(0, 14),
+      color: Colors.grey.withOpacity(0.9),
+      spreadRadius: 2,
+      blurRadius: 5,
+      offset:
+      const Offset(0, 2), // changes position of shadow
     ),
   ],
 );

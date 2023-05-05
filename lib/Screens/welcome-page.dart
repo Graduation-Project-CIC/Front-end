@@ -34,12 +34,14 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               children: <Widget>[
                 Container(
                   decoration: dropShadowDecoration,
-                  child: Image.asset(
-                    'images/fullCircle-GreenBG.png',
-                    width: screenWidth * 0.09,
-                    height: screenHeight * 0.09,
+                  child: const CircleAvatar(
+                    backgroundColor: Color(0xFF3D8361),
+                    radius: 30,
+                    // half the width and height of the image
+                    backgroundImage:
+                    AssetImage('images/fullCircle-GreenBG.png'),
                   ),
-                ), // el sora
+                ),// el sora
                 const Text(
                   'FULL CIRCLE',
                   style: mainLogoName,

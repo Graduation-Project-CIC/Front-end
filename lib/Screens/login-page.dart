@@ -81,18 +81,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Container(
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.withOpacity(0.9),
-                            spreadRadius: 2,
-                            blurRadius: 5,
-                            offset:
-                                const Offset(0, 2), // changes position of shadow
-                          ),
-                        ],
-                      ),
+                      decoration: dropShadowDecoration,
                       child: const CircleAvatar(
                         backgroundColor: Color(0xFF3D8361),
                         radius: 30,
