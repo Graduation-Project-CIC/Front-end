@@ -6,65 +6,56 @@ class IntroPage3 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        body: Padding(
-          padding: EdgeInsets.symmetric(vertical: 30,horizontal: 30),
-          child: Stack(
-            children: [
-              Center(
-                child: Column(
-                  children: [
-                    Image.asset(
-                      'images/fullCircle-GreenBG.png',
-                      width: 100,
-                      height: 100,
-                    ),
-                    SizedBox(height:70),
-                    Text(
-                      'MARK HOMELESS',
-                      style: mainLogoName,
-                    ),
-                    Image.asset(
-                      'images/markHomeless.png',
-                      width: 260,
-                      height: 260,
-                    ),
-                    Text(
-                      'You can easily drop a pin on a map to indicate a location where a homeless person is in need. By doing so, you will help connect them with potential food donors who can deliver surplus food and other resources directly to them.',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w400,
-                        height: 1,
-                        color: Colors.black,
-                      ),
-                    ),
-                  ],
-                ),
+    return Scaffold(
+      body: SafeArea(
+        child: LayoutBuilder(
+          builder: (BuildContext context, BoxConstraints constraints) {
+            final screenWidth = constraints.maxWidth;
+            final screenHeight = constraints.maxHeight;
+
+            return Padding(
+              padding: EdgeInsets.symmetric(
+                vertical: screenHeight * 0.09,
+                horizontal: screenWidth * 0.1,
               ),
-              Positioned(
-                top: 120,
-                left: 57,
-                child: Container(
-                  width: 225,
-                  height: 0,
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      color: Color(0xFF3D8361),
-                      width: 1,
+              child: Stack(
+                children: [
+                  Center(
+                    child: Column(
+                      children: [
+                        Image.asset(
+                          'images/fullCircle-GreenBG.png',
+                          width: screenWidth * 0.3,
+                          height: screenHeight * 0.1,
+                        ),
+                        const Text(
+                          'MARK HOMELESS',
+                          style: mainLogoName,
+                        ),
+                        Image.asset(
+                          'images/markHomeless.png',
+                          width: screenWidth * 0.5,
+                        ),
+                        SizedBox(
+                          width: screenWidth * 0.9,
+                          child: Text(
+                            'You can easily drop a pin on a map to indicate a location where a homeless person is in need.',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: screenWidth * 0.05,
+                              fontWeight: FontWeight.w400,
+                              height: 1.5,
+                              color: Colors.black,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Color(0xFF3D8361).withOpacity(0.2),
-                        blurRadius: 2,
-                      ),
-                    ],
                   ),
-                ),
+                ],
               ),
-            ],
-          ),
+            );
+          },
         ),
       ),
     );
