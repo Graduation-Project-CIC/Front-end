@@ -127,7 +127,7 @@ const mainLogoName = TextStyle(
 const lineDecoration = BoxDecoration(
   border: Border(
     bottom: BorderSide(
-      color: Color(0x8E6AAB7C),
+      color: Color(0x8EB2B0B0),
       width: 1.0,
     ),
   ),

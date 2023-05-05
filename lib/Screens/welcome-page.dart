@@ -1,5 +1,4 @@
 // ignore_for_file: library_private_types_in_public_api, use_build_context_synchronously
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:full_circle/Screens/home-page.dart';
@@ -23,100 +22,110 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
     return MaterialApp(
       home: Scaffold(
         body: ModalProgressHUD(
           inAsyncCall: showSpinner,
           child: SafeArea(
-            child: Expanded(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Container(
-                    decoration: dropShadowDecoration,
-                    child: Image.asset(
-                      'images/fullCircle-GreenBG.png',
-                      width: 80,
-                      height: 80,
-                    ),
-                  ), // el sora
-                  const Text(
-                    'FULL CIRCLE',
-                    style: mainLogoName,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Container(
+                  decoration: dropShadowDecoration,
+                  child: Image.asset(
+                    'images/fullCircle-GreenBG.png',
+                    width: screenWidth * 0.09,
+                    height: screenHeight * 0.09,
                   ),
-                  const SizedBox(height: 100),
-                  //start buttons
-                  Container(
-                    margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 25),
-                    child: ElevatedButton(
-                      onPressed: () {
-                        Navigator.pushNamed(context, RegisterScreen.id);
-                      },
-                      style: buttonStyle,
-                      child: const Text('Sign Up'),
-                    ),
+                ), // el sora
+                const Text(
+                  'FULL CIRCLE',
+                  style: mainLogoName,
+                ),
+                SizedBox(height: screenHeight *0.1),
+                //start buttons
+                Container(
+                  margin:  EdgeInsets.symmetric(
+                      vertical: screenHeight > 600 ? 20 : 10,
+                      horizontal: screenWidth > 600 ? 20 : 10
                   ),
-                  Container(
-                    margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 25),
-                    child: ElevatedButton(
-                      onPressed: () {
-                        Navigator.pushNamed(context, LoginScreen.id);
-                      },
-                      style: buttonStyle,
-                      child: const Text('Sign in'),
-                    ),
+
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, RegisterScreen.id);
+                    },
+                    style: buttonStyle,
+                    child: const Text('Sign Up'),
                   ),
-                  const SizedBox(height: 25),
-                  Row(
-                    children: [
-                      Container(
-                        height: 0.5,
-                        width: 155,
-                        margin:
-                            const EdgeInsets.symmetric(vertical: 5, horizontal: 0),
-                        decoration: lineDecoration.copyWith(color: Colors.grey),
+                ),
+                Container(
+                  margin:  EdgeInsets.symmetric(
+                      vertical: screenHeight > 600 ? 20 : 10,
+                      horizontal: screenWidth > 600 ? 20 : 10),
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, LoginScreen.id);
+                    },
+                    style: buttonStyle,
+                    child: const Text('Sign in'),
+                  ),
+                ),
+                SizedBox(height: screenHeight* 0.025),
+                Row(
+                  children: [
+                    Expanded(
+                      flex: 1,
+                      child: Container(
+                        margin: EdgeInsets.symmetric(vertical: screenHeight > 600 ? 20 : 10),
+                        decoration: lineDecoration,
                       ),
-                      const SizedBox(width: 31),
-                      Text(
+                    ),
+                    Expanded(
+                      flex: 1,
+                      child: Text(
                         'OR',
-                        style: mainLogoName.copyWith(
-                            fontSize: 25, color: Colors.grey),
+                        style: textStyle.copyWith(fontSize: 25,color: const Color(0x8EB2B0B0),
+                        ),
+                        textAlign: TextAlign.center,
                       ),
-                      const SizedBox(width: 31),
-                      Container(
-                        height: 0.5,
-                        width: 157,
-                        margin:
-                            const EdgeInsets.symmetric(vertical: 5, horizontal: 0),
-                        decoration: lineDecoration.copyWith(color: Colors.grey),
+                    ),
+                    Expanded(
+                      flex: 1,
+                      child: Container(
+                        margin: EdgeInsets.symmetric(vertical: screenHeight > 600 ? 20 : 10),
+                        decoration: lineDecoration,
                       ),
-                    ],
-                  ), //Line
-                  const SizedBox(height: 25),
-                  Container(
-                    margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 25),
-                    child: ElevatedButton(
-                      onPressed: () async {
-                        setState(() {
-                          showSpinner = true;
-                        });
-                        try {
-                          final GoogleSignInAccount? googleUser =
-                              await GoogleSignIn().signIn();
-                          if (googleUser != null) {
-                            final GoogleSignInAuthentication googleAuth =
-                                await googleUser.authentication;
-                            final credential = GoogleAuthProvider.credential(
-                              accessToken: googleAuth.accessToken,
-                              idToken: googleAuth.idToken,
-                            );
-                            final UserCredential userCredential =
-                                await FirebaseAuth.instance
-                                    .signInWithCredential(credential);
-                            // Navigate to home screen after successful sign-in
-                            Navigator.pushReplacementNamed(
-                                context, HomeScreen.id);
-                          }
+                    ),
+                  ],
+                ),
+                //Line
+                 SizedBox(height: screenHeight* 0.025),
+                Container(
+                  margin: EdgeInsets.symmetric(vertical: screenHeight > 600 ? 20 : 10,horizontal: screenWidth > 600 ? 20 : 10),
+                  child: ElevatedButton(
+                    onPressed: () async {
+                      setState(() {
+                        showSpinner = true;
+                      });
+                      try {
+                        final GoogleSignInAccount? googleUser =
+                        await GoogleSignIn().signIn();
+                        if (googleUser != null) {
+                          final GoogleSignInAuthentication googleAuth =
+                          await googleUser.authentication;
+                          final credential = GoogleAuthProvider.credential(
+                            accessToken: googleAuth.accessToken,
+                            idToken: googleAuth.idToken,
+                          );
+                          final UserCredential userCredential =
+                          await FirebaseAuth.instance
+                              .signInWithCredential(credential);
+                          // Navigate to home screen after successful sign-in
+                          Navigator.pushReplacementNamed(
+                              context, HomeScreen.id);
+                        }
                         } catch (e) {
                           if (kDebugMode) {
                             print(e.toString());
@@ -130,10 +139,10 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                         children: [
                           Image.asset(
                             'icons/google.png',
-                            width: 24,
-                            height: 24,
+                            width: screenWidth * 0.04,
+                            height: screenHeight * 0.04,
                           ),
-                          const SizedBox(width: 16),
+                          SizedBox(width: screenWidth * 0.03),
                           Text('Sign in with Google',
                               style: buttonTextStyle.copyWith(
                                   color: Colors.black)),
@@ -146,7 +155,6 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             ),
           ),
         ),
-      ),
-    );
+      );
   }
 }
