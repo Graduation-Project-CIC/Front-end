@@ -1,6 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:full_circle/Screens/getStarted-page.dart';
 import 'package:full_circle/Screens/home-page.dart';
+import 'package:full_circle/Screens/instructionsScreens/Donor1.dart';
+import 'package:full_circle/Screens/instructionsScreens/Donor2.dart';
+import 'package:full_circle/Screens/instructionsScreens/Donor3.dart';
+import 'package:full_circle/Screens/instructionsScreens/Donors.dart';
+import 'package:full_circle/Screens/instructionsScreens/Driver1.dart';
+import 'package:full_circle/Screens/instructionsScreens/Driver2.dart';
+import 'package:full_circle/Screens/instructionsScreens/Driver3.dart';
+import 'package:full_circle/Screens/instructionsScreens/Drivers.dart';
+import 'package:full_circle/Screens/instructionsScreens/Recipients.dart';
 import 'package:full_circle/Screens/login-page.dart';
 import 'package:full_circle/Screens/onboarding-page.dart';
 import 'Screens/donationForm.dart';
@@ -26,13 +35,15 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      //initialRoute: GetStarted.id,
-      initialRoute: MyScreen.id,
+      initialRoute: GetStarted.id,
+      //initialRoute: Recipientsinstructions.id,
+      //initialRoute: MyScreen.id,
       routes: {
         WelcomeScreen.id: (context) => const WelcomeScreen(),
         RegisterScreen.id: (context) => const RegisterScreen(),
         //id bta3 el page bta3k example: instructions.id
         MyScreen.id: (context) => const MyScreen(),
+        Recipientsinstructions.id: (context) => const Recipientsinstructions(),
         HomeScreen.id: (context) => const HomeScreen(),
         LoginScreen.id: (context) => const LoginScreen(),
         OnBoardingScreen.id: (context) => const OnBoardingScreen(),
