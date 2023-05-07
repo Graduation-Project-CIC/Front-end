@@ -122,7 +122,10 @@ class _HomeScreenState extends State<HomeScreen> {
                             child: Container(
                               decoration: homeMainButton,
                               child: MaterialButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  Navigator.pushNamed(context, DonationForm.id);
+
+                                },
                                 child: Row(
                                   children: [
                                     Expanded(
@@ -291,7 +294,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                 ],
                               ),
                               child: MaterialButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  Navigator.pushNamed(context, RecipientSignUp.id);
+                                },
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
