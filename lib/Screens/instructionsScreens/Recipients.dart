@@ -58,7 +58,7 @@ class _Recipientsinstructions extends State<Recipientsinstructions> {
                   ),
                   TextButton(
                     onPressed: () {
-                      if (_currentPage == 3) {
+                      if (_currentPage == 2) {
                         Navigator.pushNamed(context, HomeScreen.id);
                       } else {
                         _controller.nextPage(
@@ -68,7 +68,7 @@ class _Recipientsinstructions extends State<Recipientsinstructions> {
                       }
                     },
                     child: Text(
-                      _currentPage == 3 ? 'Continue' : 'Next',
+                      _currentPage == 2 ? 'Continue' : 'Next',
                       style: TextStyle(
                         color: Colors.grey[600],
                         fontWeight: FontWeight.bold,

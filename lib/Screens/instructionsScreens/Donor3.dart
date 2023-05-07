@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:full_circle/Screens/instructionsScreen.dart';
+
+import '../../design.dart';
 //import 'lib/Screens/instructionsScreen.dart';
 void main() {
   runApp(const Donor3());
@@ -17,35 +19,19 @@ class Donor3 extends StatelessWidget {
     //final buttonHeight = screenHeight * 0.05;
     final imageWidth = screenWidth * 0.6;
     final imageHeight = screenHeight * 0.4;
-    final fontSize = screenHeight / 25;
+    final fontSize = screenHeight / 30;
     final fontSize2 = screenHeight / 20;
+    final padding = EdgeInsets.all(screenHeight * 0.03);
+    final double sizedBoxHeight = screenHeight * 0.1;
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.all(27.0),
+        padding: padding,
         child:
         Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Align(
-                alignment: Alignment.topLeft,
-                child: TextButton(
-                  child: SizedBox(
-                    width: buttonWidth,
-                    height: buttonHeight,
-                    child: const Center(
-                      child: Text(
-                        'Close',
-                        style: TextStyle(color: Colors.black, fontSize: 13),
-                      ),
-                    ),
-                  ),
-                  onPressed: () {
-                    Navigator.pushNamed(context, MyScreen.id);
-                  },
-                ),
-              ),
               Text(
                 'Donor Instructions',
                 style: TextStyle(
@@ -55,7 +41,7 @@ class Donor3 extends StatelessWidget {
                 ),
                 textAlign: TextAlign.center,
               ),
-              const SizedBox(height: 35),
+              SizedBox(height: sizedBoxHeight),
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -71,11 +57,7 @@ class Donor3 extends StatelessWidget {
 
               Text(
                 'Package the food in appropriate quantities for the recipient.',
-                style: TextStyle(
-                  fontSize: fontSize,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
-                ),
+                style: textStyle.copyWith(fontSize: fontSize),
                 textAlign: TextAlign.center,
               ),
             ],
