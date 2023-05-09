@@ -34,13 +34,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      initialRoute: GetStarted.id,
+     // initialRoute: GetStarted.id,
       //initialRoute: Recipientsinstructions.id,
-      //initialRoute: MyScreen.id,
+      initialRoute: MyScreen.id,
       routes: {
         WelcomeScreen.id: (context) => const WelcomeScreen(),
         RegisterScreen.id: (context) => const RegisterScreen(),
-        //id bta3 el page bta3k example: instructions.id
         MyScreen.id: (context) => const MyScreen(),
         Recipientsinstructions.id: (context) => const Recipientsinstructions(),
         HomeScreen.id: (context) => const HomeScreen(),
