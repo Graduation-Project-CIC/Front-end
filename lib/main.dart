@@ -41,6 +41,8 @@ class MyApp extends StatelessWidget {
         WelcomeScreen.id: (context) => const WelcomeScreen(),
         RegisterScreen.id: (context) => const RegisterScreen(),
         MyScreen.id: (context) => const MyScreen(),
+        DonorsInstructions.id: (context) => const DonorsInstructions(),
+        DriversInstructions.id: (context) => const DriversInstructions(),
         Recipientsinstructions.id: (context) => const Recipientsinstructions(),
         HomeScreen.id: (context) => const HomeScreen(),
         LoginScreen.id: (context) => const LoginScreen(),

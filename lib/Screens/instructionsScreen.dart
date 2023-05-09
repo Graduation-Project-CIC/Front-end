@@ -19,10 +19,15 @@ class MyScreen extends StatelessWidget {
     final iconHeight = screenHeight * 0.105;
     final imageWidth = screenWidth * 0.6;
     final imageHeight = screenHeight * 0.4;
+    final fontSize = screenHeight / 20;
+    final fontSize2 = screenHeight / 40;
+    final buttonfont = screenHeight / 50;
+    final padding = EdgeInsets.all(screenHeight * 0.03);
+    final double sizedBoxHeight = screenHeight * 0.1;
     return Scaffold(
 
       body: Padding(
-        padding: const EdgeInsets.all(27.0),
+        padding: padding,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
@@ -39,13 +44,13 @@ class MyScreen extends StatelessWidget {
               ),
             ),
 
-            const Text(
+            Text(
               'Instructions',
-              style: TextStyle(color: Colors.green, fontSize: 32),
+              style: TextStyle(color: Color(0xff3D8361), fontSize: fontSize),
             ),
-             const Text(
+             Text(
               'Let us help you in using Full Circle.',
-              style: TextStyle(fontSize: 24),
+              style: TextStyle(fontSize: fontSize2),
             ),
             const SizedBox(height: 24),
             Center(
@@ -53,21 +58,21 @@ class MyScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Image.asset(
-                    'images/inst1.png',
+                    'images/Decision fatigue-amico 1.png',
                     width: imageWidth,
                     height: imageHeight,
                   ),
                   OutlinedButton(
                     style: OutlinedButton.styleFrom(
-                      backgroundColor: Colors.green, //<-- SEE HERE
+                      backgroundColor: Color(0xff3D8361), //<-- SEE HERE
                     ),
                     child:  SizedBox(
                       width: buttonWidth,
                       height: buttonHeight,
-                      child: const Center(
+                      child: Center(
                         child: Text(
                           'Donor instructions',
-                          style: TextStyle(color: Colors.white, fontSize: 14),
+                          style: TextStyle(color: Colors.white, fontSize: buttonfont),
                         ),
                       ),
                     ),
@@ -77,15 +82,15 @@ class MyScreen extends StatelessWidget {
                   ),
                   OutlinedButton(
                     style: OutlinedButton.styleFrom(
-                      backgroundColor: Colors.green, //<-- SEE HERE
+                      backgroundColor: Color(0xff3D8361), //<-- SEE HERE
                     ),
                     child:  SizedBox(
                       width: buttonWidth,
                       height: buttonHeight,
-                    child: const Center(
+                    child: Center(
                       child: Text(
                           'Driver instructions',
-                        style: TextStyle(color: Colors.white, fontSize: 14),
+                        style: TextStyle(color: Colors.white, fontSize: buttonfont),
                       ),
 
                     ),
@@ -96,15 +101,16 @@ class MyScreen extends StatelessWidget {
                   ),
                   OutlinedButton(
                     style: OutlinedButton.styleFrom(
-                      backgroundColor: Colors.green, //<-- SEE HERE
+                      backgroundColor: Color(0xff3D8361),
+                      // 0xFF//<-- SEE HERE
                     ),
                     child:  SizedBox(
                       width: buttonWidth,
                       height: buttonHeight,
-                      child: const Center(
+                      child: Center(
                         child:  Text(
                             'Recipient instructions',
-                          style: TextStyle(color: Colors.white, fontSize: 14),
+                          style: TextStyle(color: Colors.white, fontSize: buttonfont),
                        ),
                       ),
                     ),
