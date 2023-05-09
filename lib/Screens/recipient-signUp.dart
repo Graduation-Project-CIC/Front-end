@@ -1,3 +1,4 @@
+// ignore_for_file: file_names
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:full_circle/Screens/home-page.dart';
@@ -15,6 +16,7 @@ class RecipientSignUp extends StatefulWidget {
   // ignore: library_private_types_in_public_api
   _RecipientSignUpState createState() => _RecipientSignUpState();
 }
+
 class _RecipientSignUpState extends State<RecipientSignUp> {
   XFile? _imageFile1;
   XFile? _imageFile2;
@@ -58,9 +60,12 @@ class _RecipientSignUpState extends State<RecipientSignUp> {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10),
+        padding: EdgeInsets.symmetric(
+            horizontal: screenWidth > 600 ? 20 : 10),
         child: SafeArea(
           child: SingleChildScrollView(
             child: Column(
@@ -77,7 +82,10 @@ class _RecipientSignUpState extends State<RecipientSignUp> {
                   ],
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(left: 14.0, right: 11.0),
+                    padding: EdgeInsets.only(
+                      left: screenWidth* 0.03,
+                      right: screenWidth * 0.03,
+                    ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -85,14 +93,14 @@ class _RecipientSignUpState extends State<RecipientSignUp> {
                         'Sign up your organization',
                         style: mainLogoName.copyWith(color: Colors.black),
                       ),
-                      const SizedBox(height: 12),
+                      SizedBox(height: screenHeight *0.02),
                       Row(
                         children: [
                           Expanded(
                             child: GestureDetector(
                               onTap: pickImage1,
                               child: Container(
-                                height: 70,
+                                height: screenHeight * 0.08,
                                 decoration: boxDecoration,
                                 child: _imageFile1 != null
                                     ? Image.file(File(_imageFile1!.path))
@@ -108,7 +116,7 @@ class _RecipientSignUpState extends State<RecipientSignUp> {
                               ),
                             ),
                           ),
-                          const SizedBox(width: 5),
+                          SizedBox(width: screenWidth *0.02),
                           Expanded(
                             flex: 4,
                             child: TextField(
@@ -119,7 +127,7 @@ class _RecipientSignUpState extends State<RecipientSignUp> {
                           ),
                         ],
                       ),
-                      const SizedBox(height: 30),
+                      SizedBox(height: screenHeight *0.04),
                       DropdownButtonFormField<String>(
                         decoration: textFieldDecoration.copyWith(
                           hintText: "Choose Organization type",
@@ -137,18 +145,18 @@ class _RecipientSignUpState extends State<RecipientSignUp> {
                           );
                         }).toList(),
                       ),
-                      const SizedBox(height: 30),
+                      SizedBox(height: screenHeight *0.04),
                       Text('Upload pictures of your place',
                           style: textStyle.copyWith(color: const Color(0xFF838181))),
-                      const SizedBox(height: 5),
+                      SizedBox(height: screenHeight *0.01),
                       Row(
                         children: [
                           Expanded(
                             child: GestureDetector(
                               onTap: pickImage2,
                               child: Container(
-                                width: 100,
-                                height: 100,
+                                width: screenWidth * 0.13,
+                                height: screenHeight * 0.13,
                                 decoration: boxDecoration,
                                 child: _imageFile2 != null
                                     ? Image.file(File(_imageFile2!.path))
@@ -163,8 +171,8 @@ class _RecipientSignUpState extends State<RecipientSignUp> {
                             child: GestureDetector(
                               onTap: pickImage3,
                               child: Container(
-                                width: 100,
-                                height: 100,
+                                width: screenWidth * 0.13,
+                                height: screenHeight * 0.13,
                                 decoration: boxDecoration,
                                 child: _imageFile3 != null
                                     ? Image.file(File(_imageFile3!.path))
@@ -178,8 +186,8 @@ class _RecipientSignUpState extends State<RecipientSignUp> {
                             child: GestureDetector(
                               onTap: pickImage4,
                               child: Container(
-                                width: 100,
-                                height: 100,
+                                width: screenWidth * 0.13,
+                                height: screenHeight * 0.13,
                                 decoration: boxDecoration,
                                 child: _imageFile4 != null
                                     ? Image.file(File(_imageFile4!.path))
@@ -191,24 +199,23 @@ class _RecipientSignUpState extends State<RecipientSignUp> {
                           ),
                         ],
                       ),
-                      const SizedBox(height: 30),
+                      SizedBox(height: screenHeight *0.04),
                       Text('Choose Pick-up location',
                           style: textStyle.copyWith(color: const Color(0xFF838181))),
-                      const SizedBox(height: 5),
                       TextButton(
                         child: Container(
-                          height: 35,
-                          width: 218,
+                          height: screenHeight *0.04,
+                          width: screenWidth * 0.49,
                           decoration: formBoxDecoration,
                           child: Row(
-                            children: const [
-                              SizedBox(width: 10),
-                              Icon(
+                            children:  [
+                              SizedBox(width: screenWidth *0.02),
+                              const Icon(
                                 Icons.location_on,
                                 color: Color(0xFF3D8361),
                               ),
-                              SizedBox(width: 10),
-                              Text(
+                              SizedBox(width: screenWidth *0.02),
+                              const Text(
                                 'Choose Location',
                                 style: TextStyle(color: Colors.black, fontSize: 17),
                               ),
@@ -233,17 +240,16 @@ class _RecipientSignUpState extends State<RecipientSignUp> {
                       ),
                       if (_selectedLocation != null) // show selected location text if location is selected
                         Text('Selected location: ${_selectedLocation!.latitude}'),
-                      const SizedBox(height: 30),
+                      SizedBox(height: screenHeight *0.04),
                       Text(
                           'How many people are you responsible for feeding daily?',
                           style: textStyle.copyWith(color: const Color(0xFF838181))),
-                      const SizedBox(height: 5),
                       Wrap(
                         children: chipLabels.map((String label) {
                           int index = chipLabels.indexOf(label);
                           return Padding(
                             padding:
-                                const EdgeInsets.symmetric(horizontal: 4.0),
+                                 EdgeInsets.symmetric(horizontal: screenWidth > 600 ? 20 : 10),
                             child: ChoiceChip(
                               label: Text(
                                 label,
@@ -265,14 +271,14 @@ class _RecipientSignUpState extends State<RecipientSignUp> {
                           );
                         }).toList(),
                       ),
-                      const SizedBox(height: 30),
+                      SizedBox(height: screenHeight *0.04),
                       TextField(
                           maxLines: null,
                           decoration: textFieldDecoration.copyWith(hintText: 'Description')),
                     ],
                   ),
                 ),
-                const SizedBox(height: 50),
+                SizedBox(height: screenHeight *0.04),
                 ElevatedButton(
                   style: buttonStyle.copyWith(
                     minimumSize:
@@ -282,7 +288,6 @@ class _RecipientSignUpState extends State<RecipientSignUp> {
                     Navigator.pushNamed(context, RecipientPreferences.id);
                   },
                   child: const Text('Next')),
-                const SizedBox(height: 20),
               ],
             ),
           ),

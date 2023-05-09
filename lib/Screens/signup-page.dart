@@ -30,7 +30,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   String password = '';
   String confirmPassword = '';
   String Address = '';
-  String phoneNumber ='';
+  String phoneNumber = '';
   bool isChecked = false;
   bool canSignUp = false;
   int? age;
@@ -46,41 +46,55 @@ class _RegisterScreenState extends State<RegisterScreen> {
           confirmPassword.isNotEmpty &&
           Address.isNotEmpty &&
           phoneNumber.isNotEmpty &&
-          (ageValue != null && ageValue > 0) && // check if ageValue is not null and is greater than zero
+          (ageValue != null &&
+              ageValue >
+                  0) && // check if ageValue is not null and is greater than zero
           isChecked;
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
     return MaterialApp(
       home: Scaffold(
-        body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10),
-          child: SafeArea(
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  //TOP ICON AND BUTTONS
-                  Row(
-                    children: [
-                      IconButton(
+        body: SafeArea(
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                //TOP ICON AND BUTTONS
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Expanded(
+                      child: IconButton(
                         icon: const Icon(Icons.arrow_back),
                         onPressed: () {
                           Navigator.pushReplacementNamed(
                               context, WelcomeScreen.id);
                         },
                       ),
-                      const SizedBox(width: 135),
-                      OutlinedButton(
-                        onPressed: () {Navigator.pushNamed(context, LoginScreen.id);},
+                    ),
+                    Expanded(
+                        flex:4,
+                        child: SizedBox(width: screenWidth*0.02,)),
+                    Expanded(
+                      flex:2,
+                      child: OutlinedButton(
+                        onPressed: () {
+                          Navigator.pushNamed(context, LoginScreen.id);
+                        },
                         child: const Text(
                           'Sign In',
                           style: TextStyle(color: Colors.black, fontSize: 12),
                         ),
                       ),
-                      const SizedBox(width: 10),
-                      OutlinedButton(
+                    ),
+                    SizedBox(width: screenWidth*0.01),
+                    Expanded(
+                      flex:3,
+                      child: OutlinedButton(
                         onPressed: () {},
                         child: const Text(
                           'Sign Up As Driver',
@@ -90,208 +104,214 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           ),
                         ),
                       ),
+                    ),
+                  ],
+                ),
+                Padding(
+                  padding:  EdgeInsets.only(left: MediaQuery.of(context).size.width > 600 ? 17.0 : 15.0,
+                      right: MediaQuery.of(context).size.width > 600 ? 17.0 : 15.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Welcome,\nSet up your profile:',
+                        style: mainLogoName.copyWith(color: Colors.black),
+                      ),
+                      SizedBox(height: screenHeight*0.03),
+                      Row(
+                        children: [
+                          Expanded(
+                            flex: 1,
+                            child: TextField(
+                              onChanged: (value) {
+                                firstName = value;
+                                checkSignUpEnabled();
+                              },
+                              decoration: textFieldDecoration.copyWith(
+                                hintText: 'First Name',
+                              ),
+                            ),
+                          ),
+                          SizedBox(width: screenWidth*0.010),
+                          Expanded(
+                            flex: 1,
+                            child: TextField(
+                              onChanged: (value) {
+                                lastName = value;
+                                checkSignUpEnabled();
+                              },
+                              decoration: textFieldDecoration.copyWith(
+                                hintText: 'Last Name',
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: screenHeight*0.03),
+                      TextField(
+                        controller: emailController,
+                        onChanged: (value) {
+                          if (emailErrorMessage.isNotEmpty) {
+                            setState(() {
+                              emailErrorMessage = '';
+                            });
+                          }
+                          email = value;
+                          checkSignUpEnabled();
+                        },
+                        decoration: textFieldDecoration.copyWith(
+                            hintText: 'example@domain.com',
+                            errorText: emailErrorMessage.isNotEmpty
+                                ? emailErrorMessage
+                                : null),
+                      ),
+                      SizedBox(height: screenHeight*0.03),
+                      TextField(
+                        obscureText: true,
+                        controller: passwordController,
+                        onChanged: (value) {
+                          if (passwordErrorMessage.isNotEmpty) {
+                            setState(() {
+                              passwordErrorMessage = '';
+                            });
+                          }
+                          password = value;
+                          checkSignUpEnabled();
+                        },
+                        decoration: textFieldDecoration.copyWith(
+                            hintText: 'Your password',
+                            errorText: passwordErrorMessage.isNotEmpty
+                                ? passwordErrorMessage
+                                : null),
+                      ),
+                      SizedBox(height: screenHeight*0.03),
+                      TextField(
+                        obscureText: true,
+                        controller: confirmedPasswordController,
+                        onChanged: (value) {
+                          if (value != passwordController.text) {
+                            setState(() {
+                              confirmedErrorMessage = '';
+                            });
+                          }
+                          confirmPassword = value;
+                          checkSignUpEnabled();
+                        },
+                        decoration: textFieldDecoration.copyWith(
+                            hintText: 'Confirm Password',
+                            errorText: confirmedErrorMessage.isNotEmpty
+                                ? confirmedErrorMessage
+                                : null),
+                      ),
+                      SizedBox(height: screenHeight*0.03),
+                      TextField(
+                        onChanged: (value) {
+                          phoneNumber = value;
+                          checkSignUpEnabled();
+                        },
+                        decoration: textFieldDecoration.copyWith(
+                            hintText: 'Phone Number'),
+                      ),
+                      SizedBox(height: screenHeight*0.03),
+                      TextField(
+                        onChanged: (value) {
+                          Address = value;
+                          checkSignUpEnabled();
+                        },
+                        decoration:
+                        textFieldDecoration.copyWith(hintText: 'Address'),
+                      ),
+                      SizedBox(height: screenHeight*0.03),
+                      TextField(
+                        controller: ageController,
+                        keyboardType: TextInputType.number,
+                        inputFormatters: <TextInputFormatter>[
+                          FilteringTextInputFormatter
+                              .digitsOnly // restricts input to digits only
+                        ],
+                        onChanged: (value) {
+                          int? age = int.tryParse(value);
+                          checkSignUpEnabled();
+                        },
+                        decoration: textFieldDecoration.copyWith(
+                          hintText: 'Age',
+                        ),
+                      ),
+                      SizedBox(height: screenHeight*0.03),
+                      Row(
+                        children: [
+                          Checkbox(
+                            checkColor: Colors.white,
+                            fillColor:
+                            MaterialStateProperty.resolveWith(getColor),
+                            value: isChecked,
+                            onChanged: (bool? value) {
+                              setState(() {
+                                isChecked = value!;
+                                checkSignUpEnabled();
+                              });
+                            },
+                          ),
+                          TextButton(
+                            onPressed: () {},
+                            child: Text(
+                              'Accept Terms and conditions',
+                              style: textStyle.copyWith(
+                                  fontSize: 16,
+                                  color: const Color(0xFF3D8361)),
+                            ),
+                          ),
+                        ],
+                      ),
                     ],
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 14.0, right: 11.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Welcome,\nSet up your profile:',
-                          style: mainLogoName.copyWith(color: Colors.black),
-                        ),
-                        const SizedBox(height: 10),
-                        Row(
-                          children: [
-                            Expanded(
-                              flex: 1,
-                              child: TextField(
-                                onChanged: (value) {
-                                  firstName = value;
-                                  checkSignUpEnabled();
-                                },
-                                decoration: textFieldDecoration.copyWith(
-                                  hintText: 'First Name',
-                                ),
-                              ),
-                            ),
-                            const SizedBox(width: 10),
-                            Expanded(
-                              flex: 1,
-                              child: TextField(
-                                onChanged: (value) {
-                                  lastName = value;
-                                  checkSignUpEnabled();
-                                },
-                                decoration: textFieldDecoration.copyWith(
-                                  hintText: 'Last Name',
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 10),
-                        TextField(
-                          controller: emailController,
-                          onChanged: (value) {
-                            if (emailErrorMessage.isNotEmpty) {
-                              setState(() {
-                                emailErrorMessage = '';
-                              });
-                            }
-                            email = value;
-                            checkSignUpEnabled();
-                          },
-                          decoration: textFieldDecoration.copyWith(
-                              hintText: 'example@domain.com',
-                              errorText: emailErrorMessage.isNotEmpty
-                                  ? emailErrorMessage
-                                  : null),
-                        ),
-                        const SizedBox(height: 10),
-                        TextField(
-                          obscureText: true,
-                          controller: passwordController,
-                          onChanged: (value) {
-                            if (passwordErrorMessage.isNotEmpty) {
-                              setState(() {
-                                passwordErrorMessage = '';
-                              });
-                            }
-                            password = value;
-                            checkSignUpEnabled();
-                          },
-                          decoration: textFieldDecoration.copyWith(
-                              hintText: 'Your password',
-                              errorText: passwordErrorMessage.isNotEmpty
-                                  ? passwordErrorMessage
-                                  : null),
-                        ),
-                        const SizedBox(height: 10),
-                        TextField(
-                          obscureText: true,
-                          controller: confirmedPasswordController,
-                          onChanged: (value) {
-                            if (value != passwordController.text) {
-                              setState(() {
-                                confirmedErrorMessage = '';
-                              });
-                            }
-                            confirmPassword = value;
-                            checkSignUpEnabled();
-                          },
-                          decoration: textFieldDecoration.copyWith(
-                              hintText: 'Confirm Password',
-                              errorText: confirmedErrorMessage.isNotEmpty ? confirmedErrorMessage
-                                : null),
-                        ),
-                        const SizedBox(height: 10),
-                        TextField(
-                          onChanged: (value) {
-                            phoneNumber = value;
-                            checkSignUpEnabled();
-                          },
-                          decoration: textFieldDecoration.copyWith(
-                              hintText: 'Phone Number'),
-                        ),
-                        const SizedBox(height: 10),
-                        TextField(
-                          onChanged: (value) {
-                            Address = value;
-                            checkSignUpEnabled();
-                          },
-                          decoration:
-                              textFieldDecoration.copyWith(hintText: 'Address'),
-                        ),
-                        const SizedBox(height: 10),
-                        Row(
-                          children: [
-                            Expanded(
-                              flex: 1,
-                              child: TextField(
-                                controller: ageController,
-                                keyboardType: TextInputType.number,
-                                inputFormatters: <TextInputFormatter>[
-                                  FilteringTextInputFormatter.digitsOnly // restricts input to digits only
-                                ],
-                                onChanged: (value) {
-                                  int? age = int.tryParse(value);
-                                  checkSignUpEnabled();
-                                },
-                                decoration: textFieldDecoration.copyWith(
-                                  hintText: 'Age',
-                                ),
-                              ),
-                            ),
-                            const SizedBox(width: 10),
-                          ],
-                        ),
-                        const SizedBox(height: 10),
-                        Row(
-                          children: [
-                            Checkbox(
-                              checkColor: Colors.white,
-                              fillColor:
-                                  MaterialStateProperty.resolveWith(getColor),
-                              value: isChecked,
-                              onChanged: (bool? value) {
-                                setState(() {
-                                  isChecked = value!;
-                                  checkSignUpEnabled();
-                                });
-                              },
-                            ),
-                            TextButton(
-                              onPressed: () {},
-                              child: Text(
-                                'Accept Terms and conditions',
-                                style: textStyle.copyWith(
-                                    fontSize: 16, color: const Color(0xFF3D8361)),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
+                ),
+                //SIGN UP BUTTON
+                ElevatedButton(
+                  style: buttonStyle.copyWith(
+                    minimumSize:
+                    MaterialStateProperty.all<Size>(const Size(213, 50)),
                   ),
-                  //SIGN UP BUTTON
-                  ElevatedButton(
-                    style: buttonStyle.copyWith(
-                      minimumSize:
-                          MaterialStateProperty.all<Size>(const Size(213, 50)),
-                    ),
-                    //Disable the button if any field is empty or checkbox is unchecked
-                    //otherwise enable it
-                    onPressed: canSignUp ? () async {
-                      try {
-                        final credential = await FirebaseAuth.instance
-                            .createUserWithEmailAndPassword(
-                          email: emailController.text,
-                          password: passwordController.text,
-                        );
-                        Navigator.pushNamed(context, HomeScreen.id);
-                      } on FirebaseAuthException catch (e) {
-                        if (e.code == 'weak-password') {
-                          passwordErrorMessage = 'The password provided is too weak.';
-                        } else if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
-                            .hasMatch(emailController.text)) {
-                          emailErrorMessage = 'Please enter a valid email address.';
-                        } else if (e.code == 'email-already-in-use') {
-                          emailErrorMessage = 'The account already exists for that email.';
-                        } else if (passwordController.text != confirmedPasswordController.text) {
-                          confirmedErrorMessage = 'Passwords do not match.';
-                        }
-                        setState(() {}); // trigger a rebuild to show the error message
-                      } catch (e) {
-                        emailErrorMessage = e.toString();
-                        setState(() {}); // trigger a rebuild to show the error message
+                  //Disable the button if any field is empty or checkbox is unchecked
+                  //otherwise enable it
+                  onPressed: canSignUp
+                      ? () async {
+                    try {
+                      final credential = await FirebaseAuth.instance
+                          .createUserWithEmailAndPassword(
+                        email: emailController.text,
+                        password: passwordController.text,
+                      );
+                      Navigator.pushNamed(context, HomeScreen.id);
+                    } on FirebaseAuthException catch (e) {
+                      if (e.code == 'weak-password') {
+                        passwordErrorMessage =
+                        'The password provided is too weak.';
+                      } else if (!RegExp(
+                          r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
+                          .hasMatch(emailController.text)) {
+                        emailErrorMessage =
+                        'Please enter a valid email address.';
+                      } else if (e.code == 'email-already-in-use') {
+                        emailErrorMessage =
+                        'The account already exists for that email.';
+                      } else if (passwordController.text !=
+                          confirmedPasswordController.text) {
+                        confirmedErrorMessage =
+                        'Passwords do not match.';
                       }
-                    } : null,
-                    child: const Text('Sign Up'),
-                  ),
-                ],
-              ),
+                      setState(
+                              () {}); // trigger a rebuild to show the error message
+                    } catch (e) {
+                      emailErrorMessage = e.toString();
+                      setState(
+                              () {}); // trigger a rebuild to show the error message
+                    }
+                  }
+                      : null,
+                  child: const Text('Sign Up'),
+                ),
+              ],
             ),
           ),
         ),

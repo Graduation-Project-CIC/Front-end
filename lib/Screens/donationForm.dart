@@ -1,9 +1,8 @@
-// ignore_for_file: depend_on_referenced_packages
+// ignore_for_file: depend_on_referenced_packages, file_names
 
 import 'package:flutter/material.dart';
 import 'package:full_circle/design.dart';
 import 'package:image_picker/image_picker.dart';
-import '../design.dart';
 import 'dart:io';
 import '../map.dart';
 import 'home-page.dart';
@@ -65,6 +64,7 @@ class _DonationFormState extends State<DonationForm> {
       });
     }
   }
+
   Future<void> _selectTime(BuildContext context) async {
     final TimeOfDay? newTime = await showTimePicker(
       context: context,
@@ -88,6 +88,7 @@ class _DonationFormState extends State<DonationForm> {
       });
     }
   }
+
   Future<void> pickImage1() async {
     final picker = ImagePicker();
     final pickedImage = await picker.pickImage(source: ImageSource.gallery);
@@ -112,9 +113,10 @@ class _DonationFormState extends State<DonationForm> {
     });
   }
 
-
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
     return MaterialApp(
       home: Scaffold(
         body: SafeArea(
@@ -133,19 +135,20 @@ class _DonationFormState extends State<DonationForm> {
                   ],
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(left: 8.0, right: 8.0),
-                  child: Column(
+                  padding: EdgeInsets.only(
+                    left: MediaQuery.of(context).size.width > 600 ? 16.0 : 8.0,
+                    right: MediaQuery.of(context).size.width > 600 ? 16.0 : 8.0,),                  child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
                         'Tell us more about \n your donation',
                         style: mainLogoName.copyWith(color: Colors.black),
                       ),
-                      const SizedBox(height: 20),
+                      SizedBox(height : screenHeight * 0.04),
                       TextField(
                           decoration: textFieldDecoration.copyWith(
                               hintText: 'Tittle : Rice with vegetables')),
-                      const SizedBox(height: 20),
+                      SizedBox(height : screenHeight * 0.04),
                       DropdownButtonFormField<String>(
                         decoration: textFieldDecoration.copyWith(
                           hintText: "Choose food category",
@@ -163,21 +166,22 @@ class _DonationFormState extends State<DonationForm> {
                           );
                         }).toList(),
                       ),
-                      const SizedBox(height: 20),
+                      SizedBox(height : screenHeight * 0.04),
                       Text('Upload pictures of your food',
-                          style: textStyle.copyWith(color: const Color(0xFF838181))),
+                          style: textStyle.copyWith(
+                              color: const Color(0xFF838181))),
                       const Text('At least 2 photos',
-                        style : TextStyle(
+                        style: TextStyle(
                           color: Color(0xffD7D8DB),),),
-                      const SizedBox(height: 5),
+                      SizedBox(height : screenHeight * 0.02),
                       Row(
                         children: [
                           Expanded(
                             child: GestureDetector(
                               onTap: pickImage1,
                               child: Container(
-                                width: 100,
-                                height: 100,
+                                width: screenWidth * 0.13,
+                                height: screenHeight * 0.13,
                                 decoration: boxDecoration,
                                 child: _imageFile1 != null
                                     ? Image.file(File(_imageFile1!.path))
@@ -187,13 +191,13 @@ class _DonationFormState extends State<DonationForm> {
                               ),
                             ),
                           ),
-                          const SizedBox(width: 5),
+                          SizedBox(width : screenWidth * 0.02),
                           Expanded(
                             child: GestureDetector(
                               onTap: pickImage2,
                               child: Container(
-                                width: 100,
-                                height: 100,
+                                width: screenWidth * 0.13,
+                                height: screenHeight * 0.13,
                                 decoration: boxDecoration,
                                 child: _imageFile2 != null
                                     ? Image.file(File(_imageFile2!.path))
@@ -203,13 +207,13 @@ class _DonationFormState extends State<DonationForm> {
                               ),
                             ),
                           ),
-                          const SizedBox(width: 5),
+                          SizedBox(width : screenWidth * 0.02),
                           Expanded(
                             child: GestureDetector(
                               onTap: pickImage3,
                               child: Container(
-                                width: 100,
-                                height: 100,
+                                width: screenWidth * 0.13,
+                                height: screenHeight * 0.13,
                                 decoration: boxDecoration,
                                 child: _imageFile3 != null
                                     ? Image.file(File(_imageFile3!.path))
@@ -221,26 +225,30 @@ class _DonationFormState extends State<DonationForm> {
                           ),
                         ],
                       ),
-                      const SizedBox(height: 20),
+                      SizedBox(height : screenHeight * 0.04),
                       Text('Choose Pick-up location',
                           style: textStyle.copyWith(color: const Color(0xFF838181))),
-                      const SizedBox(height: 5),
+
+                      SizedBox(height: screenHeight * 0.02),
+
                       TextButton(
                         child: Container(
-                          height: 35,
-                          width: 218,
+                          height: screenHeight * 0.05,
+                          width: screenWidth * 0.69,
                           decoration: formBoxDecoration,
                           child: Row(
-                            children: const [
-                              SizedBox(width: 10),
-                              Icon(
+                            children: [
+                              SizedBox(width: screenWidth * 0.01),
+                              const Icon(
                                 Icons.location_on,
                                 color: Color(0xFF3D8361),
                               ),
-                              SizedBox(width: 10),
-                              Text(
-                                'Choose Location',
-                                style: TextStyle(color: Colors.black, fontSize: 17),
+                              SizedBox(width: screenWidth * 0.01),
+                              const Expanded(
+                                child: Text(
+                                  'Choose Location',
+                                  style: TextStyle(color: Colors.black, fontSize: 17),
+                                ),
                               ),
                             ],
                           ),
@@ -248,67 +256,89 @@ class _DonationFormState extends State<DonationForm> {
                         onPressed: () async {
                           final LatLng? selectedLocation = await Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => LocationPicker(onSelect: (LatLng location) {
-                              setState(() {
-                                _selectedLocation = location; // store selected location in variable
-                              });
-                            },)),
+                            MaterialPageRoute(
+                              builder: (context) => LocationPicker(
+                                onSelect: (LatLng location) {
+                                  setState(() {
+                                    _selectedLocation = location;
+                                  });
+                                },
+                              ),
+                            ),
                           );
                           if (selectedLocation != null) {
                             setState(() {
-                              _selectedLocation = selectedLocation; // store selected location in variable
+                              _selectedLocation = selectedLocation;
                             });
                           }
                         },
                       ),
-                      if (_selectedLocation != null) // show selected location text if location is selected
-                        Text('Selected location: ${_selectedLocation!.latitude}, ${_selectedLocation!.longitude}'),
-                      const SizedBox(height: 20),
-                      Text('Pick-up date',
-                          style: textStyle.copyWith(color: const Color(0xFF838181))),
-                      const SizedBox(height: 5),
+
+                      if (_selectedLocation != null)
+                        Text(
+                          'Selected location: ${_selectedLocation!.latitude}, ${_selectedLocation!.longitude}',
+                        ),
+
+                      SizedBox(height: screenHeight * 0.04),
+
+                      Text(
+                        'Pick-up date',
+                        style: textStyle.copyWith(color: const Color(0xFF838181)),
+                      ),
+
+                      SizedBox(height: screenHeight * 0.01),
+
                       Container(
-                        height: 35,
-                        width: 218,
+                        height: screenHeight * 0.05,
+                        width: screenWidth * 0.7,
                         decoration: formBoxDecoration,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            const SizedBox(width: 10),
+                            SizedBox(width: screenWidth * 0.01),
                             const Icon(
                               Icons.calendar_month,
                               color: Color(0xFF3D8361),
                             ),
-                            TextButton(
-                              onPressed: () => _selectDate(context),
-                              child: Text(
-                                'Selected date: ${DateFormat('dd/MM/yyyy').format(_selectedDate)}',
-                                style: const TextStyle(color: Colors.black),
+                            SizedBox(width: screenWidth * 0.01),
+                            Expanded(
+                              child: TextButton(
+                                onPressed: () => _selectDate(context),
+                                child: Text(
+                                  'Selected date: ${DateFormat('dd/MM/yyyy').format(_selectedDate)}',
+                                  style: const TextStyle(color: Colors.black),
+                                ),
                               ),
                             ),
                           ],
                         ),
                       ),
-                      const SizedBox(height: 20),
-                      Text('Pick-up Time',
-                          style: textStyle.copyWith(color: const Color(0xFF838181))),
-                      const SizedBox(height: 5),
+
+                      SizedBox(height: screenHeight * 0.04),
+
+                      Text(
+                        'Pick-up Time',
+                        style: textStyle.copyWith(color: const Color(0xFF838181)),
+                      ),
+
+                      SizedBox(height: screenHeight * 0.01),
+
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           Expanded(
                             child: Container(
-                              height: 35,
-                              width: 218,
+                              height: screenHeight * 0.05,
                               decoration: formBoxDecoration,
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
-                                  const SizedBox(width: 10),
+                                  SizedBox(width: screenWidth * 0.01),
                                   const Icon(
                                     Icons.access_time,
                                     color: Color(0xFF3D8361),
                                   ),
+                                  SizedBox(width: screenWidth * 0.01),
                                   Expanded(
                                     child: TextButton(
                                       onPressed: () => _selectTime(context),
@@ -322,16 +352,15 @@ class _DonationFormState extends State<DonationForm> {
                               ),
                             ),
                           ),
-                          const SizedBox(width: 10),
+                          SizedBox(width : screenWidth * 0.01),
                           Expanded(
                             child: Container(
-                              height: 35,
-                              width: 218,
+                              height: screenHeight *0.05,
                               decoration: formBoxDecoration,
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
-                                  const SizedBox(width: 10),
+                                  SizedBox(width : screenWidth * 0.01),
                                   const Icon(
                                     Icons.access_time,
                                     color: Color(0xFF3D8361),
@@ -341,7 +370,8 @@ class _DonationFormState extends State<DonationForm> {
                                       onPressed: () => _selectTime2(context),
                                       child: Text(
                                         'To: ${_selectedTime2.format(context)}',
-                                        style: const TextStyle(color: Colors.black),
+                                        style: const TextStyle(
+                                            color: Colors.black),
                                       ),
                                     ),
                                   ),
@@ -351,18 +381,19 @@ class _DonationFormState extends State<DonationForm> {
                           ),
                         ],
                       ),
-                      const SizedBox(height: 20),
+                      SizedBox(height : screenHeight * 0.04),
                       Text('Expiry Date',
-                          style: textStyle.copyWith(color: const Color(0xFF838181))),
-                      const SizedBox(height: 5),
+                          style: textStyle.copyWith(
+                              color: const Color(0xFF838181))),
+                      SizedBox(height : screenHeight * 0.01),
                       Container(
-                        height: 35,
-                        width: 218,
+                        height: screenHeight *0.05,
+                        width: screenWidth * 0.7,
                         decoration: formBoxDecoration,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            const SizedBox(width: 10),
+                            SizedBox(width : screenWidth * 0.01),
                             const Icon(
                               Icons.calendar_month,
                               color: Color(0xFF3D8361),
@@ -370,20 +401,22 @@ class _DonationFormState extends State<DonationForm> {
                             TextButton(
                               onPressed: () => _selectDate2(context),
                               child: Text(
-                                'Selected date: ${DateFormat('dd/MM/yyyy').format(_selectedDate2)}',
+                                'Selected date: ${DateFormat('dd/MM/yyyy')
+                                    .format(_selectedDate2)}',
                                 style: const TextStyle(color: Colors.black),
                               ),
                             ),
                           ],
                         ),
                       ),
-                      const SizedBox(height: 20),
+                      SizedBox(height : screenHeight * 0.04),
                       Text('Description',
-                          style: textStyle.copyWith(color: const Color(0xFF838181))),
+                          style: textStyle.copyWith(
+                              color: const Color(0xFF838181))),
                       const Text('Any additional information that would help.',
-                        style : TextStyle(
+                        style: TextStyle(
                           color: Color(0xffD7D8DB),),),
-                      const SizedBox(height: 5),
+                      SizedBox(height : screenHeight * 0.02),
                       TextField(
                           maxLines: null,
                           decoration: textFieldDecoration.copyWith(
@@ -391,18 +424,19 @@ class _DonationFormState extends State<DonationForm> {
                     ],
                   ),
                 ),
-                const SizedBox(height: 20),
+                SizedBox(height : screenHeight * 0.04),
                 ElevatedButton(
                   style: buttonStyle.copyWith(
                     minimumSize:
                     MaterialStateProperty.all<Size>(const Size(213, 50)),
                   ),
-                  onPressed:(){},
+                  onPressed: () {},
                   child: const Text('Donate'),),
-                const SizedBox(height: 20),
+                SizedBox(height : screenHeight * 0.04),
               ],
             ),
-          ),),
+          ),
+        ),
         bottomNavigationBar: NavBar(
           _selectedIndex,
           _onItemTapped,

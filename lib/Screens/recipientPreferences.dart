@@ -1,6 +1,5 @@
 // ignore_for_file: file_names
 import 'package:flutter/material.dart';
-
 import '../design.dart';
 
 class RecipientPreferences extends StatefulWidget {
@@ -17,6 +16,8 @@ class _RecipientPreferencesState extends State<RecipientPreferences> {
   List<bool> checkedItems = List.filled(8, false);
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -34,7 +35,10 @@ class _RecipientPreferencesState extends State<RecipientPreferences> {
                 ],
               ),
               Padding(
-                padding: const EdgeInsets.only(left: 11.0, right: 11.0),
+                padding: EdgeInsets.only(
+                  left: screenWidth* 0.03,
+                  right: screenWidth * 0.03,
+                ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -44,17 +48,16 @@ class _RecipientPreferencesState extends State<RecipientPreferences> {
                     ),
                     Text('You can adjust it later in your settings',
                         style: textStyle.copyWith(color: const Color(0xFF838181))),
-                    const SizedBox(height: 30),
+                    SizedBox(height: screenHeight *0.05),
                     Text(
                         'Would you rather get',
                         style: textStyle.copyWith(color: const Color(0xFF838181))),
-                    const SizedBox(height: 5),
                     Wrap(
                       children: preferencesChipLabels.map((String label) {
                         int index = preferencesChipLabels.indexOf(label);
                         return Padding(
                           padding:
-                          const EdgeInsets.symmetric(horizontal: 5.0),
+                           EdgeInsets.symmetric  (horizontal: screenWidth > 600 ? 20 : 10),
                           child: ChoiceChip(
                             label: Text(
                               label,
@@ -76,7 +79,7 @@ class _RecipientPreferencesState extends State<RecipientPreferences> {
                         );
                       }).toList(),
                     ),
-                    const SizedBox(height: 30),
+                    SizedBox(height: screenHeight *0.05),
                     Text(
                         'What items do you need?',
                         style: textStyle.copyWith(color: const Color(0xFF838181))),
@@ -106,7 +109,7 @@ class _RecipientPreferencesState extends State<RecipientPreferences> {
                   ],
                 ),
               ),
-              const SizedBox(height: 50),
+              SizedBox(height: screenHeight *0.05),
               ElevatedButton(
                   style: buttonStyle.copyWith(
                     minimumSize:
@@ -114,7 +117,6 @@ class _RecipientPreferencesState extends State<RecipientPreferences> {
                   ),
                   onPressed:(){},
                   child: const Text('Sign Up')),
-              const SizedBox(height: 20),
             ],
           ),
         ),
