@@ -23,7 +23,6 @@ class MyScreen extends StatelessWidget {
     final fontSize2 = screenHeight / 40;
     final buttonfont = screenHeight / 50;
     final padding = EdgeInsets.all(screenHeight * 0.03);
-    final double sizedBoxHeight = screenHeight * 0.1;
     return Scaffold(
 
       body: Padding(
@@ -46,7 +45,7 @@ class MyScreen extends StatelessWidget {
 
             Text(
               'Instructions',
-              style: TextStyle(color: Color(0xff3D8361), fontSize: fontSize),
+              style: TextStyle(color: const Color(0xff3D8361), fontSize: fontSize),
             ),
              Text(
               'Let us help you in using Full Circle.',
@@ -64,7 +63,7 @@ class MyScreen extends StatelessWidget {
                   ),
                   OutlinedButton(
                     style: OutlinedButton.styleFrom(
-                      backgroundColor: Color(0xff3D8361), //<-- SEE HERE
+                      backgroundColor: const Color(0xff3D8361), //<-- SEE HERE
                     ),
                     child:  SizedBox(
                       width: buttonWidth,
@@ -82,7 +81,7 @@ class MyScreen extends StatelessWidget {
                   ),
                   OutlinedButton(
                     style: OutlinedButton.styleFrom(
-                      backgroundColor: Color(0xff3D8361), //<-- SEE HERE
+                      backgroundColor: const Color(0xff3D8361), //<-- SEE HERE
                     ),
                     child:  SizedBox(
                       width: buttonWidth,
@@ -101,8 +100,7 @@ class MyScreen extends StatelessWidget {
                   ),
                   OutlinedButton(
                     style: OutlinedButton.styleFrom(
-                      backgroundColor: Color(0xff3D8361),
-                      // 0xFF//<-- SEE HERE
+                      backgroundColor: const Color(0xff3D8361),
                     ),
                     child:  SizedBox(
                       width: buttonWidth,
@@ -121,7 +119,6 @@ class MyScreen extends StatelessWidget {
                 ],
               ),
             ),
-
           ],
         ),
       ),

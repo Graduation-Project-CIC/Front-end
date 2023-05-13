@@ -1,8 +1,11 @@
+// ignore_for_file: use_build_context_synchronously
 import 'package:flutter/material.dart';
 import 'package:full_circle/Screens/onboarding-page.dart';
 import 'package:full_circle/Screens/welcome-page.dart';
 import '../design.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'home-page.dart';
 
 class GetStarted extends StatefulWidget {
   const GetStarted({Key? key}) : super(key: key);
@@ -17,16 +20,18 @@ class _GetStartedState extends State<GetStarted> {
   @override
   void initState() {
     super.initState();
+    _setShowOnboardingFlag();
     _checkIfShowOnboarding();
   }
 
   Future<void> _checkIfShowOnboarding() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     bool showOnboarding = prefs.getBool('showOnboarding') ?? true;
-    setState(() {
-    });
-    if (!showOnboarding) {
-      // ignore: use_build_context_synchronously
+    String userID = prefs.getString('userId') ?? '';
+
+    if (userID.isNotEmpty) {
+      Navigator.pushReplacementNamed(context, HomeScreen.id);
+    } else if (!showOnboarding) {
       Navigator.pushReplacementNamed(context, WelcomeScreen.id);
     }
   }
@@ -57,7 +62,6 @@ class _GetStartedState extends State<GetStarted> {
                   ),
                   onPressed: () {
                     Navigator.pushNamed(context, OnBoardingScreen.id);
-                    _setShowOnboardingFlag();
                   },
                   child: const Text('Get Started'),
                 ),

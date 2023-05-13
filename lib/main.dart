@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:full_circle/Screens/driver_sign_up.dart';
+import 'package:full_circle/Screens/driver_welcome_page.dart';
 import 'package:full_circle/Screens/getStarted-page.dart';
 import 'package:full_circle/Screens/home-page.dart';
 import 'package:full_circle/Screens/instructionsScreens/Donor1.dart';
@@ -34,15 +36,15 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-     // initialRoute: GetStarted.id,
-      //initialRoute: Recipientsinstructions.id,
-      initialRoute: MyScreen.id,
+      initialRoute: GetStarted.id,
       routes: {
         WelcomeScreen.id: (context) => const WelcomeScreen(),
         RegisterScreen.id: (context) => const RegisterScreen(),
+        DriverSignUp.id: (context) => const DriverSignUp(),
         MyScreen.id: (context) => const MyScreen(),
         DonorsInstructions.id: (context) => const DonorsInstructions(),
         DriversInstructions.id: (context) => const DriversInstructions(),
+        DriverWelcomePage.id: (context) => const DriverWelcomePage(),
         Recipientsinstructions.id: (context) => const Recipientsinstructions(),
         HomeScreen.id: (context) => const HomeScreen(),
         LoginScreen.id: (context) => const LoginScreen(),

@@ -2,7 +2,8 @@
 // ignore_for_file: non_constant_identifier_names
 
 import 'package:flutter/material.dart';
-import 'package:full_circle/Screens/signup-page.dart';
+import 'package:full_circle/Screens/driver_welcome_page.dart';
+import 'package:full_circle/Screens/instructionsScreen.dart';
 import 'Screens/donationForm.dart';
 import 'Screens/home-page.dart';
 import 'Screens/login-page.dart';
@@ -18,11 +19,12 @@ const buttonTextStyle = TextStyle(
 
 final List<String> preferencesCheckBox = ['Canned & Jarred Food',    'Pasta & Rice',    'Cooking Essentials',    'Fruits & Vegetables',    'Cheese & Dairy',    'Meat',    'Chicken & Poultry',    'Bakery',  ];
 final List<String> categories = [    "Category 1",    "Category 2",    "Category 3",  ];
-final List<Widget> screens = [  const HomeScreen(), DonationForm(),    const RecipientSignUp(),    const RegisterScreen(),    const LoginScreen(),  ];
+final List<Widget> screens = [  const HomeScreen(), DonationForm(),    const RecipientSignUp(),    const DriverWelcomePage(),    const LoginScreen(),  ];
 final List<String> organizationType = [    "Type 1",    "Type 2",    "Type 3",  ];
+final List<Widget> drawerScreens = [DonationForm(), const RecipientSignUp(),  const MyScreen() ];
 List<String> chipLabels = ['Less than 5', 'Less than 10', 'less than 50', 'less than 100', 'more than 100'];
 List<String> preferencesChipLabels = ['Ready meals', 'Groceries', 'Both'];
-List<String> menuItems = ['Donating' , 'Add Organization' ];
+List<String> menuItems = ['Donating' , 'Add Organization','Instructions' ];
 
 var homeMainButton = BoxDecoration(
    borderRadius:  BorderRadius.circular(4),
@@ -83,6 +85,18 @@ const textStyle =TextStyle(
   fontWeight: FontWeight.w400,
   height: 1.0,
   color: Color(0xFF676666),);
+
+var selectFileButton = ButtonStyle(
+  backgroundColor:
+  MaterialStateProperty.all<Color>(Colors.white),
+  minimumSize: MaterialStateProperty.all<Size>(const Size(21, 48)),
+  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+    RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(4.0),
+      side: const BorderSide(color: Colors.grey),
+    ),
+  ),
+);
 
 var buttonStyle = ButtonStyle(
   backgroundColor:

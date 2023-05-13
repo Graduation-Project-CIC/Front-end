@@ -440,6 +440,7 @@ class _DonationFormState extends State<DonationForm> {
         bottomNavigationBar: NavBar(
           _selectedIndex,
           _onItemTapped,
-        ),),);
+        ),
+      ),);
   }
 }
