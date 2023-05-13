@@ -1,8 +1,10 @@
-// ignore_for_file: library_private_types_in_public_api
+// ignore_for_file: file_names, library_private_types_in_public_api
 import 'package:flutter/material.dart';
 import 'package:full_circle/Screens/donationForm.dart';
+import 'package:full_circle/Screens/driver_welcome_page.dart';
 import 'package:full_circle/Screens/horizontalList.dart';
 import 'package:full_circle/Screens/recipient-signUp.dart';
+import 'package:full_circle/components/DonationsList.dart';
 import '../design.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -11,32 +13,35 @@ class HomeScreen extends StatefulWidget {
 
   @override
   _HomeScreenState createState() => _HomeScreenState();
+
+
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final int _selectedIndex = 0;
+   int _selectedIndex = 0;
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
-  void _onMenuItemTapped(int index) {
-    switch (index) {
-      case 0:
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => DonationForm()),
-        );
-        break;
-      case 1:
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => const RecipientSignUp()),
-        );
-        break;
-      default:
-        break;
-    }
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+    Navigator.push(context, MaterialPageRoute(builder: (context) => screens[index]),
+    );
+  }
+  @override
+  void initState(){
+    super.initState();
   }
 
-  @override
+   void _onMenuTapped(int index) {
+     setState(() {
+       _selectedIndex = index;
+     });
+     Navigator.push(context, MaterialPageRoute(builder: (context) => drawerScreens[index]),
+     );
+   }
+
+   @override
   Widget build(BuildContext context) {
     return OrientationBuilder(
       builder: (BuildContext context, Orientation orientation) {
@@ -51,8 +56,7 @@ class _HomeScreenState extends State<HomeScreen> {
               itemBuilder: (BuildContext context, int index) {
                 return InkWell(
                   onTap: () {
-                    _onMenuItemTapped(index);
-                    Navigator.pop(context);
+                    _onMenuTapped(index);
                   },
                   child: Padding(
                     padding: EdgeInsets.symmetric(
@@ -123,8 +127,10 @@ class _HomeScreenState extends State<HomeScreen> {
                               decoration: homeMainButton,
                               child: MaterialButton(
                                 onPressed: () {
-                                  Navigator.pushNamed(context, DonationForm.id);
-
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(builder: (context) => DonationForm()),
+                                  );
                                 },
                                 child: Row(
                                   children: [
@@ -213,7 +219,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                             ],
                           ),
-                          const HorizontalList(),
+                          const DonationsList(),
                           SizedBox(
                               height: isPortrait
                                   ? MediaQuery.of(context).size.width * 0.1
@@ -294,20 +300,18 @@ class _HomeScreenState extends State<HomeScreen> {
                                 ],
                               ),
                               child: MaterialButton(
-                                onPressed: () {
-                                  Navigator.pushNamed(context, RecipientSignUp.id);
-                                },
+                                onPressed: () {},
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                   children: [
                                     Row(
                                       children: [
-                                        Icon(Icons.home, color: Color(0xFF3D8361)),
+                                        const Icon(Icons.home, color: Color(0xFF3D8361)),
                                         Text(
                                           ' Need Help?',
                                           style: mainLogoName.copyWith(
-                                            color: Color(0xFF3D8361),
+                                            color: const Color(0xFF3D8361),
                                             fontSize: isPortrait ? MediaQuery.of(context).size.width * 0.06 : 40,
                                           ),
                                         ),
@@ -351,7 +355,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           bottomNavigationBar: NavBar(
             _selectedIndex,
-            _onMenuItemTapped,
+            _onItemTapped,
           ),
         );
       },
