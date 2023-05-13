@@ -1,6 +1,7 @@
 // ignore_for_file: library_private_types_in_public_api
 import 'package:flutter/material.dart';
 import 'package:full_circle/Screens/donationForm.dart';
+import 'package:full_circle/Screens/homeless_map.dart';
 import 'package:full_circle/Screens/horizontalList.dart';
 import 'package:full_circle/Screens/recipient-signUp.dart';
 import '../design.dart';
@@ -124,7 +125,6 @@ class _HomeScreenState extends State<HomeScreen> {
                               child: MaterialButton(
                                 onPressed: () {
                                   Navigator.pushNamed(context, DonationForm.id);
-
                                 },
                                 child: Row(
                                   children: [
@@ -226,7 +226,9 @@ class _HomeScreenState extends State<HomeScreen> {
                             child: Container(
                               decoration: homeMainButton,
                               child: MaterialButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  Navigator.pushNamed(context, HomelessMap.id);
+                                },
                                 child: Row(
                                   children: [
                                     Expanded(
