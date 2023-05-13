@@ -7,7 +7,6 @@ import 'package:path/path.dart';
 import 'package:intl/intl.dart';
 import 'package:async/async.dart';
 
-
 final apiUrl = dotenv.env['API_URL'];
 
 class Donation {
@@ -22,6 +21,7 @@ class Donation {
   final String description;
   final String userId;
   final List<Picture> pictures;
+  final String? area;
 
   Donation({
     required this.id,
@@ -35,6 +35,7 @@ class Donation {
     required this.description,
     required this.userId,
     required this.pictures,
+    required this.area,
   });
 
   factory Donation.fromJson(Map<String, dynamic> json) {
@@ -55,6 +56,7 @@ class Donation {
       description: json['description'] as String,
       userId: json['userId'] as String,
       pictures: pictures,
+      area:  json['area'] as String
     );
   }
 }
@@ -101,20 +103,21 @@ Future<bool> createDonation(
   String description,
   String userId,
   List<File> pictures,
+  String? area,
 ) async {
-
-
 // Format DateTime variables
   String formattedPickUpDate = DateFormat("yyyy-MM-dd").format(pickUpDate);
   String formattedExpiryDate = DateFormat("yyyy-MM-dd").format(expiryDate);
 
 // Format TimeOfDay variables
-  String formattedPickUpTimeStart = '${pickUpTimeStart.hour.toString().padLeft(2, '0')}:${pickUpTimeStart.minute.toString().padLeft(2, '0')}:00';
-  String formattedPickUpTimeEnd = '${pickUpTimeEnd.hour.toString().padLeft(2, '0')}:${pickUpTimeEnd.minute.toString().padLeft(2, '0')}:00';
-
+  String formattedPickUpTimeStart =
+      '${pickUpTimeStart.hour.toString().padLeft(2, '0')}:${pickUpTimeStart.minute.toString().padLeft(2, '0')}:00';
+  String formattedPickUpTimeEnd =
+      '${pickUpTimeEnd.hour.toString().padLeft(2, '0')}:${pickUpTimeEnd.minute.toString().padLeft(2, '0')}:00';
 
 // Combine date and time strings
-  String pickUpTimestampStart = '$formattedPickUpDate $formattedPickUpTimeStart:00';
+  String pickUpTimestampStart =
+      '$formattedPickUpDate $formattedPickUpTimeStart:00';
   String pickUpTimestampEnd = '$formattedPickUpDate $formattedPickUpTimeEnd:00';
   String expiryDateFinal = '$formattedExpiryDate $formattedPickUpTimeEnd:00';
   final apiUrl = dotenv.env['API_URL'];
@@ -130,7 +133,8 @@ Future<bool> createDonation(
     'pickUpTimestampEnd': pickUpTimestampEnd.toString(),
     'expiryDate': expiryDateFinal.toString(),
     'description': description,
-    'userId': "ur8oukhSM8hp9KCOslimPMfhGmC3"
+    'userId': userId,
+    'area': area!
   });
 
   for (var file in pictures) {
@@ -142,10 +146,8 @@ Future<bool> createDonation(
   if (response.statusCode == 201) {
     print(await response.stream.bytesToString());
     return true;
-  }
-  else {
+  } else {
     print(response.reasonPhrase);
     return false;
   }
-
 }

@@ -9,6 +9,7 @@ import 'home-page.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:full_circle/services/donationService.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 // ignore: must_be_immutable
 class DonationForm extends StatefulWidget {
@@ -22,6 +23,7 @@ class DonationForm extends StatefulWidget {
 class _DonationFormState extends State<DonationForm> {
   String title = '';
   String? selectedCategory;
+  String? selectedArea;
   LatLng? _selectedLocation; // variable to store selected location
   XFile? _imageFile1;
   XFile? _imageFile2;
@@ -34,6 +36,17 @@ class _DonationFormState extends State<DonationForm> {
   DateTime _expiryDate = DateTime.now();
   TimeOfDay _pickUpTimeStart = TimeOfDay.now();
   TimeOfDay _pickUpTimeEnd = TimeOfDay.now();
+  String userId = '';
+  @override
+  void initState() {
+    super.initState();
+    _getUserId();
+  }
+
+  Future<void> _getUserId() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    userId = prefs.getString('userId') ?? '';
+  }
 
   void _onItemTapped(int index) {
     setState(() {
@@ -255,6 +268,24 @@ class _DonationFormState extends State<DonationForm> {
                         ],
                       ),
                       SizedBox(height: screenHeight * 0.04),
+                      DropdownButtonFormField<String>(
+                        decoration: textFieldDecoration.copyWith(
+                          hintText: "Choose Area",
+                        ),
+                        value: selectedArea,
+                        onChanged: (value) {
+                          setState(() {
+                            selectedArea = value!;
+                          });
+                        },
+                        items: cairoAreas.map((category) {
+                          return DropdownMenuItem<String>(
+                            value: category,
+                            child: Text(category),
+                          );
+                        }).toList(),
+                      ),
+                      SizedBox(height: screenHeight * 0.04),
                       Text('Choose Pick-up location',
                           style: textStyle.copyWith(
                               color: const Color(0xFF838181))),
@@ -472,8 +503,9 @@ class _DonationFormState extends State<DonationForm> {
                         _pickUpTimeStart,
                         _pickUpTimeEnd,
                         description,
-                        "Z2MQIApIsrX50dbHqsmQFCgVdK32",
-                        images);
+                        userId,
+                        images,
+                        selectedArea);
                     success
                         ? Navigator.push(
                             context,
@@ -512,4 +544,3 @@ class _DonationFormState extends State<DonationForm> {
     );
   }
 }
-// createDonation(title: title, category: selectedCategory, latitude: _selectedLocation!.latitude, longitude: _selectedLocation!.longitude, pickUpTimestampStart: _selectedTime, pickUpTimestampEnd: _selectedTime2, expiryDate: _selectedDate2, description: description, userId: "Z2MQIApIsrX50dbHqsmQFCgVdK32", pictures: images);
