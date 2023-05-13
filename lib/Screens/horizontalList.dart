@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:full_circle/services/donationService.dart';
+import 'package:intl/intl.dart';
 
 import '../design.dart';
 
 class CustomListTile extends StatelessWidget {
   final String title;
-  final String pickupTimeInterval;
-  final String description;
+  final String? area;
+  final String timeInterval;
 
   const CustomListTile({super.key,
     required this.title,
-    required this.pickupTimeInterval,
-    required this.description,
+    required this.area,
+    required this.timeInterval,
   });
 
   @override
@@ -21,6 +22,7 @@ class CustomListTile extends StatelessWidget {
 
     return Container(
       width: screenWidth * 0.5,
+
       margin: EdgeInsets.all(screenWidth * 0.015),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),
@@ -50,18 +52,18 @@ class CustomListTile extends StatelessWidget {
             Padding(
               padding: EdgeInsets.all(paddingSize),
               child: Text(
-                pickupTimeInterval,
+                area!,
                 style: TextStyle(
-                  fontSize: screenWidth * 0.025, // adjust font size based on screen size
+                  fontSize: screenWidth * 0.050, // adjust font size based on screen size
                 ),
               ),
             ),
             Padding(
               padding: EdgeInsets.all(paddingSize),
               child: Text(
-                description,
+                timeInterval,
                 style: TextStyle(
-                  fontSize: screenWidth * 0.025, // adjust font size based on screen size
+                  fontSize: screenWidth * 0.035, // adjust font size based on screen size
                 ),
               ),
             ),
@@ -105,16 +107,15 @@ class HorizontalList extends StatelessWidget {
         final donations = snapshot.data ?? [];
 
         return SizedBox(
-          height: MediaQuery.of(context).size.width * 0.5,
+          height: MediaQuery.of(context).size.width * 0.6,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
             itemCount: donations.length,
             itemBuilder: (context, index) {
               return CustomListTile(
                 title: donations[index].title,
-                pickupTimeInterval:
-                '${donations[index].pickUpTimestampStart} - ${donations[index].pickUpTimestampEnd}',
-                description: donations[index].description,
+                area: donations[index].area,
+                timeInterval: 'Pickup between ${DateFormat('yyyy-MM-dd HH:mm').format(donations[index].pickUpTimestampStart)} and ${DateFormat('yyyy-MM-dd HH:mm').format(donations[index].pickUpTimestampEnd)}',
               );
             },
           ),

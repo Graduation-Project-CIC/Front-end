@@ -25,6 +25,28 @@ final List<Widget> drawerScreens = [DonationForm(), const RecipientSignUp(),  co
 List<String> chipLabels = ['Less than 5', 'Less than 10', 'less than 50', 'less than 100', 'more than 100'];
 List<String> preferencesChipLabels = ['Ready meals', 'Groceries', 'Both'];
 List<String> menuItems = ['Donating' , 'Add Organization','Instructions' ];
+List<String> cairoAreas = [
+  'Abbasiya',
+  'Ain Shams',
+  'Al Rehab',
+  'Bab El Louk',
+  'Dokki',
+  'Downtown Cairo',
+  'Garden City',
+  'Gesr El Suez',
+  'Heliopolis',
+  'Maadi',
+  'Mohandessin',
+  'Nasr City',
+  'New Cairo',
+  'Obour',
+  'October City',
+  'Rod El Farag',
+  'Shoubra',
+  'Shorouk City',
+  'Tagamo',
+  'Zamalek'
+];
 
 var homeMainButton = BoxDecoration(
    borderRadius:  BorderRadius.circular(4),
