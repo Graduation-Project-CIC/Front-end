@@ -18,7 +18,7 @@ const buttonTextStyle = TextStyle(
   fontWeight: FontWeight.normal);
 
 final List<String> preferencesCheckBox = ['Canned & Jarred Food',    'Pasta & Rice',    'Cooking Essentials',    'Fruits & Vegetables',    'Cheese & Dairy',    'Meat',    'Chicken & Poultry',    'Bakery',  ];
-final List<String> categories = [    "Category 1",    "Category 2",    "Category 3",  ];
+final List<String> categories = [    "GREENS",    "COOKED",    "GRAINS", "DAIRY", "FROZEN",  "GROCERIES"];
 final List<Widget> screens = [  const HomeScreen(), DonationForm(),    const RecipientSignUp(),    const DriverWelcomePage(),    const LoginScreen(),  ];
 final List<String> organizationType = [    "Type 1",    "Type 2",    "Type 3",  ];
 final List<Widget> drawerScreens = [DonationForm(), const RecipientSignUp(),  const MyScreen() ];

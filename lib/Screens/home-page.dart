@@ -4,6 +4,7 @@ import 'package:full_circle/Screens/donationForm.dart';
 import 'package:full_circle/Screens/driver_welcome_page.dart';
 import 'package:full_circle/Screens/horizontalList.dart';
 import 'package:full_circle/Screens/recipient-signUp.dart';
+import 'package:full_circle/components/DonationsList.dart';
 import '../design.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -12,6 +13,8 @@ class HomeScreen extends StatefulWidget {
 
   @override
   _HomeScreenState createState() => _HomeScreenState();
+
+
 }
 
 class _HomeScreenState extends State<HomeScreen> {
@@ -24,6 +27,10 @@ class _HomeScreenState extends State<HomeScreen> {
     });
     Navigator.push(context, MaterialPageRoute(builder: (context) => screens[index]),
     );
+  }
+  @override
+  void initState(){
+    super.initState();
   }
 
    void _onMenuTapped(int index) {
@@ -120,8 +127,10 @@ class _HomeScreenState extends State<HomeScreen> {
                               decoration: homeMainButton,
                               child: MaterialButton(
                                 onPressed: () {
-                                  Navigator.pushNamed(context, DonationForm.id);
-
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(builder: (context) => DonationForm()),
+                                  );
                                 },
                                 child: Row(
                                   children: [
@@ -210,7 +219,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                             ],
                           ),
-                          const HorizontalList(),
+                          const DonationsList(),
                           SizedBox(
                               height: isPortrait
                                   ? MediaQuery.of(context).size.width * 0.1
@@ -291,9 +300,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 ],
                               ),
                               child: MaterialButton(
-                                onPressed: () {
-                                  Navigator.pushNamed(context, RecipientSignUp.id);
-                                },
+                                onPressed: () {},
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
