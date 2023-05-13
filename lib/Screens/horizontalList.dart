@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:full_circle/services/donationService.dart';
 
 import '../design.dart';
 
 class CustomListTile extends StatelessWidget {
   final String title;
   final String pickupTimeInterval;
-  final String location;
+  final String description;
 
-  CustomListTile({
+  const CustomListTile({super.key,
     required this.title,
     required this.pickupTimeInterval,
-    required this.location,
+    required this.description,
   });
 
   @override
@@ -58,7 +59,7 @@ class CustomListTile extends StatelessWidget {
             Padding(
               padding: EdgeInsets.all(paddingSize),
               child: Text(
-                location,
+                description,
                 style: TextStyle(
                   fontSize: screenWidth * 0.025, // adjust font size based on screen size
                 ),
@@ -86,23 +87,40 @@ class CustomListTile extends StatelessWidget {
 }
 
 class HorizontalList extends StatelessWidget {
-  const HorizontalList({Key? key}) : super(key: key);
+  const HorizontalList({Key? key, required List<Donation> donations}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: MediaQuery.of(context).size.width * 0.5,
-      child: ListView.builder(
-        scrollDirection: Axis.horizontal,
-        itemCount: 10, // replace with the length of your data list
-        itemBuilder: (context, index) {
-          return CustomListTile(
-            title: 'Title $index',
-            pickupTimeInterval: 'Pickup Time Interval $index',
-            location: 'Location $index',
-          );
-        },
-      ),
+    return FutureBuilder<List<Donation>>(
+      future: getDonations(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Center(child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF3D8361))));
+        }
+
+        if (snapshot.hasError) {
+          return const Center(child: Text('Error occurred while fetching donations'));
+        }
+
+        final donations = snapshot.data ?? [];
+
+        return SizedBox(
+          height: MediaQuery.of(context).size.width * 0.5,
+          child: ListView.builder(
+            scrollDirection: Axis.horizontal,
+            itemCount: donations.length,
+            itemBuilder: (context, index) {
+              return CustomListTile(
+                title: donations[index].title,
+                pickupTimeInterval:
+                '${donations[index].pickUpTimestampStart} - ${donations[index].pickUpTimestampEnd}',
+                description: donations[index].description,
+              );
+            },
+          ),
+        );
+      },
     );
   }
 }
+
