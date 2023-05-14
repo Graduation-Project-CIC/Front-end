@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:full_circle/services/donationService.dart';
+import 'package:intl/intl.dart';
 
 import '../design.dart';
 
 class CustomListTile extends StatelessWidget {
   final String title;
-  final String pickupTimeInterval;
-  final String location;
+  final String? area;
+  final String timeInterval;
 
-  CustomListTile({
+  const CustomListTile({super.key,
     required this.title,
-    required this.pickupTimeInterval,
-    required this.location,
+    required this.area,
+    required this.timeInterval,
   });
 
   @override
@@ -20,6 +22,7 @@ class CustomListTile extends StatelessWidget {
 
     return Container(
       width: screenWidth * 0.5,
+
       margin: EdgeInsets.all(screenWidth * 0.015),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),
@@ -49,18 +52,18 @@ class CustomListTile extends StatelessWidget {
             Padding(
               padding: EdgeInsets.all(paddingSize),
               child: Text(
-                pickupTimeInterval,
+                area!,
                 style: TextStyle(
-                  fontSize: screenWidth * 0.025, // adjust font size based on screen size
+                  fontSize: screenWidth * 0.050, // adjust font size based on screen size
                 ),
               ),
             ),
             Padding(
               padding: EdgeInsets.all(paddingSize),
               child: Text(
-                location,
+                timeInterval,
                 style: TextStyle(
-                  fontSize: screenWidth * 0.025, // adjust font size based on screen size
+                  fontSize: screenWidth * 0.035, // adjust font size based on screen size
                 ),
               ),
             ),
@@ -86,23 +89,39 @@ class CustomListTile extends StatelessWidget {
 }
 
 class HorizontalList extends StatelessWidget {
-  const HorizontalList({Key? key}) : super(key: key);
+  const HorizontalList({Key? key, required List<Donation> donations}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: MediaQuery.of(context).size.width * 0.5,
-      child: ListView.builder(
-        scrollDirection: Axis.horizontal,
-        itemCount: 10, // replace with the length of your data list
-        itemBuilder: (context, index) {
-          return CustomListTile(
-            title: 'Title $index',
-            pickupTimeInterval: 'Pickup Time Interval $index',
-            location: 'Location $index',
-          );
-        },
-      ),
+    return FutureBuilder<List<Donation>>(
+      future: getDonations(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Center(child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF3D8361))));
+        }
+
+        if (snapshot.hasError) {
+          return const Center(child: Text('Error occurred while fetching donations'));
+        }
+
+        final donations = snapshot.data ?? [];
+
+        return SizedBox(
+          height: MediaQuery.of(context).size.width * 0.6,
+          child: ListView.builder(
+            scrollDirection: Axis.horizontal,
+            itemCount: donations.length,
+            itemBuilder: (context, index) {
+              return CustomListTile(
+                title: donations[index].title,
+                area: donations[index].area,
+                timeInterval: 'Pickup between ${DateFormat('yyyy-MM-dd HH:mm').format(donations[index].pickUpTimestampStart)} and ${DateFormat('yyyy-MM-dd HH:mm').format(donations[index].pickUpTimestampEnd)}',
+              );
+            },
+          ),
+        );
+      },
     );
   }
 }
+

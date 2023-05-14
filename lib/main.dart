@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:full_circle/Screens/driver_sign_up.dart';
+import 'package:full_circle/Screens/driver_welcome_page.dart';
 import 'package:full_circle/Screens/getStarted-page.dart';
 import 'package:full_circle/Screens/home-page.dart';
 import 'package:full_circle/Screens/homeless_map.dart';
@@ -18,6 +21,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 
 void main() async {
+  await dotenv.load();
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,);
@@ -30,16 +34,17 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-     // initialRoute: GetStarted.id,
-      initialRoute: HomelessMap.id,
+      initialRoute: GetStarted.id,
       routes: {
         WelcomeScreen.id: (context) => const WelcomeScreen(),
         RegisterScreen.id: (context) => const RegisterScreen(),
         MarkHomeless.id: (context) => const MarkHomeless(),
+        DriverSignUp.id: (context) => const DriverSignUp(),
         MyScreen.id: (context) => const MyScreen(),
         HomelessMap.id: (context) => const HomelessMap(),
         DonorsInstructions.id: (context) => const DonorsInstructions(),
         DriversInstructions.id: (context) => const DriversInstructions(),
+        DriverWelcomePage.id: (context) => const DriverWelcomePage(),
         Recipientsinstructions.id: (context) => const Recipientsinstructions(),
         HomeScreen.id: (context) => const HomeScreen(),
         LoginScreen.id: (context) => const LoginScreen(),
