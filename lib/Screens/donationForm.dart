@@ -1,10 +1,10 @@
-// ignore_for_file: depend_on_referenced_packages, file_names
+// ignore_for_file: depend_on_referenced_packages, file_names, use_build_context_synchronously
 
 import 'package:flutter/material.dart';
 import 'package:full_circle/design.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
-import '../map.dart';
+import 'google_map.dart';
 import 'home-page.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:intl/intl.dart';
@@ -317,13 +317,10 @@ class _DonationFormState extends State<DonationForm> {
                           final LatLng? selectedLocation = await Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => LocationPicker(
-                                onSelect: (LatLng location) {
-                                  setState(() {
-                                    _selectedLocation = location;
-                                  });
-                                },
-                              ),
+                              builder: (BuildContext context) =>
+                                  GoogleMapWidget(
+                                    selectedLocation: _selectedLocation,
+                                  ),
                             ),
                           );
                           if (selectedLocation != null) {

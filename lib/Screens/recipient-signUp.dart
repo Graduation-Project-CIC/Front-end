@@ -280,10 +280,6 @@ class _RecipientSignUpState extends State<RecipientSignUp> {
                           }
                         },
                       ),
-                      if (_selectedLocation !=
-                          null) // show selected location text if location is selected
-                        Text(
-                            'Selected location: ${_selectedLocation!.latitude}'),
                       SizedBox(height: screenHeight * 0.04),
                       Text(
                           'How many people are you responsible for feeding daily?',
