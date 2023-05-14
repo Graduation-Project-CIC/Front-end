@@ -1,12 +1,16 @@
-// ignore_for_file: file_names
+// ignore_for_file: file_names, use_build_context_synchronously
+import 'dart:async';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:full_circle/Screens/home-page.dart';
 import 'package:full_circle/Screens/recipientPreferences.dart';
+import 'package:full_circle/services/recipientService.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../design.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import '../map.dart';
+import 'google_map.dart';
 
 class RecipientSignUp extends StatefulWidget {
   const RecipientSignUp({Key? key}) : super(key: key);
@@ -22,9 +26,23 @@ class _RecipientSignUpState extends State<RecipientSignUp> {
   XFile? _imageFile2;
   XFile? _imageFile3;
   XFile? _imageFile4;
-  String? selectedType;
+  String? selectedType ;
   LatLng? _selectedLocation; // variable to store selected location
-  int selectedChipIndex = 0; // index of initially selected chip
+  int selectedChipIndex = 0;
+  String name = '';
+  String bio = '';
+  List<File> placeImages = [];
+  String userId = '';
+  @override
+  void initState() {
+    super.initState();
+    _getUserId();
+  }
+
+  Future<void> _getUserId() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    userId = prefs.getString('userId') ?? '';
+  }
 
   Future<void> pickImage1() async {
     final picker = ImagePicker();
@@ -37,25 +55,37 @@ class _RecipientSignUpState extends State<RecipientSignUp> {
   Future<void> pickImage2() async {
     final picker = ImagePicker();
     final pickedImage = await picker.pickImage(source: ImageSource.gallery);
-    setState(() {
-      _imageFile2 = pickedImage;
-    });
+    if (pickedImage != null) {
+      final imageFile = File(pickedImage.path);
+      setState(() {
+        _imageFile2 = pickedImage;
+        placeImages.add(imageFile);
+      });
+    }
   }
 
   Future<void> pickImage3() async {
     final picker = ImagePicker();
     final pickedImage = await picker.pickImage(source: ImageSource.gallery);
-    setState(() {
-      _imageFile3 = pickedImage;
-    });
+    if (pickedImage != null) {
+      final imageFile = File(pickedImage.path);
+      setState(() {
+        _imageFile3 = pickedImage;
+        placeImages.add(imageFile);
+      });
+    }
   }
 
   Future<void> pickImage4() async {
     final picker = ImagePicker();
     final pickedImage = await picker.pickImage(source: ImageSource.gallery);
-    setState(() {
-      _imageFile4 = pickedImage;
-    });
+    if (pickedImage != null) {
+      final imageFile = File(pickedImage.path);
+      setState(() {
+        _imageFile4 = pickedImage;
+        placeImages.add(imageFile);
+      });
+    }
   }
 
   @override
@@ -64,8 +94,7 @@ class _RecipientSignUpState extends State<RecipientSignUp> {
     final screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       body: Padding(
-        padding: EdgeInsets.symmetric(
-            horizontal: screenWidth > 600 ? 20 : 10),
+        padding: EdgeInsets.symmetric(horizontal: screenWidth > 600 ? 20 : 10),
         child: SafeArea(
           child: SingleChildScrollView(
             child: Column(
@@ -82,10 +111,10 @@ class _RecipientSignUpState extends State<RecipientSignUp> {
                   ],
                 ),
                 Padding(
-                    padding: EdgeInsets.only(
-                      left: screenWidth* 0.03,
-                      right: screenWidth * 0.03,
-                    ),
+                  padding: EdgeInsets.only(
+                    left: screenWidth * 0.03,
+                    right: screenWidth * 0.03,
+                  ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -93,7 +122,7 @@ class _RecipientSignUpState extends State<RecipientSignUp> {
                         'Sign up your organization',
                         style: mainLogoName.copyWith(color: Colors.black),
                       ),
-                      SizedBox(height: screenHeight *0.02),
+                      SizedBox(height: screenHeight * 0.02),
                       Row(
                         children: [
                           Expanded(
@@ -110,24 +139,30 @@ class _RecipientSignUpState extends State<RecipientSignUp> {
                                               MainAxisAlignment.center,
                                           children: const [
                                             Icon(Icons.add),
-                                            Text('LOGO'),],
+                                            Text('LOGO'),
+                                          ],
                                         ),
                                       ),
                               ),
                             ),
                           ),
-                          SizedBox(width: screenWidth *0.02),
+                          SizedBox(width: screenWidth * 0.02),
                           Expanded(
                             flex: 4,
                             child: TextField(
                               decoration: textFieldDecoration.copyWith(
                                 hintText: 'Organization name',
                               ),
+                              onChanged: (value) {
+                                setState(() {
+                                  name = value;
+                                });
+                              },
                             ),
                           ),
                         ],
                       ),
-                      SizedBox(height: screenHeight *0.04),
+                      SizedBox(height: screenHeight * 0.04),
                       DropdownButtonFormField<String>(
                         decoration: textFieldDecoration.copyWith(
                           hintText: "Choose Organization type",
@@ -145,10 +180,11 @@ class _RecipientSignUpState extends State<RecipientSignUp> {
                           );
                         }).toList(),
                       ),
-                      SizedBox(height: screenHeight *0.04),
+                      SizedBox(height: screenHeight * 0.04),
                       Text('Upload pictures of your place',
-                          style: textStyle.copyWith(color: const Color(0xFF838181))),
-                      SizedBox(height: screenHeight *0.01),
+                          style: textStyle.copyWith(
+                              color: const Color(0xFF838181))),
+                      SizedBox(height: screenHeight * 0.01),
                       Row(
                         children: [
                           Expanded(
@@ -177,7 +213,8 @@ class _RecipientSignUpState extends State<RecipientSignUp> {
                                 child: _imageFile3 != null
                                     ? Image.file(File(_imageFile3!.path))
                                     : const Center(
-                                        child: Icon(Icons.add), ),
+                                        child: Icon(Icons.add),
+                                      ),
                               ),
                             ),
                           ),
@@ -199,25 +236,29 @@ class _RecipientSignUpState extends State<RecipientSignUp> {
                           ),
                         ],
                       ),
-                      SizedBox(height: screenHeight *0.04),
+                      SizedBox(height: screenHeight * 0.04),
                       Text('Choose Pick-up location',
-                          style: textStyle.copyWith(color: const Color(0xFF838181))),
+                          style: textStyle.copyWith(
+                              color: const Color(0xFF838181))),
                       TextButton(
                         child: Container(
-                          height: screenHeight *0.04,
+                          height: screenHeight * 0.04,
                           width: screenWidth * 0.49,
                           decoration: formBoxDecoration,
                           child: Row(
-                            children:  [
-                              SizedBox(width: screenWidth *0.02),
+                            children: [
+                              SizedBox(width: screenWidth * 0.02),
                               const Icon(
                                 Icons.location_on,
                                 color: Color(0xFF3D8361),
                               ),
-                              SizedBox(width: screenWidth *0.02),
+                              SizedBox(width: screenWidth * 0.02),
                               const Text(
                                 'Choose Location',
-                                style: TextStyle(color: Colors.black, fontSize: 17),
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 17,
+                                ),
                               ),
                             ],
                           ),
@@ -225,31 +266,35 @@ class _RecipientSignUpState extends State<RecipientSignUp> {
                         onPressed: () async {
                           final LatLng? selectedLocation = await Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => LocationPicker(onSelect: (LatLng location) {
-                              setState(() {
-                                _selectedLocation = location; // store selected location in variable
-                              });
-                            },)),
+                            MaterialPageRoute(
+                              builder: (BuildContext context) =>
+                                  GoogleMapWidget(
+                                selectedLocation: _selectedLocation,
+                              ),
+                            ),
                           );
                           if (selectedLocation != null) {
                             setState(() {
-                              _selectedLocation = selectedLocation; // store selected location in variable
+                              _selectedLocation = selectedLocation;
                             });
                           }
                         },
                       ),
-                      if (_selectedLocation != null) // show selected location text if location is selected
-                        Text('Selected location: ${_selectedLocation!.latitude}'),
-                      SizedBox(height: screenHeight *0.04),
+                      if (_selectedLocation !=
+                          null) // show selected location text if location is selected
+                        Text(
+                            'Selected location: ${_selectedLocation!.latitude}'),
+                      SizedBox(height: screenHeight * 0.04),
                       Text(
                           'How many people are you responsible for feeding daily?',
-                          style: textStyle.copyWith(color: const Color(0xFF838181))),
+                          style: textStyle.copyWith(
+                              color: const Color(0xFF838181))),
                       Wrap(
                         children: chipLabels.map((String label) {
                           int index = chipLabels.indexOf(label);
                           return Padding(
-                            padding:
-                                 EdgeInsets.symmetric(horizontal: screenWidth > 600 ? 20 : 10),
+                            padding: EdgeInsets.symmetric(
+                                horizontal: screenWidth > 600 ? 20 : 10),
                             child: ChoiceChip(
                               label: Text(
                                 label,
@@ -271,23 +316,59 @@ class _RecipientSignUpState extends State<RecipientSignUp> {
                           );
                         }).toList(),
                       ),
-                      SizedBox(height: screenHeight *0.04),
+                      SizedBox(height: screenHeight * 0.04),
                       TextField(
-                          maxLines: null,
-                          decoration: textFieldDecoration.copyWith(hintText: 'Description')),
+                        maxLines: null,
+                        decoration:
+                            textFieldDecoration.copyWith(hintText: 'Bio'),
+                        onChanged: (value) {
+                          setState(() {
+                            bio = value;
+                          });
+                        },
+                      ),
                     ],
                   ),
                 ),
-                SizedBox(height: screenHeight *0.04),
+                SizedBox(height: screenHeight * 0.04),
                 ElevatedButton(
-                  style: buttonStyle.copyWith(
-                    minimumSize:
-                    MaterialStateProperty.all<Size>(const Size(213, 50)),
-                  ),
-                  onPressed:(){
-                    Navigator.pushNamed(context, RecipientPreferences.id);
-                  },
-                  child: const Text('Next')),
+                    style: buttonStyle.copyWith(
+                      minimumSize:
+                          MaterialStateProperty.all<Size>(const Size(213, 50)),
+                    ),
+                    onPressed: () async {
+                      bool success = await createRecipient(
+                          name,
+                          selectedType!,
+                          chipLabels[selectedChipIndex],
+                          bio,
+                          userId,
+                          placeImages,
+                          File(_imageFile1!.path),
+                          _selectedLocation!.longitude,
+                          _selectedLocation!.latitude);
+                      success
+                          ? Navigator.pushNamed(
+                              context, RecipientPreferences.id)
+                          : showDialog(
+                              context: context,
+                              builder: (BuildContext dialogContext) {
+                                return AlertDialog(
+                                  title: const Text('Error'),
+                                  content: const Text('Error adding organization'),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () {
+                                        Navigator.of(dialogContext).pop();
+                                      },
+                                      child: const Text('OK'),
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                    },
+                    child: const Text('Next')),
               ],
             ),
           ),

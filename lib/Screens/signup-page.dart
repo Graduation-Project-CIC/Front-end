@@ -295,15 +295,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           await SharedPreferences.getInstance();
                       await prefs.setString('userId', newUser.user!.uid) as String;
                      await prefs.setString('email', emailController.text);
-                      await Future.delayed(const Duration(seconds: 3));
-                      /*showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return AlertDialog(
-                            title: Text("User ID: $userID"),
-                          );
-                        },
-                      );*/
+                      Navigator.pushNamed(context, HomeScreen.id);
+
                     } catch (e) {
                       if (e is FirebaseAuthException) {
                         if (e.code == 'email-already-in-use') {

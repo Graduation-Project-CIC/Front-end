@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:full_circle/Screens/donationForm.dart';
 import 'package:full_circle/Screens/driver_welcome_page.dart';
+import 'package:full_circle/Screens/homeless_map.dart';
 import 'package:full_circle/Screens/horizontalList.dart';
 import 'package:full_circle/Screens/recipient-signUp.dart';
 import 'package:full_circle/components/DonationsList.dart';
@@ -232,7 +233,9 @@ class _HomeScreenState extends State<HomeScreen> {
                             child: Container(
                               decoration: homeMainButton,
                               child: MaterialButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  Navigator.pushNamed(context, HomelessMap.id);
+                                },
                                 child: Row(
                                   children: [
                                     Expanded(
@@ -300,7 +303,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                 ],
                               ),
                               child: MaterialButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  Navigator.pushReplacementNamed(context, RecipientSignUp.id);
+                                },
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
