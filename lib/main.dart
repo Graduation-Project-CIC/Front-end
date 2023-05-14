@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:full_circle/Screens/donorreviews.dart';
+import 'package:full_circle/Screens/driverrevies.dart';
 import 'package:full_circle/Screens/getStarted-page.dart';
 import 'package:full_circle/Screens/home-page.dart';
-import 'package:full_circle/Screens/instructionsScreens/Donor1.dart';
-import 'package:full_circle/Screens/instructionsScreens/Donor2.dart';
-import 'package:full_circle/Screens/instructionsScreens/Donor3.dart';
 import 'package:full_circle/Screens/instructionsScreens/Donors.dart';
-import 'package:full_circle/Screens/instructionsScreens/Driver1.dart';
-import 'package:full_circle/Screens/instructionsScreens/Driver2.dart';
-import 'package:full_circle/Screens/instructionsScreens/Driver3.dart';
 import 'package:full_circle/Screens/instructionsScreens/Drivers.dart';
 import 'package:full_circle/Screens/instructionsScreens/Recipients.dart';
 import 'package:full_circle/Screens/login-page.dart';
 import 'package:full_circle/Screens/onboarding-page.dart';
+import 'package:full_circle/Screens/recipientreviews.dart';
+import 'package:full_circle/Screens/reviews/donorreview1.dart';
+import 'package:full_circle/Screens/reviews/donorreview2.dart';
+import 'package:full_circle/Screens/reviews/driverriveiw1.dart';
+import 'package:full_circle/Screens/reviews/recipientreview1.dart';
 import 'Screens/donationForm.dart';
 import 'Screens/instructionsScreen.dart';
 import 'Screens/recipient-signUp.dart';
@@ -35,17 +36,24 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      initialRoute: GetStarted.id,
+      //initialRoute: GetStarted.id,
+      initialRoute: RecipientReview1.id,
       //initialRoute: Recipientsinstructions.id,
       //initialRoute: MyScreen.id,
       routes: {
         WelcomeScreen.id: (context) => const WelcomeScreen(),
         RegisterScreen.id: (context) => const RegisterScreen(),
-        //id bta3 el page bta3k example: instructions.id
         MyScreen.id: (context) => const MyScreen(),
         DonorsInstructions.id: (context) => const DonorsInstructions(),
         DriversInstructions.id: (context) => const DriversInstructions(),
         Recipientsinstructions.id: (context) => const Recipientsinstructions(),
+        DriverReviews.id: (context) => const DriverReviews(),
+        DriverReview1.id: (context) =>  DriverReview1(),
+        DonorReviews.id: (context) => const DonorReviews(),
+        DonorReview1.id: (context) => const DonorReview1(),
+        DonorReview2.id: (context) => const DonorReview2(),
+        RecipientReviews.id: (context) => const RecipientReviews(),
+        RecipientReview1.id: (context) => const RecipientReview1(),
         HomeScreen.id: (context) => const HomeScreen(),
         LoginScreen.id: (context) => const LoginScreen(),
         OnBoardingScreen.id: (context) => const OnBoardingScreen(),

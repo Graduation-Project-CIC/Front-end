@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:full_circle/Screens/home-page.dart';
-import 'package:full_circle/Screens/reviews/donorriveiw1.dart';
+import 'package:full_circle/Screens/reviews/driverriveiw1.dart';
 import '../../design.dart';
 
-class DonorReviews extends StatelessWidget {
-  const DonorReviews({Key? key}) : super(key: key);
-  static const String id = 'DonorReviews';
+class DriverReviews extends StatelessWidget {
+  const DriverReviews({Key? key}) : super(key: key);
+  static const String id = 'DriverReviews';
 
   @override
   Widget build(BuildContext context) {
@@ -94,7 +94,7 @@ class DonorReviews extends StatelessWidget {
                         ),
                       ),
                       onPressed: () {
-                        Navigator.pushNamed(context, DonorReview1.id);
+                        Navigator.pushNamed(context, DriverReview1.id);
                       },
                     ),
                   ),

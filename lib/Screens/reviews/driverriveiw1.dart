@@ -2,22 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 
-class DonorReview1 extends StatefulWidget {
-  const DonorReview1({Key? key}) : super(key: key);
+class DriverReview1 extends StatefulWidget {
+  const DriverReview1({Key? key}) : super(key: key);
 
-  static const String id = 'DonorReview1';
+  static const String id = 'DriverReview1';
 
   @override
-  _DonorReview1 createState() => _DonorReview1();
+  _DriverReview1 createState() => _DriverReview1();
 }
 
-class _DonorReview1 extends State<DonorReview1> {
+class _DriverReview1 extends State<DriverReview1> {
   double _rating = 0;
   double _pickupConvenience = 0;
   double _donorDestination = 0;
   double _packaging = 0;
   String _additionalNotes = '';
-  bool _isYesSelected = false;
+  bool _correctAddress = true;
   bool isChecked = false;
   //bool isChecked = false;
 
@@ -213,13 +213,13 @@ class _DonorReview1 extends State<DonorReview1> {
                       style:  ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xff3D8361),
                       ),
-            onPressed: () {
-      setState(() {
-      _isYesSelected = true;
-      });
-      },
-        child: Text('Yes'),
-      ),
+                      onPressed: () {
+                        setState(() {
+                           _correctAddress = true;
+                                   });
+                                    },
+                            child: Text('Yes'),
+                             ),
 
                   ElevatedButton(
                     style:  ElevatedButton.styleFrom(
@@ -227,14 +227,15 @@ class _DonorReview1 extends State<DonorReview1> {
                     ),
                     onPressed: () {
                       setState(() {
-                        _isYesSelected = false;
+                        _correctAddress = false;
                       });
                     },
                     child: Text('No'),
                   ),
         ],
                 ),
-              ),SizedBox(height: sizedBoxHeight1),
+              ),
+              SizedBox(height: sizedBoxHeight1),
               Row(
                 children: [
                   Checkbox(

@@ -1,14 +1,11 @@
-// ignore_for_file: depend_on_referenced_packages
-
 import 'package:flutter/material.dart';
 import 'package:full_circle/design.dart';
 import 'package:image_picker/image_picker.dart';
-import '../design.dart';
 import 'dart:io';
+import 'package:intl/intl.dart';
 import '../map.dart';
 import 'home-page.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:intl/intl.dart';
 
 // ignore: must_be_immutable
 class DonationForm extends StatefulWidget {
