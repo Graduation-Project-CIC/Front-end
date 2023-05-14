@@ -4,6 +4,8 @@ import 'package:full_circle/Screens/mark_homeless.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geolocator/geolocator.dart';
 import '../design.dart';
+import '../services/donationService.dart';
+import '../services/homelessSerivce.dart';
 
 class HomelessMap extends StatefulWidget {
   const HomelessMap({Key? key}) : super(key: key);
@@ -14,17 +16,30 @@ class HomelessMap extends StatefulWidget {
 }
 
 class _HomelessMapState extends State<HomelessMap> {
+  final homelessService = HomelessService();
   final Completer<GoogleMapController> _controller = Completer();
-  CameraPosition? _currentPosition;
+  late CameraPosition _currentPosition = const CameraPosition(
+      target: LatLng(30.0444, 31.2357), zoom: 15);
   Positioned? _userLocation;
   int _selectedIndex = 0;
+  List<Homeless> homeless = [];
   final Set<Marker> _markers = {};
 
   @override
   void initState() {
     super.initState();
     _getUserLocation();
-    _addFixedMarkers();
+    _fetchHomeless();
+  }
+
+  Future<void> _fetchHomeless() async {
+    final response = await homelessService.getAllHomeless();
+    _addMarkers(response);
+    print(response);
+    setState(() {
+      homeless = response;
+      print(homeless);
+    });
   }
 
   void _onItemTapped(int index) {
@@ -48,24 +63,16 @@ class _HomelessMapState extends State<HomelessMap> {
     } catch (e) {print(e);}
   }
 
-  void _addFixedMarkers() {
-    _markers.add(const Marker(
-      markerId: MarkerId('1'),
-      position: LatLng(30.16216216216216, 31.592760026293444),
-      infoWindow: InfoWindow(title: 'Marker 1'),
-    ));
-    _markers.add(const Marker(
-      markerId: MarkerId('2'),
-      position: LatLng(30.17216216216216, 31.592760026293444),
-      infoWindow: InfoWindow(title: 'Marker 2'),
-    ));
-    _markers.add(const Marker(
-      markerId: MarkerId('3'),
-      position: LatLng(30.19216216216216, 31.592760026293444),
-      infoWindow: InfoWindow(title: 'Marker 3'),
-    ));
+  void _addMarkers(List<Homeless> homelessList) {
+    for (final homeless in homelessList) {
+      final marker = Marker(
+        markerId: MarkerId(homeless.id.toString()),
+        position: LatLng(homeless.latitude, homeless.longitude),
+        infoWindow: InfoWindow(title: homeless.description, snippet: homeless.address),
+      );
+      _markers.add(marker);
+    }
   }
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -73,12 +80,12 @@ class _HomelessMapState extends State<HomelessMap> {
         body: Stack(
           children: [
             GoogleMap(
-              initialCameraPosition: _currentPosition!,
+              initialCameraPosition: _currentPosition,
               onMapCreated: (GoogleMapController controller) {
                 _controller.complete(controller);
               },
               myLocationEnabled: true,
-              myLocationButtonEnabled: false,
+              myLocationButtonEnabled: true,
               markers: _markers,
             ),
             if (_userLocation != null) _userLocation!,
@@ -91,7 +98,7 @@ class _HomelessMapState extends State<HomelessMap> {
           backgroundColor: const Color(0xFF3D8361),
           child: const Icon(Icons.add_location_alt),
         ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
+        floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
         bottomNavigationBar: NavBar(_selectedIndex, _onItemTapped),
       ),
     );

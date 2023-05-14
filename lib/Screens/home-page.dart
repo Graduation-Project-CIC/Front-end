@@ -303,7 +303,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                 ],
                               ),
                               child: MaterialButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  Navigator.pushReplacementNamed(context, RecipientSignUp.id);
+                                },
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,

@@ -1,7 +1,11 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:full_circle/Screens/homeless_map.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geolocator/geolocator.dart';
+import '../services/homelessSerivce.dart';
 import 'home-page.dart';
 
 class MarkHomeless extends StatefulWidget {
@@ -13,9 +17,16 @@ class MarkHomeless extends StatefulWidget {
 }
 
 class _MarkHomelessState extends State<MarkHomeless> {
+  final homelessService = HomelessService();
   final Completer<GoogleMapController> _controller = Completer();
-  CameraPosition? _currentPosition;
+  CameraPosition _currentPosition = const CameraPosition(
+  target: LatLng(30.0444, 31.2357), zoom: 15);
   final Set<Marker> _markers = {};
+  LatLng? _selectedLocation;
+  final TextEditingController addressTextEditingController =
+      TextEditingController();
+  final TextEditingController descriptionTextEditingController =
+      TextEditingController();
 
   @override
   void initState() {
@@ -34,15 +45,35 @@ class _MarkHomelessState extends State<MarkHomeless> {
     } catch (e) {}
   }
 
-  void _addNewMarker(double latitude, double longitude, String description) {
-    final newMarker = Marker(
-      markerId: MarkerId(_markers.length.toString()),
-      position: LatLng(latitude, longitude),
-      infoWindow: InfoWindow(title: description),
+  void _addNewMarker(double latitude, double longitude, String description,
+      String address) async {
+    print('inside add marker');
+    bool success = await homelessService.createHomeless(
+      longitude,
+      latitude,
+      address,
+      description,
     );
-    setState(() {
-      _markers.add(newMarker);
-    });
+    success
+        ? Navigator.push(context,
+            MaterialPageRoute(builder: (context) => const HomelessMap()))
+        : showDialog(
+            context: context,
+            builder: (BuildContext dialogContext) {
+              return AlertDialog(
+                title: const Text('Error'),
+                content: const Text('Error adding location'),
+                actions: [
+                  TextButton(
+                    onPressed: () {
+                      Navigator.of(dialogContext).pop();
+                    },
+                    child: const Text('OK'),
+                  ),
+                ],
+              );
+            },
+          );
   }
 
   @override
@@ -52,30 +83,35 @@ class _MarkHomelessState extends State<MarkHomeless> {
         body: Stack(
           children: [
             GoogleMap(
-                initialCameraPosition: _currentPosition!,
+                initialCameraPosition: _currentPosition,
                 onMapCreated: (GoogleMapController controller) {
                   _controller.complete(controller);
                 },
                 myLocationEnabled: true,
                 myLocationButtonEnabled: true,
                 markers: _markers,
-                onTap:(LatLng latLng) {
+                onTap: (LatLng latLng) {
+                  setState(() {
+                    _selectedLocation = latLng;
+                  });
                   showDialog(
                     context: context,
                     builder: (BuildContext context) {
-                      final latitude = latLng.latitude;
-                      final longitude = latLng.longitude;
-                      final TextEditingController textEditingController =
-                      TextEditingController();
                       return AlertDialog(
                         title: const Text('Add a new marker'),
                         content: Column(
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             TextField(
-                              controller: textEditingController,
+                              controller: descriptionTextEditingController,
                               decoration: const InputDecoration(
                                 labelText: 'Description',
+                              ),
+                            ),
+                            TextField(
+                              controller: addressTextEditingController,
+                              decoration: const InputDecoration(
+                                labelText: 'Address',
                               ),
                             ),
                           ],
@@ -90,10 +126,14 @@ class _MarkHomelessState extends State<MarkHomeless> {
                           TextButton(
                             onPressed: () {
                               final description =
-                                  textEditingController.text;
-                              if (description.isNotEmpty) {
+                                  descriptionTextEditingController.text;
+                              final address = addressTextEditingController.text;
+                              if (address.isNotEmpty) {
                                 _addNewMarker(
-                                    latitude, longitude, description);
+                                    _selectedLocation!.latitude,
+                                    _selectedLocation!.longitude,
+                                    description,
+                                    address);
                               }
                               Navigator.pop(context);
                             },
@@ -103,8 +143,7 @@ class _MarkHomelessState extends State<MarkHomeless> {
                       );
                     },
                   );
-                }
-            ),
+                }),
             Positioned(
               child: IconButton(
                 icon: const Icon(Icons.arrow_back),
