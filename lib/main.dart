@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:full_circle/Screens/Tracking%20Screens/matching.dart';
+import 'package:full_circle/Screens/Tracking%20Screens/recipientMatch.dart';
 import 'package:full_circle/Screens/driver_sign_up.dart';
 import 'package:full_circle/Screens/driver_welcome_page.dart';
 import 'package:full_circle/Screens/getStarted-page.dart';
@@ -34,9 +36,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      initialRoute: GetStarted.id,
+      initialRoute: Matching.id,
       routes: {
         WelcomeScreen.id: (context) => const WelcomeScreen(),
+        Matching.id: (context) => const Matching(),
+        RecipientMatching.id: (context) => const RecipientMatching(),
         RegisterScreen.id: (context) => const RegisterScreen(),
         MarkHomeless.id: (context) => const MarkHomeless(),
         DriverSignUp.id: (context) => const DriverSignUp(),
