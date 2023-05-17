@@ -3,6 +3,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:full_circle/Screens/Tracking%20Screens/matching.dart';
 import 'package:full_circle/Screens/Tracking%20Screens/recipientMatch.dart';
 import 'package:full_circle/Screens/DoneTracking/NewTracking.dart';
+import 'package:full_circle/Screens/donationDetails.dart';
 import 'package:full_circle/Screens/driver_sign_up.dart';
 import 'package:full_circle/Screens/driver_welcome_page.dart';
 import 'package:full_circle/Screens/Safety%20check/SafetyCheck2.dart';

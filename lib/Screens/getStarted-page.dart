@@ -4,7 +4,6 @@ import 'package:full_circle/Screens/onboarding-page.dart';
 import 'package:full_circle/Screens/welcome-page.dart';
 import '../design.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import 'home-page.dart';
 
 class GetStarted extends StatefulWidget {
