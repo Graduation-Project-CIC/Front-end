@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:full_circle/Screens/DoneTracking/NewTracking.dart';
 import 'package:full_circle/Screens/driver_sign_up.dart';
 import 'package:full_circle/Screens/driver_welcome_page.dart';
 import 'package:full_circle/Screens/getStarted-page.dart';
@@ -35,6 +36,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       initialRoute: GetStarted.id,
+      //initialRoute: DoneTracking.id,
+
       routes: {
         WelcomeScreen.id: (context) => const WelcomeScreen(),
         RegisterScreen.id: (context) => const RegisterScreen(),
@@ -46,6 +49,7 @@ class MyApp extends StatelessWidget {
         DriversInstructions.id: (context) => const DriversInstructions(),
         DriverWelcomePage.id: (context) => const DriverWelcomePage(),
         Recipientsinstructions.id: (context) => const Recipientsinstructions(),
+        DoneTracking.id: (context) => const DoneTracking(),
         HomeScreen.id: (context) => const HomeScreen(),
         LoginScreen.id: (context) => const LoginScreen(),
         OnBoardingScreen.id: (context) => const OnBoardingScreen(),
