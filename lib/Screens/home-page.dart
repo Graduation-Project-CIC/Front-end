@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:full_circle/Screens/donationForm.dart';
+import 'package:full_circle/Screens/getStarted-page.dart';
 import 'package:full_circle/Screens/homeless_map.dart';
 import 'package:full_circle/Screens/recipient-signUp.dart';
 import 'package:full_circle/components/DonationsList.dart';
@@ -92,10 +93,12 @@ class _HomeScreenState extends State<HomeScreen> {
                       await FirebaseAuth.instance.signOut();
                       SharedPreferences prefs = await SharedPreferences.getInstance();
                       prefs.remove('userId');
+                      Navigator.pushNamed(context, GetStarted.id);
                     } catch (error) {
                       if (kDebugMode) {
                         print('Error removing user ID from SharedPreferences: $error');
                       }
+
                     }
                     },
                   leading: const Icon(Icons.logout),
