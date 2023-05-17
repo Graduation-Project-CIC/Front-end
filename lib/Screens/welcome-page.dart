@@ -8,6 +8,7 @@ import 'package:full_circle/design.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class WelcomeScreen extends StatefulWidget {
   const WelcomeScreen({Key? key}) : super(key: key);
@@ -20,6 +21,10 @@ class WelcomeScreen extends StatefulWidget {
 class _WelcomeScreenState extends State<WelcomeScreen> {
   bool showSpinner = false;
 
+  Future<void> saveUserId(String userId) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('userId', userId);
+  }
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
@@ -119,11 +124,12 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                           await googleUser.authentication;
                           final credential = GoogleAuthProvider.credential(
                             accessToken: googleAuth.accessToken,
-                            idToken: googleAuth.idToken,
-                          );
-                          final UserCredential userCredential =
-                          await FirebaseAuth.instance
+                            idToken: googleAuth.idToken);
+                          final UserCredential userCredential = await FirebaseAuth.instance
                               .signInWithCredential(credential);
+                          SharedPreferences prefs =
+                          await SharedPreferences.getInstance();
+                          await prefs.setString('userId', userCredential.user!.uid);
                           // Navigate to home screen after successful sign-in
                           Navigator.pushReplacementNamed(
                               context, HomeScreen.id);
