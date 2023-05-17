@@ -3,15 +3,19 @@ import 'package:full_circle/services/donationService.dart';
 import 'package:intl/intl.dart';
 
 import '../design.dart';
+import 'donationDetails.dart';
 
 class CustomListTile extends StatelessWidget {
   final String title;
   final String? area;
+  final Donation donation;
   final String timeInterval;
 
-  const CustomListTile({super.key,
+  const CustomListTile({
+    super.key,
     required this.title,
     required this.area,
+    required this.donation,
     required this.timeInterval,
   });
 
@@ -22,7 +26,6 @@ class CustomListTile extends StatelessWidget {
 
     return Container(
       width: screenWidth * 0.5,
-
       margin: EdgeInsets.all(screenWidth * 0.015),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),
@@ -45,7 +48,8 @@ class CustomListTile extends StatelessWidget {
                 title,
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  fontSize: screenWidth * 0.045, // adjust font size based on screen size
+                  fontSize: screenWidth *
+                      0.045, // adjust font size based on screen size
                 ),
               ),
             ),
@@ -54,7 +58,8 @@ class CustomListTile extends StatelessWidget {
               child: Text(
                 area!,
                 style: TextStyle(
-                  fontSize: screenWidth * 0.050, // adjust font size based on screen size
+                  fontSize: screenWidth *
+                      0.050, // adjust font size based on screen size
                 ),
               ),
             ),
@@ -63,7 +68,8 @@ class CustomListTile extends StatelessWidget {
               child: Text(
                 timeInterval,
                 style: TextStyle(
-                  fontSize: screenWidth * 0.035, // adjust font size based on screen size
+                  fontSize: screenWidth *
+                      0.035, // adjust font size based on screen size
                 ),
               ),
             ),
@@ -71,7 +77,7 @@ class CustomListTile extends StatelessWidget {
               padding: EdgeInsets.all(paddingSize),
               child: ElevatedButton(
                 onPressed: () {
-                  // Add your code here to show more details
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => DonationDetails(donation: donation),),);
                 },
                 child: const Text('See Details   >>'),
                 style: ElevatedButton.styleFrom(
@@ -89,7 +95,8 @@ class CustomListTile extends StatelessWidget {
 }
 
 class HorizontalList extends StatelessWidget {
-  const HorizontalList({Key? key, required List<Donation> donations}) : super(key: key);
+  const HorizontalList({Key? key, required List<Donation> donations})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -97,11 +104,15 @@ class HorizontalList extends StatelessWidget {
       future: getDonations(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF3D8361))));
+          return const Center(
+              child: CircularProgressIndicator(
+                  valueColor:
+                      AlwaysStoppedAnimation<Color>(Color(0xFF3D8361))));
         }
 
         if (snapshot.hasError) {
-          return const Center(child: Text('Error occurred while fetching donations'));
+          return const Center(
+              child: Text('Error occurred while fetching donations'));
         }
 
         final donations = snapshot.data ?? [];
@@ -115,7 +126,9 @@ class HorizontalList extends StatelessWidget {
               return CustomListTile(
                 title: donations[index].title,
                 area: donations[index].area,
-                timeInterval: 'Pickup between ${DateFormat('yyyy-MM-dd HH:mm').format(donations[index].pickUpTimestampStart)} and ${DateFormat('yyyy-MM-dd HH:mm').format(donations[index].pickUpTimestampEnd)}',
+                donation: donations[index],
+                timeInterval:
+                    'Pickup between ${DateFormat('yyyy-MM-dd HH:mm').format(donations[index].pickUpTimestampStart)} and ${DateFormat('yyyy-MM-dd HH:mm').format(donations[index].pickUpTimestampEnd)}',
               );
             },
           ),
@@ -124,4 +137,3 @@ class HorizontalList extends StatelessWidget {
     );
   }
 }
-

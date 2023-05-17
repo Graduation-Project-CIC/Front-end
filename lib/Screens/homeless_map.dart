@@ -18,7 +18,7 @@ class HomelessMap extends StatefulWidget {
 class _HomelessMapState extends State<HomelessMap> {
   final homelessService = HomelessService();
   final Completer<GoogleMapController> _controller = Completer();
-  late CameraPosition _currentPosition = const CameraPosition(
+  late CameraPosition _currentPosition =  CameraPosition(
       target: LatLng(30.0444, 31.2357), zoom: 15);
   Positioned? _userLocation;
   int _selectedIndex = 0;
@@ -60,7 +60,7 @@ class _HomelessMapState extends State<HomelessMap> {
         _currentPosition = CameraPosition(
             target: LatLng(position.latitude, position.longitude), zoom: 15);
       });
-    } catch (e) {print(e);}
+    } catch (e) {print('failed to fetch user location $e');}
   }
 
   void _addMarkers(List<Homeless> homelessList) {

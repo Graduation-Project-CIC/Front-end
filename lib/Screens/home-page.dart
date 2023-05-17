@@ -1,11 +1,13 @@
 // ignore_for_file: file_names, library_private_types_in_public_api
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:full_circle/Screens/donationForm.dart';
-import 'package:full_circle/Screens/driver_welcome_page.dart';
+import 'package:full_circle/Screens/getStarted-page.dart';
 import 'package:full_circle/Screens/homeless_map.dart';
-import 'package:full_circle/Screens/horizontalList.dart';
 import 'package:full_circle/Screens/recipient-signUp.dart';
 import 'package:full_circle/components/DonationsList.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../design.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -14,8 +16,6 @@ class HomeScreen extends StatefulWidget {
 
   @override
   _HomeScreenState createState() => _HomeScreenState();
-
-
 }
 
 class _HomeScreenState extends State<HomeScreen> {
@@ -51,38 +51,60 @@ class _HomeScreenState extends State<HomeScreen> {
         return Scaffold(
           key: _scaffoldKey,
           drawer: Drawer(
-            child: ListView.builder(
-              shrinkWrap: true,
-              itemCount: menuItems.length,
-              itemBuilder: (BuildContext context, int index) {
-                return InkWell(
-                  onTap: () {
-                    _onMenuTapped(index);
-                  },
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: MediaQuery.of(context).size.width * 0.04,
-                      vertical: MediaQuery.of(context).size.height * 0.02,
-                    ),
-                    child: Row(
-                      children: [
-                        const SizedBox(
-                          width: 8.0,
-                          height: 8.0,
-                          child: DecoratedBox(
-                            decoration: BoxDecoration(
-                              color: Colors.black,
-                              shape: BoxShape.circle,
-                            ),
-                          ),
+            child: Column(
+              children: [
+                ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: menuItems.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return InkWell(
+                      onTap: () {
+                        _onMenuTapped(index);
+                      },
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: MediaQuery.of(context).size.width * 0.04,
+                          vertical: MediaQuery.of(context).size.height * 0.02,
                         ),
-                        const SizedBox(width: 16.0),
-                        Text(menuItems[index], style: textStyle),
-                      ],
-                    ),
-                  ),
-                );
-              },
+                        child: Row(
+                          children: [
+                            const SizedBox(
+                              width: 8.0,
+                              height: 8.0,
+                              child: DecoratedBox(
+                                decoration: BoxDecoration(
+                                  color: Colors.black,
+                                  shape: BoxShape.circle,
+                                ),
+                              ),
+                            ),
+                            const SizedBox(width: 16.0),
+                            Text(menuItems[index], style: textStyle),
+                          ],
+                        ),
+                      ),
+                    );
+                  },
+                ),
+                SizedBox(height: MediaQuery.of(context).size.height * 0.62),
+                ListTile(
+                  onTap: ()async  {
+                    try {
+                      await FirebaseAuth.instance.signOut();
+                      SharedPreferences prefs = await SharedPreferences.getInstance();
+                      prefs.remove('userId');
+                      Navigator.pushNamed(context, GetStarted.id);
+                    } catch (error) {
+                      if (kDebugMode) {
+                        print('Error removing user ID from SharedPreferences: $error');
+                      }
+
+                    }
+                    },
+                  leading: const Icon(Icons.logout),
+                  title: const Text('Sign Out', style: textStyle),
+                ),
+              ],
             ),
           ),
           body: SafeArea(
