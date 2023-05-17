@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:full_circle/Screens/Tracking%20Screens/matching.dart';
 import 'package:full_circle/Screens/Tracking%20Screens/recipientMatch.dart';
+import 'package:full_circle/Screens/DoneTracking/NewTracking.dart';
 import 'package:full_circle/Screens/driver_sign_up.dart';
 import 'package:full_circle/Screens/driver_welcome_page.dart';
 import 'package:full_circle/Screens/Safety%20check/SafetyCheck2.dart';
@@ -45,7 +46,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      initialRoute: Matching.id,
+      initialRoute: GetStarted.id,
+      //initialRoute: DoneTracking.id,
+
       routes: {
         WelcomeScreen.id: (context) => const WelcomeScreen(),
         Matching.id: (context) => const Matching(),
@@ -68,6 +71,7 @@ class MyApp extends StatelessWidget {
         RecipientReview1.id: (context) => const RecipientReview1(),
         SafetyCheck1.id: (context) => const SafetyCheck1(),
         SafetyCheck2.id: (context) => const SafetyCheck2(),
+        DoneTracking.id: (context) => const DoneTracking(),
         HomeScreen.id: (context) => const HomeScreen(),
         LoginScreen.id: (context) => const LoginScreen(),
         OnBoardingScreen.id: (context) => const OnBoardingScreen(),
