@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:full_circle/Screens/Safety%20check/SafetyCheck2.dart';
 import 'package:full_circle/Screens/donorreviews.dart';
 import 'package:full_circle/Screens/driverrevies.dart';
 import 'package:full_circle/Screens/getStarted-page.dart';
@@ -9,6 +10,7 @@ import 'package:full_circle/Screens/instructionsScreens/Recipients.dart';
 import 'package:full_circle/Screens/login-page.dart';
 import 'package:full_circle/Screens/onboarding-page.dart';
 import 'package:full_circle/Screens/recipientreviews.dart';
+import 'package:full_circle/Screens/Safety%20check/Safety%20Check.dart';
 import 'package:full_circle/Screens/reviews/donorreview1.dart';
 import 'package:full_circle/Screens/reviews/donorreview2.dart';
 import 'package:full_circle/Screens/reviews/driverriveiw1.dart';
@@ -37,7 +39,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       //initialRoute: GetStarted.id,
-      initialRoute: RecipientReview1.id,
+      initialRoute: SafetyCheck1.id,
       //initialRoute: Recipientsinstructions.id,
       //initialRoute: MyScreen.id,
       routes: {
@@ -54,6 +56,8 @@ class MyApp extends StatelessWidget {
         DonorReview2.id: (context) => const DonorReview2(),
         RecipientReviews.id: (context) => const RecipientReviews(),
         RecipientReview1.id: (context) => const RecipientReview1(),
+        SafetyCheck1.id: (context) => const SafetyCheck1(),
+        SafetyCheck2.id: (context) => const SafetyCheck2(),
         HomeScreen.id: (context) => const HomeScreen(),
         LoginScreen.id: (context) => const LoginScreen(),
         OnBoardingScreen.id: (context) => const OnBoardingScreen(),
