@@ -21,10 +21,6 @@ class WelcomeScreen extends StatefulWidget {
 class _WelcomeScreenState extends State<WelcomeScreen> {
   bool showSpinner = false;
 
-  Future<void> saveUserId(String userId) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString('userId', userId);
-  }
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;

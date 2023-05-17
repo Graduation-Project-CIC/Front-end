@@ -8,6 +8,7 @@ import 'package:full_circle/Screens/signup-page.dart';
 import 'package:full_circle/Screens/welcome-page.dart';
 import 'package:full_circle/design.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -18,7 +19,6 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final _auth = FirebaseAuth.instance;
   String email ='' ;
   String password= '';
   @override
@@ -216,12 +216,13 @@ class _LoginScreenState extends State<LoginScreen> {
                           final GoogleSignInAuthentication googleAuth =
                           await googleUser.authentication;
                           final credential = GoogleAuthProvider.credential(
-                            accessToken: googleAuth.accessToken,
-                            idToken: googleAuth.idToken,
-                          );
-                          final UserCredential userCredential =
-                          await FirebaseAuth.instance
+                              accessToken: googleAuth.accessToken,
+                              idToken: googleAuth.idToken);
+                          final UserCredential userCredential = await FirebaseAuth.instance
                               .signInWithCredential(credential);
+                          SharedPreferences prefs =
+                          await SharedPreferences.getInstance();
+                          await prefs.setString('userId', userCredential.user!.uid);
                           // Navigate to home screen after successful sign-in
                           Navigator.pushReplacementNamed(
                               context, HomeScreen.id);
