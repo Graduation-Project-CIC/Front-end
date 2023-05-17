@@ -10,6 +10,7 @@ import 'package:full_circle/Screens/instructionsScreens/Drivers.dart';
 import 'package:full_circle/Screens/instructionsScreens/Recipients.dart';
 import 'package:full_circle/Screens/login-page.dart';
 import 'package:full_circle/Screens/onboarding-page.dart';
+import 'package:full_circle/Screens/tracking/DoneTracking.dart';
 import 'Screens/donationForm.dart';
 import 'Screens/instructionsScreen.dart';
 import 'Screens/mark_homeless.dart';
@@ -34,6 +35,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      //initialRoute: GetStarted.id,
       initialRoute: GetStarted.id,
       routes: {
         WelcomeScreen.id: (context) => const WelcomeScreen(),
@@ -46,6 +48,7 @@ class MyApp extends StatelessWidget {
         DriversInstructions.id: (context) => const DriversInstructions(),
         DriverWelcomePage.id: (context) => const DriverWelcomePage(),
         Recipientsinstructions.id: (context) => const Recipientsinstructions(),
+        DoneTracking.id: (context) => const DoneTracking(),
         HomeScreen.id: (context) => const HomeScreen(),
         LoginScreen.id: (context) => const LoginScreen(),
         OnBoardingScreen.id: (context) => const OnBoardingScreen(),
