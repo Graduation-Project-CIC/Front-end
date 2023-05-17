@@ -215,11 +215,11 @@ class _SafetyCheck1 extends State<SafetyCheck1> {
               },
             ),
 
-            //SizedBox(height: sizedBoxHeight1),
+            SizedBox(height: sizedBoxHeight1),
             Text(
               'Cooked Meals',
               style: TextStyle(fontSize: fontSize3,fontWeight: FontWeight.bold),
-            ),
+            ),SizedBox(height: sizedBoxHeight1),
             Text(
               'Is there expiry date on meals?',
               style: TextStyle(fontSize: fontSize2),
@@ -408,8 +408,8 @@ class _SafetyCheck1 extends State<SafetyCheck1> {
                           child: Row(
                             children: [
                               Icon(
-                                Icons.back_hand,
-                                color: Colors.white,
+                                Icons.arrow_back,
+                                color: Colors.black,
                                 size: pointSize,
                               ),
                               Text(
@@ -437,7 +437,7 @@ class _SafetyCheck1 extends State<SafetyCheck1> {
                           child: Row(
                             children: [
                               Icon(
-                                Icons.arrow_right,
+                                Icons.arrow_circle_right,
                                 color: Colors.white,
                                 size: pointSize,
                               ),
