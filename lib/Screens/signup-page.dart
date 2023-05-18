@@ -58,6 +58,33 @@ class _RegisterScreenState extends State<RegisterScreen> {
     });
   }
 
+  void _signUp() async {
+    try {
+      final newUser =
+          await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: emailController.text,
+        password: passwordController.text,
+      );
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      await prefs.setString('userId', newUser.user!.uid) as String;
+      final success = await prefs.setString('email', emailController.text);
+      // if (!context.mounted) return;
+      await Future.delayed(const Duration(seconds: 2));
+    } catch (e) {
+      if (e is FirebaseAuthException) {
+        if (e.code == 'email-already-in-use') {
+          setState(() {
+            emailErrorMessage = 'This email is already in use.';
+          });
+        } else if (e.code == 'weak-password') {
+          setState(() {
+            passwordErrorMessage = 'Password should be at least 6 characters.';
+          });
+        }
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
@@ -284,33 +311,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                   //Disable the button if any field is empty or checkbox is unchecked
                   //otherwise enable it
-                  onPressed: () async {
-                    try {
-                      final newUser = await FirebaseAuth.instance
-                          .createUserWithEmailAndPassword(
-                        email: emailController.text,
-                        password: passwordController.text,
-                      );
-                      SharedPreferences prefs =
-                          await SharedPreferences.getInstance();
-                      await prefs.setString('userId', newUser.user!.uid) as String;
-                     await prefs.setString('email', emailController.text);
-                      Navigator.pushNamed(context, HomeScreen.id);
-
-                    } catch (e) {
-                      if (e is FirebaseAuthException) {
-                        if (e.code == 'email-already-in-use') {
-                          setState(() {
-                            emailErrorMessage = 'This email is already in use.';
-                          });
-                        } else if (e.code == 'weak-password') {
-                          setState(() {
-                            passwordErrorMessage =
-                                'Password should be at least 6 characters.';
-                          });
-                        }
-                      }
-                    }
+                  onPressed: () {
+                    _signUp();
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => HomeScreen(),
+                      ),
+                    );
                   },
                   child: const Text('Sign Up'),
                 ),

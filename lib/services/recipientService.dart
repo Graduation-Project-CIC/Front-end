@@ -1,22 +1,23 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 
-Future<bool> createRecipient(
-    String name,
-    String type,
-    String amountOfPeople,
-    String bio,
-    String userId,
-    List<File> pictures,
-    File logo,
-    double? longitude,
-    double? latitude,
-    ) async {
+Future<String?> createRecipient(
+  String name,
+  String type,
+  String amountOfPeople,
+  String bio,
+  String userId,
+  List<File> pictures,
+  File logo,
+  double? longitude,
+  double? latitude,
+) async {
   final apiUrl = dotenv.env['API_URL'];
   final url = '$apiUrl/recipient';
-print('amountOfPeople: $amountOfPeople');
+  print('amountOfPeople: $amountOfPeople');
   var request = http.MultipartRequest('POST', Uri.parse(url));
 
   request.fields.addAll({
@@ -53,12 +54,39 @@ print('amountOfPeople: $amountOfPeople');
   }
 
   var response = await request.send();
-print(response.statusCode);
-  if (response.statusCode == 200) {
+  var stringResponse = await response.stream.bytesToString();
+  var jsonResponse = jsonDecode(stringResponse);
+  var id = jsonResponse['id'].toString();
+
+  if (response.statusCode == 200 && id.isNotEmpty) {
     print('Recipient created successfully');
-    return true;
+    return id;
   } else {
-    print('Error creating recipient ${response.stream.bytesToString()}');
-    return false;
+    print('Error creating recipient ${await response.stream.bytesToString()}');
+    return null;
   }
 }
+
+Future<bool> addPreferences(String mealType, List<String> preferences, String id) async {
+  final headers = {'Content-Type': 'application/json'};
+  final apiUrl = dotenv.env['API_URL'];
+  final url = '$apiUrl/recipient/$id/preferences';
+
+  final response = await http.post(
+    Uri.parse(url),
+    headers: headers,
+    body: json.encode({
+      "mealType": mealType,
+      "preferences": preferences,
+    }),
+  );
+
+  if (response.statusCode == 200) {
+    print('response body: ${response.body}');
+    return true; // Indicate success
+  } else {
+    print(response.reasonPhrase);
+    return false; // Indicate failure
+  }
+}
+
