@@ -1,10 +1,13 @@
 // ignore_for_file: file_names
 import 'package:flutter/material.dart';
+import 'package:full_circle/Screens/home-page.dart';
 import '../design.dart';
+import '../services/recipientService.dart';
 
 class RecipientPreferences extends StatefulWidget {
-  const RecipientPreferences({Key? key}) : super(key: key);
+  const RecipientPreferences({Key? key, required this.recipientid}) : super(key: key);
   static const String id = 'recipient_preferences';
+  final String recipientid;
 
   @override
   // ignore: library_private_types_in_public_api
@@ -14,6 +17,24 @@ class RecipientPreferences extends StatefulWidget {
 class _RecipientPreferencesState extends State<RecipientPreferences> {
   int selectedChipIndex = 0;
   List<bool> checkedItems = List.filled(8, false);
+  List<String> getFinalPreferences(
+      List<bool> checkedItems, List<String> preferencesCheckBox) {
+    List<String> finalPreferences = [];
+
+    for (int i = 0; i < checkedItems.length; i++) {
+      if (checkedItems[i]) {
+        if (i < preferencesCheckBox.length) {
+          finalPreferences.add(preferencesCheckBox[i]);
+        } else {
+          // Handle index out of bounds exception
+          finalPreferences.add('Index out of bounds');
+        }
+      }
+    }
+
+    return finalPreferences;
+  }
+
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
@@ -36,7 +57,7 @@ class _RecipientPreferencesState extends State<RecipientPreferences> {
               ),
               Padding(
                 padding: EdgeInsets.only(
-                  left: screenWidth* 0.03,
+                  left: screenWidth * 0.03,
                   right: screenWidth * 0.03,
                 ),
                 child: Column(
@@ -47,17 +68,18 @@ class _RecipientPreferencesState extends State<RecipientPreferences> {
                       style: mainLogoName.copyWith(color: Colors.black),
                     ),
                     Text('You can adjust it later in your settings',
-                        style: textStyle.copyWith(color: const Color(0xFF838181))),
-                    SizedBox(height: screenHeight *0.05),
-                    Text(
-                        'Would you rather get',
-                        style: textStyle.copyWith(color: const Color(0xFF838181))),
+                        style:
+                            textStyle.copyWith(color: const Color(0xFF838181))),
+                    SizedBox(height: screenHeight * 0.05),
+                    Text('Would you rather get',
+                        style:
+                            textStyle.copyWith(color: const Color(0xFF838181))),
                     Wrap(
                       children: preferencesChipLabels.map((String label) {
                         int index = preferencesChipLabels.indexOf(label);
                         return Padding(
-                          padding:
-                           EdgeInsets.symmetric  (horizontal: screenWidth > 600 ? 20 : 10),
+                          padding: EdgeInsets.symmetric(
+                              horizontal: screenWidth > 600 ? 20 : 10),
                           child: ChoiceChip(
                             label: Text(
                               label,
@@ -70,8 +92,7 @@ class _RecipientPreferencesState extends State<RecipientPreferences> {
                             selected: selectedChipIndex == index,
                             onSelected: (bool selected) {
                               setState(() {
-                                selectedChipIndex =
-                                (selected ? index : null)!;
+                                selectedChipIndex = (selected ? index : null)!;
                               });
                             },
                             selectedColor: const Color(0xFF3D8361),
@@ -79,13 +100,16 @@ class _RecipientPreferencesState extends State<RecipientPreferences> {
                         );
                       }).toList(),
                     ),
-                    SizedBox(height: screenHeight *0.05),
-                    Text(
-                        'What items do you need?',
-                        style: textStyle.copyWith(color: const Color(0xFF838181))),
-                    const Text('Check all that applies',
-                      style : TextStyle(
-                        color: Color(0xffD7D8DB),),),
+                    SizedBox(height: screenHeight * 0.05),
+                    Text('What items do you need?',
+                        style:
+                            textStyle.copyWith(color: const Color(0xFF838181))),
+                    const Text(
+                      'Check all that applies',
+                      style: TextStyle(
+                        color: Color(0xffD7D8DB),
+                      ),
+                    ),
                     ListView.builder(
                       shrinkWrap: true,
                       itemCount: preferencesCheckBox.length,
@@ -109,13 +133,38 @@ class _RecipientPreferencesState extends State<RecipientPreferences> {
                   ],
                 ),
               ),
-              SizedBox(height: screenHeight *0.05),
+              SizedBox(height: screenHeight * 0.05),
               ElevatedButton(
                   style: buttonStyle.copyWith(
                     minimumSize:
-                    MaterialStateProperty.all<Size>(const Size(213, 50)),
+                        MaterialStateProperty.all<Size>(const Size(213, 50)),
                   ),
-                  onPressed:(){},
+                  onPressed: () async {
+                    print('idddddddddd: ${widget.recipientid}');
+                    final success = await addPreferences(
+                        preferencesChipLabels[selectedChipIndex],
+                        getFinalPreferences(checkedItems, preferencesCheckBox), widget.recipientid);
+                    success
+                        ? Navigator.pushNamed(context, HomeScreen.id)
+                        : showDialog(
+                            context: context,
+                            builder: (BuildContext dialogContext) {
+                              return AlertDialog(
+                                title: const Text('Error'),
+                                content:
+                                    const Text('Error adding organization'),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.of(dialogContext).pop();
+                                    },
+                                    child: const Text('OK'),
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                  },
                   child: const Text('Sign Up')),
             ],
           ),

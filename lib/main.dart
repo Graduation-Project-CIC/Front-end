@@ -79,7 +79,6 @@ class MyApp extends StatelessWidget {
         GetStarted.id: (context) => const GetStarted(),
         DonationForm.id: (context) => DonationForm(),
         RecipientSignUp.id: (context) =>  const RecipientSignUp(),
-        RecipientPreferences.id: (context) =>  const RecipientPreferences(),
       },
     );
   }

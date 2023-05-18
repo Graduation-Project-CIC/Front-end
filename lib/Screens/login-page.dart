@@ -19,8 +19,8 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  String email ='' ;
-  String password= '';
+  String email = '';
+  String password = '';
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
@@ -45,10 +45,12 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                     Expanded(
-                        flex:4,
-                        child: SizedBox(width: screenWidth*0.02,)),
+                        flex: 4,
+                        child: SizedBox(
+                          width: screenWidth * 0.02,
+                        )),
                     Expanded(
-                      flex:2,
+                      flex: 2,
                       child: OutlinedButton(
                         onPressed: () {
                           Navigator.pushNamed(context, RegisterScreen.id);
@@ -59,9 +61,9 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ),
                     ),
-                    SizedBox(width: screenWidth*0.01),
+                    SizedBox(width: screenWidth * 0.01),
                     Expanded(
-                      flex:3,
+                      flex: 3,
                       child: OutlinedButton(
                         onPressed: () {},
                         child: const Text(
@@ -75,7 +77,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ],
                 ),
-                SizedBox(height: screenHeight*0.05),
+                SizedBox(height: screenHeight * 0.05),
                 //LOGO AND NAME
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -87,7 +89,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         radius: 30,
                         // half the width and height of the image
                         backgroundImage:
-                        AssetImage('images/fullCircle-GreenBG.png'),
+                            AssetImage('images/fullCircle-GreenBG.png'),
                       ),
                     ),
                     const SizedBox(width: 10),
@@ -97,31 +99,35 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ],
                 ),
-                SizedBox(height: screenHeight*0.05),
+                SizedBox(height: screenHeight * 0.05),
                 //EMAIL ADDRESS and password
                 Padding(
-                  padding: EdgeInsets.only(left: MediaQuery.of(context).size.width > 600 ? 17.0 : 15.0,
-                      right: MediaQuery.of(context).size.width > 600 ? 17.0 : 15.0),
+                  padding: EdgeInsets.only(
+                      left:
+                          MediaQuery.of(context).size.width > 600 ? 17.0 : 15.0,
+                      right: MediaQuery.of(context).size.width > 600
+                          ? 17.0
+                          : 15.0),
                   child: Column(
                     children: [
                       const Align(
                         alignment: Alignment.centerLeft,
                         child: Text(' Your Email Address', style: textStyle),
                       ),
-                      SizedBox(height: screenHeight*0.01),
+                      SizedBox(height: screenHeight * 0.01),
                       TextField(
-                        onChanged: (value){
+                        onChanged: (value) {
                           email = value;
                         },
                         decoration: textFieldDecoration.copyWith(
-                            hintText: 'example@domain.com' ),
+                            hintText: 'example@domain.com'),
                       ),
-                      SizedBox(height: screenHeight*0.04),
+                      SizedBox(height: screenHeight * 0.04),
                       const Align(
                         alignment: Alignment.centerLeft,
                         child: Text(' Password', style: textStyle),
                       ),
-                      SizedBox(height: screenHeight*0.01),
+                      SizedBox(height: screenHeight * 0.01),
                       TextField(
                         obscureText: true,
                         decoration: textFieldDecoration.copyWith(
@@ -130,7 +136,13 @@ class _LoginScreenState extends State<LoginScreen> {
                       Align(
                         alignment: Alignment.centerRight,
                         child: TextButton(
-                          onPressed: () {},
+                          onPressed: () async {
+                            SharedPreferences prefs =
+                                await SharedPreferences.getInstance();
+                            String prefsEmail = prefs.getString('email') ?? '';
+                            await FirebaseAuth.instance
+                                .sendPasswordResetEmail(email: email);
+                          },
                           child: Text(
                             'Forget Password?',
                             style: textStyle.copyWith(
@@ -142,16 +154,20 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
                 Container(
-                  margin:  EdgeInsets.symmetric(
+                  margin: EdgeInsets.symmetric(
                       vertical: screenHeight > 600 ? 20 : 10,
                       horizontal: screenWidth > 600 ? 20 : 10),
                   child: ElevatedButton(
                     onPressed: () async {
                       try {
-                        final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
-                            email: email,
-                            password: password
-                        );
+                        final credential = await FirebaseAuth.instance
+                            .signInWithEmailAndPassword(
+                                email: email, password: password);
+                        SharedPreferences prefs =
+                            await SharedPreferences.getInstance();
+                        await prefs.setString('userId', credential.user!.uid);
+                        // Navigate to home screen after successful sign-in
+                        Navigator.pushReplacementNamed(context, HomeScreen.id);
                       } on FirebaseAuthException catch (e) {
                         if (e.code == 'user-not-found') {
                           if (kDebugMode) {
@@ -166,18 +182,19 @@ class _LoginScreenState extends State<LoginScreen> {
                       Navigator.pushNamed(context, HomeScreen.id);
                     },
                     style: buttonStyle.copyWith(
-                        minimumSize:
-                        MaterialStateProperty.all<Size>(const Size(213, 53))),
+                        minimumSize: MaterialStateProperty.all<Size>(
+                            const Size(213, 53))),
                     child: const Text('Sign In'),
                   ),
                 ),
-                SizedBox(height: screenHeight *0.015),
+                SizedBox(height: screenHeight * 0.015),
                 Row(
                   children: [
                     Expanded(
                       flex: 1,
                       child: Container(
-                        margin: EdgeInsets.symmetric(vertical: screenHeight > 600 ? 20 : 10),
+                        margin: EdgeInsets.symmetric(
+                            vertical: screenHeight > 600 ? 20 : 10),
                         decoration: lineDecoration,
                       ),
                     ),
@@ -185,7 +202,9 @@ class _LoginScreenState extends State<LoginScreen> {
                       flex: 1,
                       child: Text(
                         'OR',
-                        style: textStyle.copyWith(fontSize: 25,color: const Color(0x8EB2B0B0),
+                        style: textStyle.copyWith(
+                          fontSize: 25,
+                          color: const Color(0x8EB2B0B0),
                         ),
                         textAlign: TextAlign.center,
                       ),
@@ -193,7 +212,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     Expanded(
                       flex: 1,
                       child: Container(
-                        margin: EdgeInsets.symmetric(vertical: screenHeight > 600 ? 20 : 10),
+                        margin: EdgeInsets.symmetric(
+                            vertical: screenHeight > 600 ? 20 : 10),
                         decoration: lineDecoration,
                       ),
                     ),
@@ -201,28 +221,28 @@ class _LoginScreenState extends State<LoginScreen> {
                 ), //Line
                 const SizedBox(height: 15),
                 Container(
-                  margin:  EdgeInsets.symmetric(
+                  margin: EdgeInsets.symmetric(
                       vertical: screenHeight > 600 ? 20 : 10,
                       horizontal: screenWidth > 600 ? 20 : 10),
                   child: ElevatedButton(
                     onPressed: () async {
-                      setState(() {
-
-                      });
+                      setState(() {});
                       try {
                         final GoogleSignInAccount? googleUser =
-                        await GoogleSignIn().signIn();
+                            await GoogleSignIn().signIn();
                         if (googleUser != null) {
                           final GoogleSignInAuthentication googleAuth =
-                          await googleUser.authentication;
+                              await googleUser.authentication;
                           final credential = GoogleAuthProvider.credential(
                               accessToken: googleAuth.accessToken,
                               idToken: googleAuth.idToken);
-                          final UserCredential userCredential = await FirebaseAuth.instance
-                              .signInWithCredential(credential);
+                          final UserCredential userCredential =
+                              await FirebaseAuth.instance
+                                  .signInWithCredential(credential);
                           SharedPreferences prefs =
-                          await SharedPreferences.getInstance();
-                          await prefs.setString('userId', userCredential.user!.uid);
+                              await SharedPreferences.getInstance();
+                          await prefs.setString(
+                              'userId', userCredential.user!.uid);
                           // Navigate to home screen after successful sign-in
                           Navigator.pushReplacementNamed(
                               context, HomeScreen.id);
@@ -240,13 +260,13 @@ class _LoginScreenState extends State<LoginScreen> {
                       children: [
                         Image.asset(
                           'icons/google.png',
-                          width: screenWidth *0.04,
-                          height: screenHeight *0.024,
+                          width: screenWidth * 0.04,
+                          height: screenHeight * 0.024,
                         ),
-                        SizedBox(width: screenWidth *0.025),
+                        SizedBox(width: screenWidth * 0.025),
                         Text('Sign in with Google',
-                            style: buttonTextStyle.copyWith(
-                                color: Colors.black)),
+                            style:
+                                buttonTextStyle.copyWith(color: Colors.black)),
                       ],
                     ),
                   ),
