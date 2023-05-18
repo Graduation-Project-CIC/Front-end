@@ -1,21 +1,20 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
+import 'package:full_circle/components/volunteer-button.dart';
 import 'package:full_circle/design.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import '../services/donationService.dart';
 import 'google_map.dart';
 
 class DonationDetails extends StatelessWidget {
-  DonationDetails({Key? key,  required this.donation} ) : super(key: key);
+  DonationDetails({Key? key, required this.donation}) : super(key: key);
   final Donation donation;
 
-     static const String id = 'donationDetails_screen';
+  static const String id = 'donationDetails_screen';
 
   @override
   Widget build(BuildContext context) {
-
-
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
 
@@ -54,23 +53,33 @@ class DonationDetails extends StatelessWidget {
                     padding: const EdgeInsets.all(12.0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children:  [
-                        Text(donation.title, style: mainLogoName.copyWith(fontSize: 35)),
-                        SizedBox(height: screenHeight *0.03),
-                        Text('Donation Details', style: textStyle.copyWith(color: Colors.black, fontSize: 25)),
-                        SizedBox(height: screenHeight *0.02),
-                        Text('Category : ${donation.category}',style: textStyle),
-                        SizedBox(height: screenHeight *0.02),
-                        Text('Pick up start time: ${donation.pickUpTimestampStart.toString()}',style: textStyle),
-                        SizedBox(height: screenHeight *0.02),
-                        Text('Pick up end time ${donation.pickUpTimestampStart.toString()}',style: textStyle),
-                        SizedBox(height: screenHeight *0.02),
-                        Text('Expiry date: ${donation.expiryDate.toString()}',style: textStyle),
-                        SizedBox(height: screenHeight *0.02),
-                        Text('Area: ${donation.area}',style: textStyle),
-                        SizedBox(height: screenHeight *0.02),
-                        Text('Description: ${donation.description}',style: textStyle),
-                        SizedBox(height: screenHeight *0.02),
+                      children: [
+                        Text(donation.title,
+                            style: mainLogoName.copyWith(fontSize: 35)),
+                        SizedBox(height: screenHeight * 0.03),
+                        Text('Donation Details',
+                            style: textStyle.copyWith(
+                                color: Colors.black, fontSize: 25)),
+                        SizedBox(height: screenHeight * 0.02),
+                        Text('Category : ${donation.category}',
+                            style: textStyle),
+                        SizedBox(height: screenHeight * 0.02),
+                        Text(
+                            'Pick up start time: ${donation.pickUpTimestampStart.toString()}',
+                            style: textStyle),
+                        SizedBox(height: screenHeight * 0.02),
+                        Text(
+                            'Pick up end time ${donation.pickUpTimestampStart.toString()}',
+                            style: textStyle),
+                        SizedBox(height: screenHeight * 0.02),
+                        Text('Expiry date: ${donation.expiryDate.toString()}',
+                            style: textStyle),
+                        SizedBox(height: screenHeight * 0.02),
+                        Text('Area: ${donation.area}', style: textStyle),
+                        SizedBox(height: screenHeight * 0.02),
+                        Text('Description: ${donation.description}',
+                            style: textStyle),
+                        SizedBox(height: screenHeight * 0.02),
                         TextButton(
                           child: Container(
                             height: screenHeight * 0.04,
@@ -100,14 +109,14 @@ class DonationDetails extends StatelessWidget {
                               MaterialPageRoute(
                                 builder: (BuildContext context) =>
                                     GoogleMapWidget(
-                                      selectedLocation: LatLng(
-                                        donation.latitude,
-                                        donation.longitude,
-                                      ),
-                                      showMarker: true,
-                                      showButton: false,
-                                      onTap: false,
-                                    ),
+                                  selectedLocation: LatLng(
+                                    donation.latitude,
+                                    donation.longitude,
+                                  ),
+                                  showMarker: true,
+                                  showButton: false,
+                                  onTap: false,
+                                ),
                               ),
                             );
                           },
@@ -115,14 +124,16 @@ class DonationDetails extends StatelessWidget {
                         Expanded(
                           child: GridView.count(
                             crossAxisCount: 3,
-                            children: List.generate(donation.pictures.length, (index) {
+                            children: List.generate(donation.pictures.length,
+                                (index) {
                               return Center(
-                                child: Image.network(donation.pictures[index].url),
+                                child:
+                                    Image.network(donation.pictures[index].url),
                               );
                             }),
                           ),
                         ),
-
+                        VolunteerButton()
                       ],
                     ),
                   ),
