@@ -1,6 +1,7 @@
 // ignore_for_file: library_private_types_in_public_api
 
 import 'package:flutter/material.dart';
+import 'package:full_circle/Screens/Tracking%20Screens/delivery-status.dart';
 import 'package:full_circle/Screens/Tracking%20Screens/matching.dart';
 import 'package:full_circle/Screens/home-page.dart';
 import 'package:full_circle/design.dart';
@@ -89,29 +90,41 @@ class _RecipientMatchingState extends State<RecipientMatching> {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       Container(
-                          width: screenWidth * 0.05, height: screenHeight * 0.025,
+                          width: screenWidth * 0.10,
+                          height: screenHeight * 0.045,
+                          padding: const EdgeInsets.all(5),
                           decoration: BoxDecoration(
                             color: const Color(0xFF3D8361),
                             borderRadius: BorderRadius.circular(50.0),
                           ),
                           child: const Text('1',
                               textAlign: TextAlign.center,
-                              style: TextStyle(color: Colors.white))),
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold))),
                       Container(
-                        width: screenWidth * 0.45, height: screenHeight *0.025,
+                          width: screenWidth * 0.35,
+                          height: screenHeight * 0.045,
+                          padding: const EdgeInsets.all(8),
                           decoration: BoxDecoration(
                             color: const Color(0xFF3D8361),
                             borderRadius: BorderRadius.circular(5.0),
                           ),
                           child: const Text('Finding driver',
                               textAlign: TextAlign.center,
-                              style: TextStyle(color: Colors.white))),
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold))),
                       TextButton(
                           onPressed: () {
-                            Navigator.pushReplacementNamed(
-                                context, HomeScreen.id);
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => DonationTrackingScreen(),
+                              ),
+                            );
                           },
-                          child: Text('Back to home',
+                          child: Text('Track status',
                               style: textStyle.copyWith(fontSize: 12)))
                     ],
                   ),

@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:full_circle/Screens/Tracking%20Screens/matching.dart';
 import 'package:full_circle/Screens/instructionsScreens/Donor1.dart';
 import 'package:full_circle/Screens/instructionsScreens/Donor2.dart';
 import 'package:full_circle/Screens/instructionsScreens/Donor3.dart';
@@ -59,7 +60,10 @@ class _DonorsInstructions extends State<DonorsInstructions> {
                   TextButton(
                     onPressed: () {
                       if (_currentPage == 2) {
-                        Navigator.pushNamed(context, HomeScreen.id);
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const Matching()));
                       } else {
                         _controller.nextPage(
                           duration: const Duration(milliseconds: 500),

@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:full_circle/Screens/home-page.dart';
 import 'package:full_circle/Screens/instructionsScreen.dart';
-
-import '../../design.dart';
+import '../Tracking Screens/live-map2.dart';
 
 class DoneTracking extends StatelessWidget {
   const  DoneTracking ({Key? key}) : super(key: key);
@@ -232,7 +231,12 @@ class DoneTracking extends StatelessWidget {
                                   ),],),),
                           //),
                           onPressed: () {
-                            Navigator.pushNamed(context, HomeScreen.id);
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => MapScreen2(),
+                              ),
+                            );
                           },
                         ),
                       ],

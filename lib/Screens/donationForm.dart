@@ -1,6 +1,7 @@
 // ignore_for_file: depend_on_referenced_packages, file_names, use_build_context_synchronously
 
 import 'package:flutter/material.dart';
+import 'package:full_circle/Screens/Tracking%20Screens/matching.dart';
 import 'package:full_circle/design.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
@@ -12,6 +13,8 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:full_circle/services/donationService.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'instructionsScreens/Donors.dart';
 
 // ignore: must_be_immutable
 class DonationForm extends StatefulWidget {
@@ -321,8 +324,8 @@ class _DonationFormState extends State<DonationForm> {
                             MaterialPageRoute(
                               builder: (BuildContext context) =>
                                   GoogleMapWidget(
-                                    selectedLocation: _selectedLocation,
-                                  ),
+                                selectedLocation: _selectedLocation,
+                              ),
                             ),
                           );
                           if (selectedLocation != null) {
@@ -509,7 +512,7 @@ class _DonationFormState extends State<DonationForm> {
                         ? Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => HomeScreen()))
+                                builder: (context) => const DonorsInstructions()))
                         : showDialog(
                             context: context,
                             builder: (BuildContext dialogContext) {

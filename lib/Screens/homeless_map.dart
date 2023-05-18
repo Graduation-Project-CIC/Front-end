@@ -4,7 +4,6 @@ import 'package:full_circle/Screens/mark_homeless.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geolocator/geolocator.dart';
 import '../design.dart';
-import '../services/donationService.dart';
 import '../services/homelessSerivce.dart';
 
 class HomelessMap extends StatefulWidget {
@@ -18,8 +17,8 @@ class HomelessMap extends StatefulWidget {
 class _HomelessMapState extends State<HomelessMap> {
   final homelessService = HomelessService();
   final Completer<GoogleMapController> _controller = Completer();
-  late CameraPosition _currentPosition =  CameraPosition(
-      target: LatLng(30.0444, 31.2357), zoom: 15);
+  late CameraPosition _currentPosition =
+      CameraPosition(target: LatLng(30.0444, 31.2357), zoom: 15);
   Positioned? _userLocation;
   int _selectedIndex = 0;
   List<Homeless> homeless = [];
@@ -60,7 +59,9 @@ class _HomelessMapState extends State<HomelessMap> {
         _currentPosition = CameraPosition(
             target: LatLng(position.latitude, position.longitude), zoom: 15);
       });
-    } catch (e) {print('failed to fetch user location $e');}
+    } catch (e) {
+      print('failed to fetch user location $e');
+    }
   }
 
   void _addMarkers(List<Homeless> homelessList) {
@@ -68,11 +69,13 @@ class _HomelessMapState extends State<HomelessMap> {
       final marker = Marker(
         markerId: MarkerId(homeless.id.toString()),
         position: LatLng(homeless.latitude, homeless.longitude),
-        infoWindow: InfoWindow(title: homeless.description, snippet: homeless.address),
+        infoWindow:
+            InfoWindow(title: homeless.description, snippet: homeless.address),
       );
       _markers.add(marker);
     }
   }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(

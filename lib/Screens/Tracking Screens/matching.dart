@@ -44,7 +44,7 @@ class _MatchingState extends State<Matching> {
             _puzzle2PositionX = 70;
           });
           if (i == 4) {
-           Navigator.pushReplacementNamed(context, RecipientMatching.id);
+            Navigator.pushReplacementNamed(context, RecipientMatching.id);
           }
         });
       });
@@ -71,13 +71,13 @@ class _MatchingState extends State<Matching> {
                 )
               ],
             ),
-             SizedBox(height: screenHeight*0.05),
+            SizedBox(height: screenHeight * 0.05),
             Text(
               'We’re finding the perfect candidate for your donation',
               style: mainLogoName.copyWith(color: Colors.black, fontSize: 30),
               textAlign: TextAlign.center,
             ),
-             SizedBox(height:screenHeight *0.13),
+            SizedBox(height: screenHeight * 0.13),
             Expanded(
               child: Stack(
                 children: [
@@ -93,7 +93,7 @@ class _MatchingState extends State<Matching> {
                       }
                     },
                     child: Container(
-                      height: screenHeight *0.18,
+                      height: screenHeight * 0.18,
                       child: Image.asset(
                         'images/Puzzle1.png',
                         fit: BoxFit.contain,
@@ -112,7 +112,7 @@ class _MatchingState extends State<Matching> {
                       }
                     },
                     child: Container(
-                      height: screenHeight *0.186,
+                      height: screenHeight * 0.186,
                       child: Image.asset(
                         'images/Puzzle2.png',
                         fit: BoxFit.contain,
@@ -123,7 +123,7 @@ class _MatchingState extends State<Matching> {
               ),
             ),
             Container(
-              height: screenHeight *0.12,
+              height: screenHeight * 0.12,
               width: double.infinity,
               decoration: BoxDecoration(
                 color: Colors.white,
@@ -142,20 +142,28 @@ class _MatchingState extends State<Matching> {
               ),
               child: Row(
                 children: [
-                   SizedBox(width: screenWidth * 0.2),
-                  Container(width: screenWidth * 0.45, height: screenHeight *0.025,
-                    decoration: BoxDecoration(
-                      color: Color(0xFF3D8361),
-                        borderRadius:  BorderRadius.circular(5.0),
-                        ),
-                  child:const Text('Finding destination',textAlign: TextAlign.center,style:TextStyle(color: Colors.white))),
-                  SizedBox(width: screenWidth * 0.1),
-                  Container(width: screenWidth * 0.05, height: screenHeight * 0.025,
+                  SizedBox(width: screenWidth * 0.2),
+                  Container(
+                      width: screenWidth * 0.45,
+                      height: screenHeight * 0.025,
                       decoration: BoxDecoration(
                         color: Color(0xFF3D8361),
-                        borderRadius:  BorderRadius.circular(50.0),
+                        borderRadius: BorderRadius.circular(5.0),
                       ),
-                      child:const Text('2',textAlign: TextAlign.center,style:TextStyle(color: Colors.white)))
+                      child: const Text('Finding destination',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(color: Colors.white))),
+                  SizedBox(width: screenWidth * 0.1),
+                  Container(
+                      width: screenWidth * 0.05,
+                      height: screenHeight * 0.025,
+                      decoration: BoxDecoration(
+                        color: Color(0xFF3D8361),
+                        borderRadius: BorderRadius.circular(50.0),
+                      ),
+                      child: const Text('2',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(color: Colors.white)))
                 ],
               ),
             ),
