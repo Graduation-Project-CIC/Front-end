@@ -97,9 +97,7 @@ class _RecipientReview1 extends State<RecipientReview1> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     ElevatedButton(
-                      style:  ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xff3D8361),
-                      ),
+                      style: buttonStyle,
                       onPressed: () {
                         setState(() {
                           _deliveredWel = true;
@@ -109,9 +107,8 @@ class _RecipientReview1 extends State<RecipientReview1> {
                     ),
 
                     ElevatedButton(
-                      style:  ElevatedButton.styleFrom(
-                        backgroundColor:  Colors.red,
-                      ),
+                      style: buttonStyle.copyWith(backgroundColor:
+                      MaterialStateProperty.all<Color>(Colors.red)),
                       onPressed: () {
                         setState(() {
                           _deliveredWel = false;
@@ -180,9 +177,7 @@ class _RecipientReview1 extends State<RecipientReview1> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     ElevatedButton(
-                      style:  ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xff3D8361),
-                      ),
+                      style: buttonStyle,
                       onPressed: () {
                         setState(() {
                           _fitCategory = true;
@@ -192,9 +187,8 @@ class _RecipientReview1 extends State<RecipientReview1> {
                     ),
 
                     ElevatedButton(
-                      style:  ElevatedButton.styleFrom(
-                        backgroundColor:  Colors.red,
-                      ),
+                      style: buttonStyle.copyWith(backgroundColor:
+                      MaterialStateProperty.all<Color>(Colors.red)),
                       onPressed: () {
                         setState(() {
                           _fitCategory= false;
@@ -263,9 +257,7 @@ class _RecipientReview1 extends State<RecipientReview1> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     ElevatedButton(
-                      style:  ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xff3D8361),
-                      ),
+                      style:  buttonStyle,
                       onPressed: () {
                         setState(() {
                           _quantityEnough= true;
@@ -275,9 +267,8 @@ class _RecipientReview1 extends State<RecipientReview1> {
                     ),
 
                     ElevatedButton(
-                      style:  ElevatedButton.styleFrom(
-                        backgroundColor:  Colors.red,
-                      ),
+                      style: buttonStyle.copyWith(backgroundColor:
+                      MaterialStateProperty.all<Color>(Colors.red)),
                       onPressed: () {
                         setState(() {
                           _quantityEnough = false;

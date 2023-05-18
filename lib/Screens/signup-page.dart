@@ -11,6 +11,7 @@ class RegisterScreen extends StatefulWidget {
   const RegisterScreen({Key? key}) : super(key: key);
   static const String id = 'Signup_screen';
 
+
   @override
   _RegisterScreenState createState() => _RegisterScreenState();
 }
@@ -33,6 +34,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   bool isChecked = false;
   bool canSignUp = false;
   int? age;
+
 
   Future<void> saveUserData(String userId, String email) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
