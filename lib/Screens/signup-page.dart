@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:full_circle/Screens/welcome-page.dart';
@@ -6,11 +7,11 @@ import '../design.dart';
 import 'home-page.dart';
 import 'login-page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:firebase_database/firebase_database.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({Key? key}) : super(key: key);
   static const String id = 'Signup_screen';
-
 
   @override
   _RegisterScreenState createState() => _RegisterScreenState();
@@ -29,11 +30,19 @@ class _RegisterScreenState extends State<RegisterScreen> {
   String email = '';
   String password = '';
   String confirmPassword = '';
-  String Address = '';
+  String address = '';
   String phoneNumber = '';
   bool isChecked = false;
   bool canSignUp = false;
   int? age;
+
+
+
+  @override
+  void initState() {
+    super.initState();
+
+  }
 
 
   Future<void> saveUserData(String userId, String email) async {
@@ -41,7 +50,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
     prefs.setString('userId', userId);
     prefs.setString('email', email);
   }
-
   void checkSignUpEnabled() {
     setState(() {
       int? ageValue = int.tryParse(ageController.text);
@@ -51,7 +59,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
           email.isNotEmpty &&
           password.isNotEmpty &&
           confirmPassword.isNotEmpty &&
-          Address.isNotEmpty &&
+          address.isNotEmpty &&
           phoneNumber.isNotEmpty &&
           (ageValue != null &&
               ageValue >
@@ -228,7 +236,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       SizedBox(height: screenHeight * 0.03),
                       TextField(
                         onChanged: (value) {
-                          Address = value;
+                          address = value;
                           checkSignUpEnabled();
                         },
                         decoration:
@@ -280,25 +288,20 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 ),
                 //SIGN UP BUTTON
                 ElevatedButton(
-                  style: buttonStyle.copyWith(
-                    minimumSize:
-                        MaterialStateProperty.all<Size>(const Size(213, 50)),
+                  style: ElevatedButton.styleFrom(
+                    minimumSize: Size(213, 50),
                   ),
-                  //Disable the button if any field is empty or checkbox is unchecked
-                  //otherwise enable it
-                  onPressed: () async {
+                  onPressed: canSignUp ? () async {
                     try {
                       final newUser = await FirebaseAuth.instance
                           .createUserWithEmailAndPassword(
                         email: emailController.text,
                         password: passwordController.text,
                       );
-                      SharedPreferences prefs =
-                          await SharedPreferences.getInstance();
-                      await prefs.setString('userId', newUser.user!.uid) as String;
-                     await prefs.setString('email', emailController.text);
-                      Navigator.pushNamed(context, HomeScreen.id);
+                      String userId = newUser.user!.uid;
+                      saveUserData(userId, emailController.text);
 
+                      Navigator.pushNamed(context, HomeScreen.id);
                     } catch (e) {
                       if (e is FirebaseAuthException) {
                         if (e.code == 'email-already-in-use') {
@@ -308,12 +311,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         } else if (e.code == 'weak-password') {
                           setState(() {
                             passwordErrorMessage =
-                                'Password should be at least 6 characters.';
+                            'Password should be at least 6 characters.';
                           });
                         }
                       }
                     }
-                  },
+                  } : null,
                   child: const Text('Sign Up'),
                 ),
               ],
