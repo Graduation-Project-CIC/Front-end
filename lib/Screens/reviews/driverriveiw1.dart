@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:full_circle/Screens/home-page.dart';
 import '../../design.dart';
 
 class DriverReview1 extends StatefulWidget {
@@ -310,7 +311,7 @@ class _DriverReview1 extends State<DriverReview1> {
                           ),
                         ),
                         onPressed: () {
-                          //Navigator.pushNamed(context, DriversInstructions.id);
+                          Navigator.pushNamed(context, HomeScreen.id);
                         },
                       ),
                     ],
