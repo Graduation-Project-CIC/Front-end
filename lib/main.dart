@@ -32,12 +32,17 @@ import 'Screens/signup-page.dart';
 import 'Screens/welcome-page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 
 void main() async {
   await dotenv.load();
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,);
+    options: DefaultFirebaseOptions.currentPlatform);
+  // final fcmToken = await FirebaseMessaging.instance.getToken();
+  // print(fcmToken);
+
   runApp(const MyApp());
 }
 
@@ -45,10 +50,11 @@ class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+   Widget build(BuildContext context) {
+  //   final fcmToken =  FirebaseMessaging.instance.getToken();
     return MaterialApp(
       initialRoute: GetStarted.id,
-      //initialRoute: DoneTracking.id,
+      //initialRoute: DonationDetails.id,
 
       routes: {
         WelcomeScreen.id: (context) => const WelcomeScreen(),

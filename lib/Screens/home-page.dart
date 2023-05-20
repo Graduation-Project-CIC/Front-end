@@ -9,18 +9,53 @@ import 'package:full_circle/Screens/recipient-signUp.dart';
 import 'package:full_circle/components/DonationsList.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../design.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
   static const String id = 'Home_Screen';
 
   @override
+  // void didChangeAppLifecycleState(AppLifecycleState state) {
+  //   if (state == AppLifecycleState.resumed) {
+  //     // App is in the foreground
+  //     FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
+  //       alert: true,
+  //       badge: true,
+  //       sound: true,
+  //     );
+  //   }
+  // }
+
   _HomeScreenState createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
    int _selectedIndex = 0;
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
+   // void handleNotification(RemoteMessage message) {
+   //   RemoteNotification? notification = message.notification;
+   //   AndroidNotification? android = message.notification?.android;
+   //   showDialog(
+   //     context: context,
+   //     builder: (BuildContext context) {
+   //       return AlertDialog(
+   //         title: Text(notification?.title ?? 'Notification'),
+   //         content: Text(notification?.body ?? 'Notification message'),
+   //         actions: [
+   //           TextButton(
+   //             onPressed: () {
+   //               Navigator.of(context).pop();
+   //             },
+   //             child: Text('OK'),
+   //           ),
+   //         ],
+   //       );
+   //     },
+   //   );
+   // }
 
   void _onItemTapped(int index) {
     setState(() {
@@ -32,6 +67,12 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState(){
     super.initState();
+    // FirebaseMessaging.instance.requestPermission();
+    // FirebaseMessaging.instance.getInitialMessage().then((RemoteMessage? message) {
+    //   if (message != null) {
+    //     handleNotification(message);
+    //   }
+    // });
   }
 
    void _onMenuTapped(int index) {
