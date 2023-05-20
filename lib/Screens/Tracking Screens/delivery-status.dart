@@ -1,7 +1,5 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
-
 import 'live-map.dart';
 
 class DonationTrackingScreen extends StatefulWidget {
@@ -131,7 +129,6 @@ class _DonationTrackingScreenState extends State<DonationTrackingScreen> {
                   style: TextButton.styleFrom(
                     alignment: Alignment.center,
                     backgroundColor: Colors.green,
-                    foregroundColor: Colors.white,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8.0)),
                   ),

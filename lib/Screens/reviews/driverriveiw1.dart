@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-
+import '../../design.dart';
 
 class DriverReview1 extends StatefulWidget {
   const DriverReview1({Key? key}) : super(key: key);
@@ -210,9 +210,8 @@ class _DriverReview1 extends State<DriverReview1> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     ElevatedButton(
-                      style:  ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xff3D8361),
-                      ),
+                      style: buttonStyle.copyWith(backgroundColor:
+                      MaterialStateProperty.all<Color>(const Color(0xff3D8361))),
                       onPressed: () {
                         setState(() {
                            _correctAddress = true;
@@ -222,9 +221,8 @@ class _DriverReview1 extends State<DriverReview1> {
                              ),
 
                   ElevatedButton(
-                    style:  ElevatedButton.styleFrom(
-                      backgroundColor:  Colors.red,
-                    ),
+                    style: buttonStyle.copyWith(backgroundColor:
+                    MaterialStateProperty.all<Color>(Colors.red)),
                     onPressed: () {
                       setState(() {
                         _correctAddress = false;

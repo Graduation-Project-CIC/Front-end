@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:full_circle/Screens/donorreviews.dart';
 import 'package:full_circle/Screens/home-page.dart';
 import 'package:full_circle/Screens/reviews/donorreview2.dart';
+import '../../design.dart';
 
 class DonorReview1 extends StatefulWidget {
   const DonorReview1({Key? key}) : super(key: key);
@@ -54,26 +55,24 @@ class _DonorReview1 extends State<DonorReview1> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xff3D8361),
-                        ),
+                        style: buttonStyle.copyWith(backgroundColor:
+                        MaterialStateProperty.all<Color>(const Color(0xff3D8361))),
                         onPressed: () {
                           setState(() {
                             _safetyCheck = true;
                           });
                         },
-                        child: Text('Yes'),
+                        child: const Text('Yes'),
                       ),
                       ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.red,
-                        ),
+                        style: buttonStyle.copyWith(backgroundColor:
+                        MaterialStateProperty.all<Color>(Colors.red)),
                         onPressed: () {
                           setState(() {
                             _safetyCheck = false;
                           });
                         },
-                        child: Text('No'),
+                        child: const Text('No'),
                       ),
                     ],
                   ),
@@ -84,7 +83,7 @@ class _DonorReview1 extends State<DonorReview1> {
                     hintText: 'Additional Notes',
                     fillColor: Colors.white,
                     filled: true,
-                    border: OutlineInputBorder(
+                    border: const OutlineInputBorder(
                       borderSide: BorderSide(
                         color: Color(0xff3D8361),
                       ),
