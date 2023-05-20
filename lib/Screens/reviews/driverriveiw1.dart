@@ -212,7 +212,9 @@ class _DriverReview1 extends State<DriverReview1> {
                   children: [
                     ElevatedButton(
                       style: buttonStyle.copyWith(backgroundColor:
-                      MaterialStateProperty.all<Color>(const Color(0xff3D8361))),
+                      MaterialStateProperty.all<Color>(const Color(0xff3D8361)),
+                        minimumSize: MaterialStateProperty.all<Size>(const Size(150, 40)),
+                      ),
                       onPressed: () {
                         setState(() {
                            _correctAddress = true;
@@ -223,7 +225,8 @@ class _DriverReview1 extends State<DriverReview1> {
 
                   ElevatedButton(
                     style: buttonStyle.copyWith(backgroundColor:
-                    MaterialStateProperty.all<Color>(Colors.red)),
+                    MaterialStateProperty.all<Color>(Colors.red),
+                      minimumSize: MaterialStateProperty.all<Size>(const Size(150, 40)),),
                     onPressed: () {
                       setState(() {
                         _correctAddress = false;

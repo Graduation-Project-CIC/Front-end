@@ -97,7 +97,8 @@ class _RecipientReview1 extends State<RecipientReview1> {
                     children: [
                       ElevatedButton(
                         style: buttonStyle.copyWith(backgroundColor:
-                        MaterialStateProperty.all<Color>(const Color(0xff3D8361))),
+                        MaterialStateProperty.all<Color>(const Color(0xff3D8361)),
+                          minimumSize: MaterialStateProperty.all<Size>(const Size(150, 40)),),
                         onPressed: () {
                           setState(() {
                             _deliveredWel = true;
@@ -107,7 +108,8 @@ class _RecipientReview1 extends State<RecipientReview1> {
                       ),
                       ElevatedButton(
                         style: buttonStyle.copyWith(backgroundColor:
-                        MaterialStateProperty.all<Color>(Colors.red)),
+                        MaterialStateProperty.all<Color>(Colors.red),
+                          minimumSize: MaterialStateProperty.all<Size>(const Size(150, 40)),),
                         onPressed: () {
                           setState(() {
                             _deliveredWel = false;
@@ -178,7 +180,8 @@ class _RecipientReview1 extends State<RecipientReview1> {
                     children: [
                       ElevatedButton(
                         style: buttonStyle.copyWith(backgroundColor:
-                        MaterialStateProperty.all<Color>(const Color(0xff3D8361))),
+                        MaterialStateProperty.all<Color>(const Color(0xff3D8361)),
+                          minimumSize: MaterialStateProperty.all<Size>(const Size(150, 40)),),
                         onPressed: () {
                           setState(() {
                             _fitCategory = true;
@@ -188,7 +191,8 @@ class _RecipientReview1 extends State<RecipientReview1> {
                       ),
                       ElevatedButton(
                         style: buttonStyle.copyWith(backgroundColor:
-                        MaterialStateProperty.all<Color>(Colors.red)),
+                        MaterialStateProperty.all<Color>(Colors.red),
+                          minimumSize: MaterialStateProperty.all<Size>(const Size(150, 40)),),
                         onPressed: () {
                           setState(() {
                             _fitCategory = false;
@@ -256,7 +260,8 @@ class _RecipientReview1 extends State<RecipientReview1> {
                     children: [
                       ElevatedButton(
                         style: buttonStyle.copyWith(backgroundColor:
-                        MaterialStateProperty.all<Color>(const Color(0xff3D8361))),
+                        MaterialStateProperty.all<Color>(const Color(0xff3D8361)),
+                          minimumSize: MaterialStateProperty.all<Size>(const Size(150, 40)),),
                         onPressed: () {
                           setState(() {
                             _quantityEnough = true;
@@ -266,7 +271,8 @@ class _RecipientReview1 extends State<RecipientReview1> {
                       ),
                       ElevatedButton(
                         style: buttonStyle.copyWith(backgroundColor:
-                        MaterialStateProperty.all<Color>(Colors.red)),
+                        MaterialStateProperty.all<Color>(Colors.red),
+                          minimumSize: MaterialStateProperty.all<Size>(const Size(150, 40)),),
                         onPressed: () {
                           setState(() {
                             _quantityEnough = false;

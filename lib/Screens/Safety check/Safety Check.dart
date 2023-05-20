@@ -34,8 +34,8 @@ class _SafetyCheck1 extends State<SafetyCheck1> {
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
-    final buttonWidth = screenWidth * 0.2;
-    final buttonHeight = screenHeight * 0.04;
+    final buttonWidth = screenWidth * 0.09;
+    final buttonHeight = screenHeight * 0.01;
     final fontSize1 = screenHeight / 25;
     final fontSize2 = screenHeight / 40;
     final fontSize3 = screenHeight / 55;
@@ -68,11 +68,16 @@ class _SafetyCheck1 extends State<SafetyCheck1> {
               'Are all items not expired?',
               style: TextStyle(fontSize: fontSize2),
             ),
+
             Row(
               children: [
                 ElevatedButton(
-                  style: buttonStyle.copyWith(backgroundColor:
-            MaterialStateProperty.all<Color>(const Color(0xFF3D8361))),
+                  style: buttonStyle.copyWith(backgroundColor: MaterialStateProperty.all<Color>(const Color(0xFF3D8361),),
+                    minimumSize: MaterialStateProperty.all<Size>(const Size(150, 40)),
+
+                    //fixedSize: MaterialStateProperty.all<Size>(Size(buttonWidth, buttonHeight)),
+                    ),
+
                   onPressed: () {
                     setState(() {
                       expired = true;
@@ -81,8 +86,9 @@ class _SafetyCheck1 extends State<SafetyCheck1> {
                   child: Text('Yes'),
                 ),
                 ElevatedButton(
-                 style: buttonStyle.copyWith(backgroundColor:
-    MaterialStateProperty.all<Color>(Colors.red)),
+                 style: buttonStyle.copyWith(backgroundColor: MaterialStateProperty.all<Color>(Colors.red),
+                   minimumSize: MaterialStateProperty.all<Size>(const Size(150, 40)),
+                 ),
                   onPressed: () {
                     setState(() {
                       expired = false;
@@ -101,7 +107,8 @@ class _SafetyCheck1 extends State<SafetyCheck1> {
               children: [
                 ElevatedButton(
                   style: buttonStyle.copyWith(backgroundColor:
-                  MaterialStateProperty.all<Color>(const Color(0xff3D8361))),
+                  MaterialStateProperty.all<Color>(const Color(0xff3D8361)),
+                    minimumSize: MaterialStateProperty.all<Size>(const Size(150, 40)),),
                   onPressed: () {
                     setState(() {
                       leaking = true;
@@ -114,7 +121,8 @@ class _SafetyCheck1 extends State<SafetyCheck1> {
                 ),
                 ElevatedButton(
                   style: buttonStyle.copyWith(backgroundColor:
-                  MaterialStateProperty.all<Color>(Colors.white)),
+                  MaterialStateProperty.all<Color>(Colors.white),
+                    minimumSize: MaterialStateProperty.all<Size>(const Size(150, 40)),),
                   onPressed: () {
                     setState(() {
                       leaking = false;
@@ -136,7 +144,8 @@ class _SafetyCheck1 extends State<SafetyCheck1> {
               children: [
                 ElevatedButton(
             style: buttonStyle.copyWith(backgroundColor:
-            MaterialStateProperty.all<Color>(const Color(0xff3D8361))),
+            MaterialStateProperty.all<Color>(const Color(0xff3D8361)),
+              minimumSize: MaterialStateProperty.all<Size>(const Size(150, 40)),),
                   onPressed: () {
                     setState(() {
                       spoiled = true;
@@ -146,7 +155,8 @@ class _SafetyCheck1 extends State<SafetyCheck1> {
                 ),
                 ElevatedButton(
                   style: buttonStyle.copyWith(backgroundColor:
-                  MaterialStateProperty.all<Color>(Colors.white)),
+                  MaterialStateProperty.all<Color>(Colors.white),
+                    minimumSize: MaterialStateProperty.all<Size>(const Size(150, 40)),),
                   onPressed: () {
                     setState(() {
                       spoiled = false;
@@ -181,7 +191,8 @@ class _SafetyCheck1 extends State<SafetyCheck1> {
             ),
             ElevatedButton(
               style: buttonStyle.copyWith(backgroundColor:
-              MaterialStateProperty.all<Color>(const Color(0xff3D8361))),
+              MaterialStateProperty.all<Color>(const Color(0xff3D8361)),
+                minimumSize: MaterialStateProperty.all<Size>(const Size(150, 40)),),
               child: Text('Save'),
               onPressed: () {
                 if (issues.isNotEmpty) {
@@ -210,7 +221,8 @@ class _SafetyCheck1 extends State<SafetyCheck1> {
             Text(
               'Cooked Meals',
               style: TextStyle(fontSize: fontSize3,fontWeight: FontWeight.bold),
-            ),SizedBox(height: sizedBoxHeight1),
+            ),
+            SizedBox(height: sizedBoxHeight1),
             Text(
               'Is there expiry date on meals?',
               style: TextStyle(fontSize: fontSize2),
@@ -219,7 +231,8 @@ class _SafetyCheck1 extends State<SafetyCheck1> {
               children: [
                 ElevatedButton(
                   style: buttonStyle.copyWith(backgroundColor:
-                  MaterialStateProperty.all<Color>(Colors.white)),
+                  MaterialStateProperty.all<Color>(Colors.white),
+                    minimumSize: MaterialStateProperty.all<Size>(const Size(150, 40)),),
                   onPressed: () {
                     setState(() {
                       cookedIsExpired = true;
@@ -232,7 +245,8 @@ class _SafetyCheck1 extends State<SafetyCheck1> {
                 ),
                 ElevatedButton(
                   style: buttonStyle.copyWith(backgroundColor:
-                  MaterialStateProperty.all<Color>(Colors.red)),
+                  MaterialStateProperty.all<Color>(Colors.red),
+                    minimumSize: MaterialStateProperty.all<Size>(const Size(150, 40)),),
                   onPressed: () {
                     setState(() {
                       cookedIsExpired = false;
@@ -251,7 +265,8 @@ class _SafetyCheck1 extends State<SafetyCheck1> {
               children: [
                 ElevatedButton(
                   style: buttonStyle.copyWith(backgroundColor:
-                  MaterialStateProperty.all<Color>(Colors.white)),
+                  MaterialStateProperty.all<Color>(Colors.white),
+                    minimumSize: MaterialStateProperty.all<Size>(const Size(150, 40)),),
                   onPressed: () {
                     setState(() {
                       cookedIsHot= true;
@@ -264,7 +279,8 @@ class _SafetyCheck1 extends State<SafetyCheck1> {
                 ),
                 ElevatedButton(
                   style: buttonStyle.copyWith(backgroundColor:
-                  MaterialStateProperty.all<Color>(Colors.red)),
+                  MaterialStateProperty.all<Color>(Colors.red),
+                    minimumSize: MaterialStateProperty.all<Size>(const Size(150, 40)),),
                   onPressed: () {
                     setState(() {
                       cookedIsHot = false;
@@ -283,7 +299,8 @@ class _SafetyCheck1 extends State<SafetyCheck1> {
               children: [
                 ElevatedButton(
                   style: buttonStyle.copyWith(backgroundColor:
-                  MaterialStateProperty.all<Color>(Colors.white)),
+                  MaterialStateProperty.all<Color>(Colors.white),
+                    minimumSize: MaterialStateProperty.all<Size>(const Size(150, 40)),),
                   onPressed: () {
                     setState(() {
                       cookedIsSafe= true;
@@ -296,7 +313,8 @@ class _SafetyCheck1 extends State<SafetyCheck1> {
                 ),
                 ElevatedButton(
                   style: buttonStyle.copyWith(backgroundColor:
-                  MaterialStateProperty.all<Color>(Colors.red)),
+                  MaterialStateProperty.all<Color>(Colors.red),
+                    minimumSize: MaterialStateProperty.all<Size>(const Size(150, 40)),),
                   onPressed: () {
                     setState(() {
                       cookedIsSafe = false;
@@ -315,7 +333,8 @@ class _SafetyCheck1 extends State<SafetyCheck1> {
               children: [
                 ElevatedButton(
                   style: buttonStyle.copyWith(backgroundColor:
-                  MaterialStateProperty.all<Color>(Colors.white)),
+                  MaterialStateProperty.all<Color>(Colors.white),
+                    minimumSize: MaterialStateProperty.all<Size>(const Size(150, 40)),),
                   onPressed: () {
                     setState(() {
                       cookedIsLeaking = true;
@@ -328,7 +347,8 @@ class _SafetyCheck1 extends State<SafetyCheck1> {
                 ),
                 ElevatedButton(
                   style: buttonStyle.copyWith(backgroundColor:
-                  MaterialStateProperty.all<Color>(Colors.red)),
+                  MaterialStateProperty.all<Color>(Colors.red),
+                    minimumSize: MaterialStateProperty.all<Size>(const Size(150, 40)),),
                   onPressed: () {
                     setState(() {
                       cookedIsLeaking = false;
@@ -347,7 +367,8 @@ class _SafetyCheck1 extends State<SafetyCheck1> {
               children: [
                 ElevatedButton(
                   style: buttonStyle.copyWith(backgroundColor:
-                  MaterialStateProperty.all<Color>(Colors.white)),
+                  MaterialStateProperty.all<Color>(Colors.white),
+                    minimumSize: MaterialStateProperty.all<Size>(const Size(150, 40)),),
                   onPressed: () {
                     setState(() {
                       cookedIsSpoiled = true;
@@ -360,7 +381,8 @@ class _SafetyCheck1 extends State<SafetyCheck1> {
                 ),
                 ElevatedButton(
                     style: buttonStyle.copyWith(backgroundColor:
-                    MaterialStateProperty.all<Color>(Colors.red)),
+                    MaterialStateProperty.all<Color>(Colors.red),
+                      minimumSize: MaterialStateProperty.all<Size>(const Size(150, 40)),),
                   onPressed: () {
                     setState(() {
                       cookedIsSpoiled = false;
@@ -382,9 +404,9 @@ class _SafetyCheck1 extends State<SafetyCheck1> {
                       style: OutlinedButton.styleFrom(
                         backgroundColor: Colors.white,
                       ),
-                      child: SizedBox(
-                        width: buttonWidth,
-                        height: buttonHeight,
+                      // child: SizedBox(
+                      //   width: buttonWidth,
+                      //   height: buttonHeight,
                         child: Center(
                           child: Row(
                             children: [
@@ -402,7 +424,7 @@ class _SafetyCheck1 extends State<SafetyCheck1> {
                             ],
                           ),
                         ),
-                      ),
+                      //),
                       onPressed: () {
                         Navigator.pushNamed(context, HomeScreen.id);
                       },
@@ -410,10 +432,11 @@ class _SafetyCheck1 extends State<SafetyCheck1> {
                     OutlinedButton(
                       style: OutlinedButton.styleFrom(
                         backgroundColor: const Color(0xff3D8361),
+
                       ),
-                      child: SizedBox(
-                        width: buttonWidth,
-                        height: buttonHeight,
+                      // child: SizedBox(
+                      //   width: buttonWidth,
+                      //   height: buttonHeight,
                         child: Center(
                           child: Row(
                             children: [
@@ -431,7 +454,7 @@ class _SafetyCheck1 extends State<SafetyCheck1> {
                             ],
                           ),
                         ),
-                      ),
+                      //),
                       onPressed: () {
                         Navigator.pushNamed(context, SafetyCheck2.id);
                       },

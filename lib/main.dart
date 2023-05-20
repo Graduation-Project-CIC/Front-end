@@ -53,8 +53,8 @@ class MyApp extends StatelessWidget {
    Widget build(BuildContext context) {
   //   final fcmToken =  FirebaseMessaging.instance.getToken();
     return MaterialApp(
-      initialRoute: GetStarted.id,
-      //initialRoute: DonationDetails.id,
+      //initialRoute: GetStarted.id,
+      initialRoute:  RecipientReview1.id,
 
       routes: {
         WelcomeScreen.id: (context) => const WelcomeScreen(),
