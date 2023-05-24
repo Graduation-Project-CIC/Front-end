@@ -1,9 +1,10 @@
 // ignore_for_file: use_build_context_synchronously
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:full_circle/Screens/onboarding-page.dart';
 import 'package:full_circle/Screens/welcome-page.dart';
-import '../design.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../design.dart';
 import 'home-page.dart';
 
 class GetStarted extends StatefulWidget {
@@ -20,26 +21,25 @@ class _GetStartedState extends State<GetStarted> {
   void initState() {
     super.initState();
     _setShowOnboardingFlag();
-    _checkIfShowOnboarding();
-  }
+    _checkUserStatus();  }
 
-  Future<void> _checkIfShowOnboarding() async {
+  Future<void> _checkUserStatus() async {
+    User? user = FirebaseAuth.instance.currentUser;
     SharedPreferences prefs = await SharedPreferences.getInstance();
     bool showOnboarding = prefs.getBool('showOnboarding') ?? true;
-    String userID = prefs.getString('userId') ?? '';
 
-    if (userID.isNotEmpty) {
+    if (showOnboarding) {
+      Navigator.pushReplacementNamed(context, OnBoardingScreen.id);
+    } else if (user != null) {
       Navigator.pushReplacementNamed(context, HomeScreen.id);
-    } else if (!showOnboarding) {
+    } else {
       Navigator.pushReplacementNamed(context, WelcomeScreen.id);
     }
   }
-
   Future<void> _setShowOnboardingFlag() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setBool('showOnboarding', false);
   }
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

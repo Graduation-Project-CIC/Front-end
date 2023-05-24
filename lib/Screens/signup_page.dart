@@ -3,10 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:full_circle/Screens/welcome-page.dart';
 import '../design.dart';
-import '../services/user-service.dart';
+import '../services/user_service.dart';
 import 'home-page.dart';
 import 'login-page.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:firebase_database/firebase_database.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -324,12 +323,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 //SIGN UP BUTTON
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    minimumSize: Size(213, 50),
+                    minimumSize: const Size(213, 50),
                   ),
                   onPressed: canSignUp
                       ? () async {
                     await registerUser();} : null,
-                 child: Text('Sign Up')),
+                 child: const Text('Sign Up')),
               ],
             ),
           ),
