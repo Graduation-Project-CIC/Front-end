@@ -4,9 +4,9 @@
 import 'package:flutter/material.dart';
 import 'package:full_circle/Screens/driver_welcome_page.dart';
 import 'package:full_circle/Screens/instructionsScreen.dart';
+import 'package:full_circle/Screens/profile/profile.dart';
 import 'Screens/donationForm.dart';
 import 'Screens/home-page.dart';
-import 'Screens/login-page.dart';
 import 'Screens/recipient-signUp.dart';
 
 //buttons text styles
@@ -18,14 +18,14 @@ const buttonTextStyle = TextStyle(
   fontWeight: FontWeight.normal);
 
 final List<String> preferencesCheckBox = ['Canned & Jarred Food',    'Pasta & Rice',    'Cooking Essentials',    'Fruits & Vegetables',    'Cheese & Dairy',    'Meat',    'Chicken & Poultry',    'Bakery',  ];
-final List<String> categories = ["GREENS",    "COOKED",    "GRAINS", "DAIRY", "FROZEN",  "GROCERIES"];
-final List<Widget> screens = [  const HomeScreen(), DonationForm(),    const RecipientSignUp(),    const DriverWelcomePage(),    const LoginScreen(),  ];
+final List<String> foodCategories = ["GREENS",    "COOKED",    "GRAINS", "DAIRY", "FROZEN",  "GROCERIES"];
+final List<Widget> navBarScreens = [  const HomeScreen(), DonationForm(),    const RecipientSignUp(),    const DriverWelcomePage(),    const Profile()];
 final List<String> organizationType = [ "ORPHANAGE",    "HOMELESS_SHELTER 2",    "COMMUNITY_KITCHEN 3", "FAMILY_IN_NEED" ,"ANIMAL_SHELTER"];
 final List<Widget> drawerScreens = [DonationForm(), const RecipientSignUp(),  const MyScreen() ];
 List<String> chipLabels = ['Less than 5', 'Less than 10', 'less than 50', 'less than 100', 'more than 100'];
 List<String> chipValue = ['5', '10', '50', '100'];
 List<String> preferencesChipLabels = ['Ready meals', 'Groceries', 'Both'];
-List<String> menuItems = ['Donating' , 'Add Organization','Instructions' ];
+List<String> drawerMenuItems = ['Donating' , 'Add Organization','Instructions' ];
 List<String> cairoAreas = [
   'Abbasiya',
   'Ain Shams',
@@ -127,7 +127,7 @@ var buttonStyle = ButtonStyle(
   minimumSize: MaterialStateProperty.all<Size>(const Size(372, 53)),
   shape: MaterialStateProperty.all<RoundedRectangleBorder>(
     RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(4.0),
+      borderRadius: BorderRadius.circular(2.0),
       side: const BorderSide(color: Color(0xFF3D8361)),
     ),
   ),

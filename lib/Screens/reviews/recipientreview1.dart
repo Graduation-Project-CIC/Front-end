@@ -221,7 +221,7 @@ class _RecipientReview1 extends State<RecipientReview1> {
                     selectedCategory = newValue!;
                   });
                 },
-                items: categories.map<DropdownMenuItem<String>>((String category) {
+                items: foodCategories.map<DropdownMenuItem<String>>((String category) {
                   return DropdownMenuItem<String>(
                     value: category,
                     child: Text(category),
@@ -233,13 +233,13 @@ class _RecipientReview1 extends State<RecipientReview1> {
               SizedBox(
               height: sizedBoxHeight1,
               child: ListView.builder(
-                itemCount: categories.length,
+                itemCount: foodCategories.length,
                 itemBuilder: (BuildContext context, int index) {
                   return ListTile(
-                    title: Text(categories[index]),
+                    title: Text(foodCategories[index]),
                     onTap: () {
                       setState(() {
-                        _preferredCategory = categories[index];
+                        _preferredCategory = foodCategories[index];
                       });
                       Navigator.pop(context);
                     },

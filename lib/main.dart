@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:full_circle/Screens/Tracking%20Screens/matching.dart';
 import 'package:full_circle/Screens/Tracking%20Screens/recipientMatch.dart';
-import 'package:full_circle/Screens/DoneTracking/NewTracking.dart';
+import 'package:full_circle/Screens/Tracking%20Screens/NewTracking.dart';
 import 'package:full_circle/Screens/donationDetails.dart';
 import 'package:full_circle/Screens/driver_sign_up.dart';
 import 'package:full_circle/Screens/driver_welcome_page.dart';
@@ -18,6 +18,7 @@ import 'package:full_circle/Screens/instructionsScreens/Drivers.dart';
 import 'package:full_circle/Screens/instructionsScreens/Recipients.dart';
 import 'package:full_circle/Screens/login-page.dart';
 import 'package:full_circle/Screens/onboarding-page.dart';
+import 'package:full_circle/Screens/profile/profile.dart';
 import 'package:full_circle/Screens/recipientreviews.dart';
 import 'package:full_circle/Screens/Safety%20check/Safety%20Check.dart';
 import 'package:full_circle/Screens/reviews/donorreview1.dart';
@@ -49,10 +50,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       initialRoute: GetStarted.id,
-      //initialRoute: DoneTracking.id,
 
       routes: {
         WelcomeScreen.id: (context) => const WelcomeScreen(),
+        Profile.id: (context) => const Profile(),
         Matching.id: (context) => const Matching(),
         RecipientMatching.id: (context) => const RecipientMatching(),
         RegisterScreen.id: (context) => const RegisterScreen(),

@@ -48,7 +48,7 @@ class _HomelessMapState extends State<HomelessMap> {
     });
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => screens[index]),
+      MaterialPageRoute(builder: (context) => navBarScreens[index]),
     );
   }
 

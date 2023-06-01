@@ -49,7 +49,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
       if (userCredential.user != null) {
         String userId = userCredential.user!.uid;
-
         DatabaseReference database = FirebaseDatabase(databaseURL: "https://fullcircle-b6721-default-rtdb.europe-west1.firebasedatabase.app/").reference().child('userInfo').child(userId);
 
         UserInformation userInformation = UserInformation(

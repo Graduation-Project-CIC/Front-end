@@ -56,7 +56,7 @@ class _DonationFormState extends State<DonationForm> {
     });
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => screens[index]),
+      MaterialPageRoute(builder: (context) => navBarScreens[index]),
     );
   }
 
@@ -200,7 +200,7 @@ class _DonationFormState extends State<DonationForm> {
                             selectedCategory = value!;
                           });
                         },
-                        items: categories.map((category) {
+                        items: foodCategories.map((category) {
                           return DropdownMenuItem<String>(
                             value: category,
                             child: Text(category),

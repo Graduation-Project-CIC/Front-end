@@ -1,10 +1,12 @@
 // ignore_for_file: file_names, library_private_types_in_public_api
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:full_circle/Screens/donationForm.dart';
 import 'package:full_circle/Screens/get_started.dart';
 import 'package:full_circle/Screens/homeless_map.dart';
+import 'package:full_circle/Screens/profile/profile.dart';
 import 'package:full_circle/Screens/recipient-signUp.dart';
 import 'package:full_circle/components/DonationsList.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -20,18 +22,35 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
    int _selectedIndex = 0;
-  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+   final FirebaseAuth auth = FirebaseAuth.instance;
+   String? name = '';
 
+   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+   void retrieveUserName() async {
+     User? user = auth.currentUser;
+     String userId = user!.uid;
+     DatabaseReference database = FirebaseDatabase(databaseURL: "https://fullcircle-b6721-default-rtdb.europe-west1.firebasedatabase.app/").reference().child('userInfo').child(userId);
+     DatabaseEvent event = await database.once();
+     DataSnapshot snapshot =event.snapshot;
+     Map<dynamic, dynamic>? userData = snapshot.value as Map<dynamic, dynamic>?;
+     if (userData != null) {
+       String firstName = userData['firstName'];
+       setState(() {
+         name = firstName ;
+       });
+     }
+   }
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
     });
-    Navigator.push(context, MaterialPageRoute(builder: (context) => screens[index]),
+    Navigator.push(context, MaterialPageRoute(builder: (context) => navBarScreens[index]),
     );
   }
   @override
   void initState(){
     super.initState();
+    retrieveUserName();
   }
 
    void _onMenuTapped(int index) {
@@ -55,7 +74,7 @@ class _HomeScreenState extends State<HomeScreen> {
               children: [
                 ListView.builder(
                   shrinkWrap: true,
-                  itemCount: menuItems.length,
+                  itemCount: drawerMenuItems.length,
                   itemBuilder: (BuildContext context, int index) {
                     return InkWell(
                       onTap: () {
@@ -79,7 +98,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                             ),
                             const SizedBox(width: 16.0),
-                            Text(menuItems[index], style: textStyle),
+                            Text(drawerMenuItems[index], style: textStyle),
                           ],
                         ),
                       ),
@@ -133,7 +152,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             ],
                           ),
                           Text(
-                            'Hello,',
+                            'Hello $name,',
                             style: textStyle.copyWith(
                               color: const Color(0xFFA5A4A4),
                               fontSize: isPortrait
@@ -326,7 +345,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                               child: MaterialButton(
                                 onPressed: () {
-                                  Navigator.pushReplacementNamed(context, RecipientSignUp.id);
+                                  Navigator.pushReplacementNamed(context, Profile.id);
                                 },
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
