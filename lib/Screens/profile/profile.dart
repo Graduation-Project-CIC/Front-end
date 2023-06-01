@@ -1,8 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'package:full_circle/Screens/home-page.dart';
+import 'package:full_circle/Screens/home_page.dart';
 import '../../design.dart';
+import '../../services/donation_service.dart';
 import 'edit_info.dart';
 
 class Profile extends StatefulWidget {
@@ -14,9 +15,32 @@ class Profile extends StatefulWidget {
 }
 
 class ProfileState extends State<Profile> {
-  final FirebaseAuth auth = FirebaseAuth.instance;
+  User? user = FirebaseAuth.instance.currentUser;
+  String? userId;
   int _selectedIndex = 4;
   String? fullName = '';
+
+  void retrieveUserId() {
+    if (user != null) {
+      if (user!.providerData.isNotEmpty && user?.providerData[0].providerId == 'google.com') {
+        // User signed up with Google
+        userId = user?.providerData[0].uid;
+      } else {
+        // User signed up with email/password or other providers
+        userId = user?.uid;
+      }
+    } else {
+      // No user signed in
+      userId = null;
+    }
+
+    if (userId != null) {
+      print('User ID: $userId');
+    } else {
+      print('User ID not found.');
+    }
+  }
+
 
   @override
   void initState() {
@@ -25,18 +49,23 @@ class ProfileState extends State<Profile> {
   }
 
   void retrieveUserData() async {
-    User? user = auth.currentUser;
-    String userId = user!.uid;
-    DatabaseReference database = FirebaseDatabase(databaseURL: "https://fullcircle-b6721-default-rtdb.europe-west1.firebasedatabase.app/").reference().child('userInfo').child(userId);
-    DatabaseEvent event = await database.once();
-    DataSnapshot snapshot =event.snapshot;
-     Map<dynamic, dynamic>? userData = snapshot.value as Map<dynamic, dynamic>?;
-    if (userData != null) {
-      String firstName = userData['firstName'];
-      String lastName = userData['lastName'];
-      setState(() {
-        fullName = '$firstName $lastName';
-      });
+    retrieveUserId();
+    if (userId != null) {
+      DatabaseReference database = FirebaseDatabase(
+          databaseURL: "https://fullcircle-b6721-default-rtdb.europe-west1.firebasedatabase.app/")
+          .reference().child('userInfo')
+          .child(userId!);
+      DatabaseEvent event = await database.once();
+      DataSnapshot snapshot = event.snapshot;
+      Map<dynamic, dynamic>? userData = snapshot.value as Map<dynamic,
+          dynamic>?;
+      if (userData != null) {
+        String firstName = userData['firstName'];
+        String lastName = userData['lastName'];
+        setState(() {
+          fullName = '$firstName $lastName';
+        });
+      }
     }
   }
 

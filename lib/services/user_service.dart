@@ -4,7 +4,7 @@ class UserInformation {
   String email;
   String address;
   String phoneNumber;
-  int? age;
+  String age;
 
   UserInformation(
       this.firstName,

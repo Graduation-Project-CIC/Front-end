@@ -1,14 +1,12 @@
-// ignore_for_file: file_names, library_private_types_in_public_api
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:full_circle/Screens/donationForm.dart';
+import 'package:full_circle/Screens/donation_form.dart';
 import 'package:full_circle/Screens/get_started.dart';
 import 'package:full_circle/Screens/homeless_map.dart';
 import 'package:full_circle/Screens/profile/profile.dart';
-import 'package:full_circle/Screens/recipient-signUp.dart';
-import 'package:full_circle/components/DonationsList.dart';
+import 'package:full_circle/components/donations_list.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../design.dart';
 
@@ -17,27 +15,54 @@ class HomeScreen extends StatefulWidget {
   static const String id = 'Home_Screen';
 
   @override
-  _HomeScreenState createState() => _HomeScreenState();
+  HomeScreenState createState() => HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class HomeScreenState extends State<HomeScreen> {
    int _selectedIndex = 0;
-   final FirebaseAuth auth = FirebaseAuth.instance;
+   User? user = FirebaseAuth.instance.currentUser;
+   String? userId;
    String? name = '';
-
    final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
+   void retrieveUserId() {
+     if (user != null) {
+       if (user!.providerData.isNotEmpty && user?.providerData[0].providerId == 'google.com') {
+         // User signed up with Google
+         userId = user?.providerData[0].uid;
+       } else {
+         // User signed up with email/password or other providers
+         userId = user?.uid;
+       }
+     } else {
+       // No user signed in
+       userId = null;
+     }
+
+     if (userId != null) {
+       print('User ID: $userId');
+     } else {
+       print('User ID not found.');
+     }
+   }
+
    void retrieveUserName() async {
-     User? user = auth.currentUser;
-     String userId = user!.uid;
-     DatabaseReference database = FirebaseDatabase(databaseURL: "https://fullcircle-b6721-default-rtdb.europe-west1.firebasedatabase.app/").reference().child('userInfo').child(userId);
-     DatabaseEvent event = await database.once();
-     DataSnapshot snapshot =event.snapshot;
-     Map<dynamic, dynamic>? userData = snapshot.value as Map<dynamic, dynamic>?;
-     if (userData != null) {
-       String firstName = userData['firstName'];
-       setState(() {
-         name = firstName ;
-       });
+     retrieveUserId();
+     if (userId != null) {
+       DatabaseReference database = FirebaseDatabase(
+           databaseURL: "https://fullcircle-b6721-default-rtdb.europe-west1.firebasedatabase.app/")
+           .reference().child('userInfo')
+           .child(userId!);
+       DatabaseEvent event = await database.once();
+       DataSnapshot snapshot = event.snapshot;
+       Map<dynamic, dynamic>? userData = snapshot.value as Map<dynamic,
+           dynamic>?;
+       if (userData != null) {
+         String firstName = userData['firstName'];
+         setState(() {
+           name = firstName;
+         });
+       }
      }
    }
   void _onItemTapped(int index) {
@@ -243,20 +268,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                       ? MediaQuery.of(context).size.width * 0.04
                                       : MediaQuery.of(context).size.height *
                                           0.04,
-                                ),
-                              ),
-                              TextButton(
-                                onPressed: () {},
-                                child: Text(
-                                  'See All >>',
-                                  style: TextStyle(
-                                    color: const Color(0xffb7b9c2),
-                                    fontSize: isPortrait
-                                        ? MediaQuery.of(context).size.width *
-                                            0.04
-                                        : MediaQuery.of(context).size.height *
-                                            0.04,
-                                  ),
                                 ),
                               ),
                             ],

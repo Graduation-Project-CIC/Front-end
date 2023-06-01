@@ -2,9 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:full_circle/Screens/home-page.dart';
+import 'package:full_circle/Screens/home_page.dart';
 import 'package:full_circle/Screens/profile/profile.dart';
-import 'package:namefully/namefully.dart';
 import '../../design.dart';
 
 class EditInfo extends StatefulWidget {
@@ -14,18 +13,20 @@ class EditInfo extends StatefulWidget {
 }
 
 class EditInfoState extends State<EditInfo> {
-  TextEditingController? emailController;
   User? user = FirebaseAuth.instance.currentUser;
   String? userId;
-  final ageController = TextEditingController();
-  String emailErrorMessage = '';
+  TextEditingController? ageController;
+  TextEditingController? firstNameController;
+  TextEditingController? lastNameController;
+  TextEditingController? addressController;
+  TextEditingController? phoneNumberController;
   String firstName = '';
   String lastName = '';
   String email = '';
   String address = '';
   String phoneNumber = '';
   bool isChecked = false;
-  int? age;
+  String? age;
 
   void retrieveUserId() {
     if (user != null) {
@@ -55,7 +56,7 @@ class EditInfoState extends State<EditInfo> {
   }
 
   void retrieveUserData() async {
-    retrieveUserId(); // Call retrieveUserId method here
+    retrieveUserId();
 
     if (userId != null) {
       DatabaseReference database = FirebaseDatabase(databaseURL: "https://fullcircle-b6721-default-rtdb.europe-west1.firebasedatabase.app/").reference().child('userInfo').child(userId!);
@@ -70,9 +71,14 @@ class EditInfoState extends State<EditInfo> {
         phoneNumber = userData['phoneNumber'];
         age = userData['age'];
       }
-      emailController = TextEditingController(text: email);
     }
+    ageController = TextEditingController(text: age);
+    firstNameController = TextEditingController(text: firstName);
+    lastNameController = TextEditingController(text: lastName);
+    addressController = TextEditingController(text: address);
+    phoneNumberController = TextEditingController(text: phoneNumber);
   }
+
 
   void updateUserInformation() async{
     retrieveUserId();
@@ -84,8 +90,8 @@ class EditInfoState extends State<EditInfo> {
       await database.update({
         'firstName': firstName,
         'lastName': lastName,
-        //'email': emailController,
         'phoneNumber': phoneNumber,
+        'email': email,
         'address': address,
         'age': age,
       }).then((_) {}).catchError((error) {
@@ -137,6 +143,7 @@ class EditInfoState extends State<EditInfo> {
                           Expanded(
                             flex: 1,
                             child: TextField(
+                              controller: firstNameController,
                               onChanged: (value) {
                                 firstName = value;
                               },
@@ -149,6 +156,7 @@ class EditInfoState extends State<EditInfo> {
                           Expanded(
                             flex: 1,
                             child: TextField(
+                              controller: lastNameController,
                               onChanged: (value) {
                                 lastName = value;
                               },
@@ -161,16 +169,11 @@ class EditInfoState extends State<EditInfo> {
                       ),
                       SizedBox(height: screenHeight * 0.03),
                       TextField(
-                        controller:emailController,
-                        decoration: textFieldDecoration.copyWith(
-                            hintText: 'email address' ,
-                            errorText: emailErrorMessage.isNotEmpty
-                                ? emailErrorMessage
-                                : null),
-                      ),
-                      SizedBox(height: screenHeight * 0.03),
-
-                      TextField(
+                        controller: phoneNumberController,
+                        keyboardType: TextInputType.number,
+                        inputFormatters: <TextInputFormatter>[
+                          FilteringTextInputFormatter.digitsOnly // restricts input to digits only
+                        ],
                         onChanged: (value) {
                           phoneNumber = value;
                         },
@@ -179,6 +182,7 @@ class EditInfoState extends State<EditInfo> {
                       ),
                       SizedBox(height: screenHeight * 0.03),
                       TextField(
+                        controller: addressController,
                         onChanged: (value) {
                           address = value;
                         },
@@ -192,12 +196,12 @@ class EditInfoState extends State<EditInfo> {
                         inputFormatters: <TextInputFormatter>[
                           FilteringTextInputFormatter.digitsOnly // restricts input to digits only
                         ],
-                        onChanged: (value) {
-                          age = int.tryParse(value); // Assign the value to the instance variable age
-                        },
-                        decoration: textFieldDecoration.copyWith(
-                          hintText: 'Age',
+                        decoration: textFieldDecoration.copyWith( hintText:'Age',
                         ),
+                        onChanged: (value) {
+                          age = value;
+                        },
+
                       ),
                       SizedBox(height: screenHeight * 0.03),
                     ],

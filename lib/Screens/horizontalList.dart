@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:full_circle/services/donationService.dart';
+import 'package:full_circle/services/donation_service.dart';
 import 'package:intl/intl.dart';
 
 import '../design.dart';
-import 'donationDetails.dart';
+import 'donation_details.dart';
 
 class CustomListTile extends StatelessWidget {
   final String title;

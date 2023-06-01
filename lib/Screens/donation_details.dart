@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:full_circle/design.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import '../services/donationService.dart';
+import '../services/donation_service.dart';
 import 'google_map.dart';
 
 class DonationDetails extends StatelessWidget {

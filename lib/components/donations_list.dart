@@ -1,7 +1,6 @@
-import 'package:full_circle/services/donationService.dart';
+import 'package:full_circle/services/donation_service.dart';
 import 'package:flutter/material.dart';
 import 'package:full_circle/Screens/horizontalList.dart';
-import '../design.dart';
 
 class DonationsList extends StatefulWidget {
   const DonationsList({Key? key}) : super(key: key);

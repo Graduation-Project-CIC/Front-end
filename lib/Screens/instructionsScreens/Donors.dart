@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:full_circle/Screens/instructionsScreens/Donor1.dart';
 import 'package:full_circle/Screens/instructionsScreens/Donor2.dart';
 import 'package:full_circle/Screens/instructionsScreens/Donor3.dart';
-import 'package:full_circle/Screens/home-page.dart';
+import 'package:full_circle/Screens/home_page.dart';
 import 'package:full_circle/Screens/instructionsScreen.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 

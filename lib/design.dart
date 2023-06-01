@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:full_circle/Screens/driver_welcome_page.dart';
 import 'package:full_circle/Screens/instructionsScreen.dart';
 import 'package:full_circle/Screens/profile/profile.dart';
-import 'Screens/donationForm.dart';
-import 'Screens/home-page.dart';
+import 'Screens/donation_form.dart';
+import 'Screens/home_page.dart';
 import 'Screens/recipient-signUp.dart';
 
 //buttons text styles

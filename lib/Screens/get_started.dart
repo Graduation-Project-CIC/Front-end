@@ -5,7 +5,7 @@ import 'package:full_circle/Screens/onboarding-page.dart';
 import 'package:full_circle/Screens/welcome-page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../design.dart';
-import 'home-page.dart';
+import 'home_page.dart';
 
 class GetStarted extends StatefulWidget {
   const GetStarted({Key? key}) : super(key: key);

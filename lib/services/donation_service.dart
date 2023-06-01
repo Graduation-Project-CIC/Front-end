@@ -3,9 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'dart:io';
-import 'package:path/path.dart';
 import 'package:intl/intl.dart';
-import 'package:async/async.dart';
 
 final apiUrl = dotenv.env['API_URL'];
 
@@ -90,6 +88,20 @@ Future<List<Donation>> getDonations() async {
     throw Exception('Failed to load donations');
   }
 }
+
+// Future<List<Donation>> getDonationsByUserId(String userId) async {
+//   final url = '$apiUrl/donation?userId=$userId';
+//
+//   final response = await http.get(Uri.parse(url));
+//   if (response.statusCode == 200) {
+//     final json = jsonDecode(response.body) as List<dynamic>;
+//     final donations =
+//     json.map((donationJson) => Donation.fromJson(donationJson)).toList();
+//     return donations;
+//   } else {
+//     throw Exception('Failed to load donations');
+//   }
+// }
 
 Future<bool> createDonation(
   String title,

@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:full_circle/Screens/welcome-page.dart';
 import '../design.dart';
 import '../services/user_service.dart';
-import 'home-page.dart';
+import 'home_page.dart';
 import 'login-page.dart';
 import 'package:firebase_database/firebase_database.dart';
 
@@ -33,7 +33,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   String phoneNumber = '';
   bool isChecked = false;
   bool canSignUp = false;
-  int? age;
+  String age = '';
 
   @override
   void initState() {
@@ -284,7 +284,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           FilteringTextInputFormatter.digitsOnly // restricts input to digits only
                         ],
                         onChanged: (value) {
-                          age = int.tryParse(value); // Assign the value to the instance variable age
+                          age = value; // Assign the value to the instance variable age
                           checkSignUpEnabled();
                         },
                         decoration: textFieldDecoration.copyWith(

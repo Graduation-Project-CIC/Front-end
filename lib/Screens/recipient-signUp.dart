@@ -2,7 +2,7 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:full_circle/Screens/home-page.dart';
+import 'package:full_circle/Screens/home_page.dart';
 import 'package:full_circle/Screens/recipientPreferences.dart';
 import 'package:full_circle/services/recipientService.dart';
 import 'package:image_picker/image_picker.dart';
