@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:full_circle/Screens/Tracking%20Screens/tracking_map.dart';
 import 'package:full_circle/Screens/donation_form.dart';
 import 'package:full_circle/Screens/get_started.dart';
 import 'package:full_circle/Screens/homeless_map.dart';
@@ -19,74 +20,83 @@ class HomeScreen extends StatefulWidget {
 }
 
 class HomeScreenState extends State<HomeScreen> {
-   int _selectedIndex = 0;
-   User? user = FirebaseAuth.instance.currentUser;
-   String? userId;
-   String? name = '';
-   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  int _selectedIndex = 0;
+  User? user = FirebaseAuth.instance.currentUser;
+  String? userId;
+  String? name = '';
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
-   void retrieveUserId() {
-     if (user != null) {
-       if (user!.providerData.isNotEmpty && user?.providerData[0].providerId == 'google.com') {
-         // User signed up with Google
-         userId = user?.providerData[0].uid;
-       } else {
-         // User signed up with email/password or other providers
-         userId = user?.uid;
-       }
-     } else {
-       // No user signed in
-       userId = null;
-     }
+  void retrieveUserId() {
+    if (user != null) {
+      if (user!.providerData.isNotEmpty &&
+          user?.providerData[0].providerId == 'google.com') {
+        // User signed up with Google
+        userId = user?.providerData[0].uid;
+      } else {
+        // User signed up with email/password or other providers
+        userId = user?.uid;
+      }
+    } else {
+      // No user signed in
+      userId = null;
+    }
 
-     if (userId != null) {
-       print('User ID: $userId');
-     } else {
-       print('User ID not found.');
-     }
-   }
+    if (userId != null) {
+      print('User ID: $userId');
+    } else {
+      print('User ID not found.');
+    }
+  }
 
-   void retrieveUserName() async {
-     retrieveUserId();
-     if (userId != null) {
-       DatabaseReference database = FirebaseDatabase(
-           databaseURL: "https://fullcircle-b6721-default-rtdb.europe-west1.firebasedatabase.app/")
-           .reference().child('userInfo')
-           .child(userId!);
-       DatabaseEvent event = await database.once();
-       DataSnapshot snapshot = event.snapshot;
-       Map<dynamic, dynamic>? userData = snapshot.value as Map<dynamic,
-           dynamic>?;
-       if (userData != null) {
-         String firstName = userData['firstName'];
-         setState(() {
-           name = firstName;
-         });
-       }
-     }
-   }
+  void retrieveUserName() async {
+    retrieveUserId();
+    if (userId != null) {
+      DatabaseReference database = FirebaseDatabase(
+              databaseURL:
+                  "https://fullcircle-b6721-default-rtdb.europe-west1.firebasedatabase.app/")
+          .reference()
+          .child('userInfo')
+          .child(userId!);
+      DatabaseEvent event = await database.once();
+      DataSnapshot snapshot = event.snapshot;
+      Map<dynamic, dynamic>? userData =
+          snapshot.value as Map<dynamic, dynamic>?;
+      if (userData != null) {
+        String firstName = userData['firstName'];
+        setState(() {
+          name = firstName;
+        });
+      }
+    }
+  }
+
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
     });
-    Navigator.push(context, MaterialPageRoute(builder: (context) => navBarScreens[index]),
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => navBarScreens[index]),
     );
   }
+
   @override
-  void initState(){
+  void initState() {
     super.initState();
     retrieveUserName();
   }
 
-   void _onMenuTapped(int index) {
-     setState(() {
-       _selectedIndex = index;
-     });
-     Navigator.push(context, MaterialPageRoute(builder: (context) => drawerScreens[index]),
-     );
-   }
+  void _onMenuTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => drawerScreens[index]),
+    );
+  }
 
-   @override
+  @override
   Widget build(BuildContext context) {
     return OrientationBuilder(
       builder: (BuildContext context, Orientation orientation) {
@@ -132,21 +142,31 @@ class HomeScreenState extends State<HomeScreen> {
                 ),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.62),
                 ListTile(
-                  onTap: ()async  {
+                  onTap: () async {
                     try {
                       await FirebaseAuth.instance.signOut();
-                      SharedPreferences prefs = await SharedPreferences.getInstance();
+                      SharedPreferences prefs =
+                          await SharedPreferences.getInstance();
                       prefs.remove('userId');
                       Navigator.pushNamed(context, GetStarted.id);
                     } catch (error) {
                       if (kDebugMode) {
-                        print('Error removing user ID from SharedPreferences: $error');
+                        print(
+                            'Error removing user ID from SharedPreferences: $error');
                       }
-
                     }
-                    },
+                  },
                   leading: const Icon(Icons.logout),
                   title: const Text('Sign Out', style: textStyle),
+                ),
+                ListTile(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => TrackingMap()),
+                    );
+                  },
+                  title: const Text('Tracking', style: textStyle),
                 ),
               ],
             ),
@@ -196,7 +216,8 @@ class HomeScreenState extends State<HomeScreen> {
                                 onPressed: () {
                                   Navigator.push(
                                     context,
-                                    MaterialPageRoute(builder: (context) => DonationForm()),
+                                    MaterialPageRoute(
+                                        builder: (context) => DonationForm()),
                                   );
                                 },
                                 child: Row(
@@ -228,8 +249,11 @@ class HomeScreenState extends State<HomeScreen> {
                                             'Start donating >>',
                                             style: textStyle.copyWith(
                                               color: Colors.white,
-                                              fontSize: isPortrait ? MediaQuery.of(context)
-                                                          .size.width * 0.03
+                                              fontSize: isPortrait
+                                                  ? MediaQuery.of(context)
+                                                          .size
+                                                          .width *
+                                                      0.03
                                                   : MediaQuery.of(context)
                                                           .size
                                                           .height *
@@ -280,7 +304,7 @@ class HomeScreenState extends State<HomeScreen> {
                           AspectRatio(
                             aspectRatio: isPortrait
                                 ? MediaQuery.of(context).size.width /
-                                (MediaQuery.of(context).size.height / 4)
+                                    (MediaQuery.of(context).size.height / 4)
                                 : 1,
                             child: Container(
                               decoration: homeMainButton,
@@ -293,8 +317,7 @@ class HomeScreenState extends State<HomeScreen> {
                                     Expanded(
                                       child: Column(
                                         mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-
+                                            MainAxisAlignment.spaceEvenly,
                                         children: [
                                           Text(
                                             'Help the homeless',
@@ -302,9 +325,9 @@ class HomeScreenState extends State<HomeScreen> {
                                               color: Colors.white,
                                               fontSize: isPortrait
                                                   ? MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                                  0.06
+                                                          .size
+                                                          .width *
+                                                      0.06
                                                   : 40,
                                             ),
                                           ),
@@ -312,12 +335,15 @@ class HomeScreenState extends State<HomeScreen> {
                                             'Help in finding homeless by marking their location on map',
                                             style: textStyle.copyWith(
                                               color: Colors.white,
-                                              fontSize: isPortrait ? MediaQuery.of(context)
-                                                  .size.width * 0.03
+                                              fontSize: isPortrait
+                                                  ? MediaQuery.of(context)
+                                                          .size
+                                                          .width *
+                                                      0.03
                                                   : MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                                  0.03,
+                                                          .size
+                                                          .height *
+                                                      0.03,
                                             ),
                                           ),
                                         ],
@@ -341,7 +367,7 @@ class HomeScreenState extends State<HomeScreen> {
                           AspectRatio(
                             aspectRatio: isPortrait
                                 ? MediaQuery.of(context).size.width /
-                                (MediaQuery.of(context).size.height / 6)
+                                    (MediaQuery.of(context).size.height / 6)
                                 : 1,
                             child: Container(
                               decoration: BoxDecoration(
@@ -356,20 +382,28 @@ class HomeScreenState extends State<HomeScreen> {
                               ),
                               child: MaterialButton(
                                 onPressed: () {
-                                  Navigator.pushReplacementNamed(context, Profile.id);
+                                  Navigator.pushReplacementNamed(
+                                      context, Profile.id);
                                 },
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
                                   children: [
                                     Row(
                                       children: [
-                                        const Icon(Icons.home, color: Color(0xFF3D8361)),
+                                        const Icon(Icons.home,
+                                            color: Color(0xFF3D8361)),
                                         Text(
                                           ' Need Help?',
                                           style: mainLogoName.copyWith(
                                             color: const Color(0xFF3D8361),
-                                            fontSize: isPortrait ? MediaQuery.of(context).size.width * 0.06 : 40,
+                                            fontSize: isPortrait
+                                                ? MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                    0.06
+                                                : 40,
                                           ),
                                         ),
                                       ],
@@ -379,8 +413,14 @@ class HomeScreenState extends State<HomeScreen> {
                                       style: textStyle.copyWith(
                                         color: Colors.black,
                                         fontSize: isPortrait
-                                            ? MediaQuery.of(context).size.width * 0.03
-                                            : MediaQuery.of(context).size.height * 0.03,
+                                            ? MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                0.03
+                                            : MediaQuery.of(context)
+                                                    .size
+                                                    .height *
+                                                0.03,
                                       ),
                                     ),
                                     Container(
@@ -392,12 +432,18 @@ class HomeScreenState extends State<HomeScreen> {
                                           color: Colors.black,
                                           fontWeight: FontWeight.bold,
                                           fontSize: isPortrait
-                                              ? MediaQuery.of(context).size.width * 0.03
-                                              : MediaQuery.of(context).size.height * 0.03,
+                                              ? MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  0.03
+                                              : MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  0.03,
                                         ),
                                       ),
                                     )
-                                ],
+                                  ],
                                 ),
                               ),
                             ),
