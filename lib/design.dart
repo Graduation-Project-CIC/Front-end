@@ -18,11 +18,12 @@ const buttonTextStyle = TextStyle(
   fontWeight: FontWeight.normal);
 
 final List<String> preferencesCheckBox = ['Canned & Jarred Food',    'Pasta & Rice',    'Cooking Essentials',    'Fruits & Vegetables',    'Cheese & Dairy',    'Meat',    'Chicken & Poultry',    'Bakery',  ];
-final List<String> categories = [    "GREENS",    "COOKED",    "GRAINS", "DAIRY", "FROZEN",  "GROCERIES"];
+final List<String> categories = ["GREENS",    "COOKED",    "GRAINS", "DAIRY", "FROZEN",  "GROCERIES"];
 final List<Widget> screens = [  const HomeScreen(), DonationForm(),    const RecipientSignUp(),    const DriverWelcomePage(),    const LoginScreen(),  ];
-final List<String> organizationType = [    "Type 1",    "Type 2",    "Type 3",  ];
+final List<String> organizationType = [ "ORPHANAGE",    "HOMELESS_SHELTER 2",    "COMMUNITY_KITCHEN 3", "FAMILY_IN_NEED" ,"ANIMAL_SHELTER"];
 final List<Widget> drawerScreens = [DonationForm(), const RecipientSignUp(),  const MyScreen() ];
 List<String> chipLabels = ['Less than 5', 'Less than 10', 'less than 50', 'less than 100', 'more than 100'];
+List<String> chipValue = ['5', '10', '50', '100'];
 List<String> preferencesChipLabels = ['Ready meals', 'Groceries', 'Both'];
 List<String> menuItems = ['Donating' , 'Add Organization','Instructions' ];
 List<String> cairoAreas = [
