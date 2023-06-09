@@ -6,9 +6,8 @@ import 'package:full_circle/Screens/Tracking%20Screens/tracking_map.dart';
 import 'package:full_circle/Screens/donation_form.dart';
 import 'package:full_circle/Screens/get_started.dart';
 import 'package:full_circle/Screens/homeless_map.dart';
-import 'package:full_circle/Screens/profile/profile.dart';
+import 'package:full_circle/Screens/recipient-signUp.dart';
 import 'package:full_circle/components/donations_list.dart';
-import 'package:full_circle/components/list_view.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../design.dart';
 
@@ -383,7 +382,7 @@ class HomeScreenState extends State<HomeScreen> {
                               child: MaterialButton(
                                 onPressed: () {
                                   Navigator.pushReplacementNamed(
-                                      context, Profile.id);
+                                      context, RecipientSignUp.id);
                                 },
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../components/horizontal_list.dart';
-import '../design.dart';
 import '../services/donation_service.dart';
 
 class DonationsList extends StatefulWidget {
