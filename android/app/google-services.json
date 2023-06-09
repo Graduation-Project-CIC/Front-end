@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "406486554105",
+    "firebase_url": "https://fullcircle-b6721-default-rtdb.europe-west1.firebasedatabase.app",
     "project_id": "fullcircle-b6721",
     "storage_bucket": "fullcircle-b6721.appspot.com"
   },
@@ -13,6 +14,14 @@
         }
       },
       "oauth_client": [
+        {
+          "client_id": "406486554105-fnpgq1rfb8lqqmvse3s74kec4ga3il9e.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.full_circle",
+            "certificate_hash": "ced144b657dfe5fd43b332d51fd8faab4c6afb05"
+          }
+        },
         {
           "client_id": "406486554105-ogmr0at7e3e8tnnola0cplqpkp2hc6ni.apps.googleusercontent.com",
           "client_type": 3
