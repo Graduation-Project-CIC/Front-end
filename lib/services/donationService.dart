@@ -84,7 +84,12 @@ class Picture {
 // To filter by multiple parameters: await getDonations(userId: '123', status: 'pending');
 
 Future<List<Donation>> getDonations({String? userId, int? driverId, String? status}) async {
+  final headers = {
+    'Content-Type': 'application/json'
+  };
   final url = '$apiUrl/donation';
+  final request = http.Request('GET', Uri.parse(url));
+
 
   final body = <String, dynamic>{};
   if (userId != null) {
@@ -96,18 +101,18 @@ Future<List<Donation>> getDonations({String? userId, int? driverId, String? stat
   if (status != null) {
     body['status'] = status;
   }
+  request.body = json.encode(body);
+  request.headers.addAll(headers);
+  http.StreamedResponse response = await request.send();
 
-  final response = await http.post(Uri.parse(url), body: jsonEncode(body));
   if (response.statusCode == 200) {
-    final json = jsonDecode(response.body) as List<dynamic>;
+    final json = jsonDecode(await response.stream.bytesToString()) as List<dynamic>;
     final donations = json.map((donationJson) => Donation.fromJson(donationJson)).toList();
     return donations;
   } else {
     throw Exception('Failed to load donations');
   }
 }
-
-
 
 Future<bool> createDonation(
   String title,
