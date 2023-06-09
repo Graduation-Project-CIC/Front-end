@@ -1,8 +1,8 @@
 // ignore_for_file: file_names
 import 'package:flutter/material.dart';
-import 'package:full_circle/Screens/home-page.dart';
 import '../design.dart';
 import '../services/recipientService.dart';
+import 'home_page.dart';
 
 class RecipientPreferences extends StatefulWidget {
   const RecipientPreferences({Key? key, required this.recipientid}) : super(key: key);
@@ -69,11 +69,11 @@ class _RecipientPreferencesState extends State<RecipientPreferences> {
                     ),
                     Text('You can adjust it later in your settings',
                         style:
-                            textStyle.copyWith(color: const Color(0xFF838181))),
+                        textStyle.copyWith(color: const Color(0xFF838181))),
                     SizedBox(height: screenHeight * 0.05),
                     Text('Would you rather get',
                         style:
-                            textStyle.copyWith(color: const Color(0xFF838181))),
+                        textStyle.copyWith(color: const Color(0xFF838181))),
                     Wrap(
                       children: preferencesChipLabels.map((String label) {
                         int index = preferencesChipLabels.indexOf(label);
@@ -103,7 +103,7 @@ class _RecipientPreferencesState extends State<RecipientPreferences> {
                     SizedBox(height: screenHeight * 0.05),
                     Text('What items do you need?',
                         style:
-                            textStyle.copyWith(color: const Color(0xFF838181))),
+                        textStyle.copyWith(color: const Color(0xFF838181))),
                     const Text(
                       'Check all that applies',
                       style: TextStyle(
@@ -137,7 +137,7 @@ class _RecipientPreferencesState extends State<RecipientPreferences> {
               ElevatedButton(
                   style: buttonStyle.copyWith(
                     minimumSize:
-                        MaterialStateProperty.all<Size>(const Size(213, 50)),
+                    MaterialStateProperty.all<Size>(const Size(213, 50)),
                   ),
                   onPressed: () async {
                     print('idddddddddd: ${widget.recipientid}');
@@ -147,23 +147,23 @@ class _RecipientPreferencesState extends State<RecipientPreferences> {
                     success
                         ? Navigator.pushNamed(context, HomeScreen.id)
                         : showDialog(
-                            context: context,
-                            builder: (BuildContext dialogContext) {
-                              return AlertDialog(
-                                title: const Text('Error'),
-                                content:
-                                    const Text('Error adding organization'),
-                                actions: [
-                                  TextButton(
-                                    onPressed: () {
-                                      Navigator.of(dialogContext).pop();
-                                    },
-                                    child: const Text('OK'),
-                                  ),
-                                ],
-                              );
-                            },
-                          );
+                      context: context,
+                      builder: (BuildContext dialogContext) {
+                        return AlertDialog(
+                          title: const Text('Error'),
+                          content:
+                          const Text('Error adding organization'),
+                          actions: [
+                            TextButton(
+                              onPressed: () {
+                                Navigator.of(dialogContext).pop();
+                              },
+                              child: const Text('OK'),
+                            ),
+                          ],
+                        );
+                      },
+                    );
                   },
                   child: const Text('Sign Up')),
             ],

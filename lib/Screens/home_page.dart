@@ -8,6 +8,7 @@ import 'package:full_circle/Screens/get_started.dart';
 import 'package:full_circle/Screens/homeless_map.dart';
 import 'package:full_circle/Screens/profile/profile.dart';
 import 'package:full_circle/components/donations_list.dart';
+import 'package:full_circle/components/list_view.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../design.dart';
 
@@ -140,7 +141,6 @@ class HomeScreenState extends State<HomeScreen> {
                     );
                   },
                 ),
-                SizedBox(height: MediaQuery.of(context).size.height * 0.62),
                 ListTile(
                   onTap: () async {
                     try {

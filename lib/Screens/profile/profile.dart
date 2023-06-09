@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:full_circle/Screens/home_page.dart';
+import 'package:full_circle/Screens/profile/history.dart';
 import '../../design.dart';
 import '../../services/donation_service.dart';
 import 'edit_info.dart';
@@ -126,7 +127,10 @@ class ProfileState extends State<Profile> {
                 ),
                 SizedBox(height: screenHeight * 0.08),
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const History()),
+                  );},
                   style: buttonStyle.copyWith(
                       minimumSize: MaterialStateProperty.all<Size>(const Size(300, 53))),
                   child: const Text("History"),

@@ -1,6 +1,7 @@
-import 'package:full_circle/services/donation_service.dart';
 import 'package:flutter/material.dart';
-import 'package:full_circle/Screens/horizontalList.dart';
+import '../components/horizontal_list.dart';
+import '../design.dart';
+import '../services/donation_service.dart';
 
 class DonationsList extends StatefulWidget {
   const DonationsList({Key? key}) : super(key: key);
@@ -8,8 +9,10 @@ class DonationsList extends StatefulWidget {
   @override
   _DonationsListState createState() => _DonationsListState();
 }
+
 class _DonationsListState extends State<DonationsList> {
   late List<Donation> donations = [];
+  bool isLoading = true;
 
   @override
   void initState() {
@@ -18,10 +21,10 @@ class _DonationsListState extends State<DonationsList> {
   }
 
   Future<void> _fetchDonations() async {
-    final response = await getDonations();
+    final response = await getDonations(status: 'pending');
     setState(() {
       donations = response;
-      print(donations);
+      isLoading = false;
     });
   }
 
@@ -29,8 +32,14 @@ class _DonationsListState extends State<DonationsList> {
   Widget build(BuildContext context) {
     return donations.isNotEmpty
         ? HorizontalList(donations: donations)
-        : const Center(child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF3D8361))));
-
-
+        : isLoading
+        ? const Center(
+        child: CircularProgressIndicator(
+            valueColor:
+            AlwaysStoppedAnimation<Color>(Color(0xFF3D8361))))
+        : const Text(
+      'No Donations Available',
+      textAlign: TextAlign.center,
+    );
   }
 }

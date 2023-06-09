@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'dart:io';
+import 'package:path/path.dart';
 import 'package:intl/intl.dart';
+import 'package:async/async.dart';
 
 final apiUrl = dotenv.env['API_URL'];
 
@@ -20,8 +22,9 @@ class Donation {
   final String userId;
   final List<Picture> pictures;
   final String? area;
+  final String status;
 
-  Donation({
+  Donation( {
     required this.id,
     required this.title,
     required this.category,
@@ -34,6 +37,7 @@ class Donation {
     required this.userId,
     required this.pictures,
     required this.area,
+    required this.status,
   });
 
   factory Donation.fromJson(Map<String, dynamic> json) {
@@ -42,19 +46,20 @@ class Donation {
         .toList();
 
     return Donation(
-      id: json['id'] as int,
-      title: json['title'] as String,
-      category: json['category'] as String,
-      latitude: json['latitude'] as double,
-      longitude: json['longitude'] as double,
-      pickUpTimestampStart:
-          DateTime.parse(json['pickUpTimestampStart'] as String),
-      pickUpTimestampEnd: DateTime.parse(json['pickUpTimestampEnd'] as String),
-      expiryDate: DateTime.parse(json['expiryDate'] as String),
-      description: json['description'] as String,
-      userId: json['userId'] as String,
-      pictures: pictures,
-      area:  json['area'] as String
+        id: json['id'] as int,
+        title: json['title'] as String,
+        category: json['category'] as String,
+        latitude: json['latitude'] as double,
+        longitude: json['longitude'] as double,
+        pickUpTimestampStart:
+        DateTime.parse(json['pickUpTimestampStart'] as String),
+        pickUpTimestampEnd: DateTime.parse(json['pickUpTimestampEnd'] as String),
+        expiryDate: DateTime.parse(json['expiryDate'] as String),
+        description: json['description'] as String,
+        userId: json['userId'] as String,
+        pictures: pictures,
+        area:  json['area'] as String,
+        status:  json['status'] as String
     );
   }
 }
@@ -82,7 +87,12 @@ class Picture {
 // To filter by multiple parameters: await getDonations(userId: '123', status: 'pending');
 
 Future<List<Donation>> getDonations({String? userId, int? driverId, String? status}) async {
+  final headers = {
+    'Content-Type': 'application/json'
+  };
   final url = '$apiUrl/donation';
+  final request = http.Request('GET', Uri.parse(url));
+
 
   final body = <String, dynamic>{};
   if (userId != null) {
@@ -94,10 +104,12 @@ Future<List<Donation>> getDonations({String? userId, int? driverId, String? stat
   if (status != null) {
     body['status'] = status;
   }
+  request.body = json.encode(body);
+  request.headers.addAll(headers);
+  http.StreamedResponse response = await request.send();
 
-  final response = await http.post(Uri.parse(url), body: jsonEncode(body));
   if (response.statusCode == 200) {
-    final json = jsonDecode(response.body) as List<dynamic>;
+    final json = jsonDecode(await response.stream.bytesToString()) as List<dynamic>;
     final donations = json.map((donationJson) => Donation.fromJson(donationJson)).toList();
     return donations;
   } else {
@@ -105,21 +117,20 @@ Future<List<Donation>> getDonations({String? userId, int? driverId, String? stat
   }
 }
 
-
 Future<bool> createDonation(
-  String title,
-  String? category,
-  double? latitude,
-  double? longitude,
-  DateTime pickUpDate,
-  DateTime expiryDate,
-  TimeOfDay pickUpTimeStart,
-  TimeOfDay pickUpTimeEnd,
-  String description,
-  String userId,
-  List<File> pictures,
-  String? area,
-) async {
+    String title,
+    String? category,
+    double? latitude,
+    double? longitude,
+    DateTime pickUpDate,
+    DateTime expiryDate,
+    TimeOfDay pickUpTimeStart,
+    TimeOfDay pickUpTimeEnd,
+    String description,
+    String userId,
+    List<File> pictures,
+    String? area,
+    ) async {
 // Format DateTime variables
   String formattedPickUpDate = DateFormat("yyyy-MM-dd").format(pickUpDate);
   String formattedExpiryDate = DateFormat("yyyy-MM-dd").format(expiryDate);

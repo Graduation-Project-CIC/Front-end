@@ -66,7 +66,7 @@ class MyApp extends StatelessWidget {
         DriverWelcomePage.id: (context) => const DriverWelcomePage(),
         Recipientsinstructions.id: (context) => const Recipientsinstructions(),
         DriverReviews.id: (context) => const DriverReviews(),
-        DriverReview1.id: (context) =>  DriverReview1(),
+        DriverReview1.id: (context) => DriverReview1(),
         DonorReviews.id: (context) => const DonorReviews(),
         DonorReview1.id: (context) => const DonorReview1(),
         DonorReview2.id: (context) => const DonorReview2(),
@@ -80,7 +80,7 @@ class MyApp extends StatelessWidget {
         OnBoardingScreen.id: (context) => const OnBoardingScreen(),
         GetStarted.id: (context) => const GetStarted(),
         DonationForm.id: (context) => DonationForm(),
-        RecipientSignUp.id: (context) =>  const RecipientSignUp(),
+        RecipientSignUp.id: (context) => const RecipientSignUp(),
       },
     );
   }
