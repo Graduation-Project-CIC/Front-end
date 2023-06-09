@@ -1,7 +1,6 @@
-import 'package:full_circle/services/donationService.dart';
 import 'package:flutter/material.dart';
-import 'package:full_circle/Screens/horizontalList.dart';
-import '../design.dart';
+import '../components/horizontal_list.dart';
+import '../services/donation_service.dart';
 
 class DonationsList extends StatefulWidget {
   const DonationsList({Key? key}) : super(key: key);
@@ -33,13 +32,13 @@ class _DonationsListState extends State<DonationsList> {
     return donations.isNotEmpty
         ? HorizontalList(donations: donations)
         : isLoading
-            ? const Center(
-                child: CircularProgressIndicator(
-                    valueColor:
-                        AlwaysStoppedAnimation<Color>(Color(0xFF3D8361))))
-            : const Text(
-                'No Donations Available',
-                textAlign: TextAlign.center,
-              );
+        ? const Center(
+        child: CircularProgressIndicator(
+            valueColor:
+            AlwaysStoppedAnimation<Color>(Color(0xFF3D8361))))
+        : const Text(
+      'No Donations Available',
+      textAlign: TextAlign.center,
+    );
   }
 }

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:full_circle/Screens/home-page.dart';
+import 'package:full_circle/Screens/home_page.dart';
 import 'package:full_circle/Screens/reviews/donorreview2.dart';
 
+import '../../design.dart';
 import 'SafetyCheck2.dart';
 
 class SafetyCheck1 extends StatefulWidget {
@@ -73,9 +74,7 @@ class _SafetyCheck1 extends State<SafetyCheck1> {
             Row(
               children: [
                 ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xff3D8361),
-                  ),
+                  style: buttonStyle,
                   onPressed: () {
                     setState(() {
                       expired = true;
@@ -84,9 +83,8 @@ class _SafetyCheck1 extends State<SafetyCheck1> {
                   child: Text('Yes'),
                 ),
                 ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.red,
-                  ),
+                  style: buttonStyle.copyWith(backgroundColor:
+                  MaterialStateProperty.all<Color>(Colors.red)),
                   onPressed: () {
                     setState(() {
                       expired = false;
@@ -104,9 +102,7 @@ class _SafetyCheck1 extends State<SafetyCheck1> {
             Row(
               children: [
                 ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Color(0xff3D8361),
-                  ),
+                  style: buttonStyle,
                   onPressed: () {
                     setState(() {
                       leaking = true;
@@ -118,9 +114,8 @@ class _SafetyCheck1 extends State<SafetyCheck1> {
                         fontSize: buttonfont),),
                 ),
                 ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.white,
-                  ),
+                  style: buttonStyle.copyWith(backgroundColor:
+                  MaterialStateProperty.all<Color>(Colors.white)),
                   onPressed: () {
                     setState(() {
                       leaking = false;
@@ -141,9 +136,7 @@ class _SafetyCheck1 extends State<SafetyCheck1> {
             Row(
               children: [
                 ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xff3D8361),
-                  ),
+                  style: buttonStyle,
                   onPressed: () {
                     setState(() {
                       spoiled = true;
@@ -152,9 +145,7 @@ class _SafetyCheck1 extends State<SafetyCheck1> {
                   child: Text('Yes'),
                 ),
                 ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.white,
-                  ),
+                  style: buttonStyle,
                   onPressed: () {
                     setState(() {
                       spoiled = false;
@@ -188,9 +179,7 @@ class _SafetyCheck1 extends State<SafetyCheck1> {
               }).toList(),
             ),
             ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xff3D8361),
-              ),
+              style: buttonStyle,
               child: Text('Save'),
               onPressed: () {
                 if (issues.isNotEmpty) {
@@ -227,9 +216,8 @@ class _SafetyCheck1 extends State<SafetyCheck1> {
             Row(
               children: [
                 ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.white,
-                  ),
+                  style: buttonStyle.copyWith(backgroundColor:
+                  MaterialStateProperty.all<Color>(Colors.white)),
                   onPressed: () {
                     setState(() {
                       cookedIsExpired = true;
@@ -241,9 +229,8 @@ class _SafetyCheck1 extends State<SafetyCheck1> {
                         fontSize: buttonfont),),
                 ),
                 ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.red,
-                  ),
+                  style: buttonStyle.copyWith(backgroundColor:
+                  MaterialStateProperty.all<Color>(Colors.red)),
                   onPressed: () {
                     setState(() {
                       cookedIsExpired = false;
@@ -261,9 +248,8 @@ class _SafetyCheck1 extends State<SafetyCheck1> {
             Row(
               children: [
                 ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.white,
-                  ),
+                  style: buttonStyle.copyWith(backgroundColor:
+                  MaterialStateProperty.all<Color>(Colors.white)),
                   onPressed: () {
                     setState(() {
                       cookedIsHot= true;
@@ -275,9 +261,8 @@ class _SafetyCheck1 extends State<SafetyCheck1> {
                         fontSize: buttonfont),),
                 ),
                 ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.red,
-                  ),
+                  style: buttonStyle.copyWith(backgroundColor:
+                  MaterialStateProperty.all<Color>(Colors.red)),
                   onPressed: () {
                     setState(() {
                       cookedIsHot = false;
@@ -295,9 +280,8 @@ class _SafetyCheck1 extends State<SafetyCheck1> {
             Row(
               children: [
                 ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.white,
-                  ),
+                  style: buttonStyle.copyWith(backgroundColor:
+                  MaterialStateProperty.all<Color>(Colors.white)),
                   onPressed: () {
                     setState(() {
                       cookedIsSafe= true;
@@ -309,9 +293,8 @@ class _SafetyCheck1 extends State<SafetyCheck1> {
                         fontSize: buttonfont),),
                 ),
                 ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.red,
-                  ),
+                  style: buttonStyle.copyWith(backgroundColor:
+                  MaterialStateProperty.all<Color>(Colors.red)),
                   onPressed: () {
                     setState(() {
                       cookedIsSafe = false;
@@ -329,9 +312,8 @@ class _SafetyCheck1 extends State<SafetyCheck1> {
             Row(
               children: [
                 ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.white,
-                  ),
+                  style: buttonStyle.copyWith(backgroundColor:
+                  MaterialStateProperty.all<Color>(Colors.white)),
                   onPressed: () {
                     setState(() {
                       cookedIsLeaking = true;
@@ -343,9 +325,8 @@ class _SafetyCheck1 extends State<SafetyCheck1> {
                         fontSize: buttonfont),),
                 ),
                 ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.red,
-                  ),
+                  style: buttonStyle.copyWith(backgroundColor:
+                  MaterialStateProperty.all<Color>(Colors.red)),
                   onPressed: () {
                     setState(() {
                       cookedIsLeaking = false;
@@ -363,9 +344,8 @@ class _SafetyCheck1 extends State<SafetyCheck1> {
             Row(
               children: [
                 ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.white,
-                  ),
+                  style: buttonStyle.copyWith(backgroundColor:
+                  MaterialStateProperty.all<Color>(Colors.white)),
                   onPressed: () {
                     setState(() {
                       cookedIsSpoiled = true;
@@ -377,9 +357,8 @@ class _SafetyCheck1 extends State<SafetyCheck1> {
                         fontSize: buttonfont),),
                 ),
                 ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.red,
-                  ),
+                  style: buttonStyle.copyWith(backgroundColor:
+                  MaterialStateProperty.all<Color>(Colors.red)),
                   onPressed: () {
                     setState(() {
                       cookedIsSpoiled = false;

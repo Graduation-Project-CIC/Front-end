@@ -4,7 +4,7 @@ import 'package:full_circle/Screens/instructionsScreens/Driver2.dart';
 import 'package:full_circle/Screens/instructionsScreens/Driver3.dart';
 import 'package:full_circle/Screens/instructionsScreens/Driver4.dart';
 import 'package:full_circle/Screens/instructionsScreens/Driver5.dart';
-import 'package:full_circle/Screens/home-page.dart';
+import 'package:full_circle/Screens/home_page.dart';
 import 'package:full_circle/Screens/instructionsScreen.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 

@@ -1,28 +1,25 @@
-// ignore_for_file: depend_on_referenced_packages, file_names, use_build_context_synchronously
+// ignore_for_file: use_build_context_synchronously
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:full_circle/design.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 import 'google_map.dart';
 import 'package:intl/intl.dart';
-import '../map.dart';
-import 'home-page.dart';
+import 'home_page.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:intl/intl.dart';
-import 'package:full_circle/services/donationService.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:full_circle/services/donation_service.dart';
 
 // ignore: must_be_immutable
 class DonationForm extends StatefulWidget {
-  DonationForm({Key? key}) : super(key: key);
+  const DonationForm({Key? key}) : super(key: key);
   static const String id = 'donationForm_screen';
   @override
-  // ignore: library_private_types_in_public_api
-  _DonationFormState createState() => _DonationFormState();
+  DonationFormState createState() => DonationFormState();
 }
 
-class _DonationFormState extends State<DonationForm> {
+class DonationFormState extends State<DonationForm> {
   String title = '';
   String? selectedCategory;
   String? selectedArea;
@@ -46,17 +43,21 @@ class _DonationFormState extends State<DonationForm> {
   }
 
   Future<void> _getUserId() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    userId = prefs.getString('userId') ?? '';
-  }
+    User? user = FirebaseAuth.instance.currentUser;
 
+    if (user != null) {
+      userId = user.uid;
+    } else {
+      userId = ''; // Set a default value if the user is not logged in
+    }
+  }
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
     });
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => screens[index]),
+      MaterialPageRoute(builder: (context) => navBarScreens[index]),
     );
   }
 
@@ -200,7 +201,7 @@ class _DonationFormState extends State<DonationForm> {
                             selectedCategory = value!;
                           });
                         },
-                        items: categories.map((category) {
+                        items: foodCategories.map((category) {
                           return DropdownMenuItem<String>(
                             value: category,
                             child: Text(category),
@@ -509,19 +510,19 @@ class _DonationFormState extends State<DonationForm> {
                         ? Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => HomeScreen()))
+                                builder: (context) => const HomeScreen()))
                         : showDialog(
                             context: context,
                             builder: (BuildContext dialogContext) {
                               return AlertDialog(
-                                title: Text('Error'),
-                                content: Text('Error creating donation'),
+                                title: const Text('Error'),
+                                content: const Text('Error creating donation'),
                                 actions: [
                                   TextButton(
                                     onPressed: () {
                                       Navigator.of(dialogContext).pop();
                                     },
-                                    child: Text('OK'),
+                                    child: const Text('OK'),
                                   ),
                                 ],
                               );

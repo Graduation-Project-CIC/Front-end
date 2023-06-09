@@ -97,9 +97,7 @@ class _RecipientReview1 extends State<RecipientReview1> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     ElevatedButton(
-                      style:  ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xff3D8361),
-                      ),
+                      style: buttonStyle,
                       onPressed: () {
                         setState(() {
                           _deliveredWel = true;
@@ -109,9 +107,8 @@ class _RecipientReview1 extends State<RecipientReview1> {
                     ),
 
                     ElevatedButton(
-                      style:  ElevatedButton.styleFrom(
-                        backgroundColor:  Colors.red,
-                      ),
+                      style: buttonStyle.copyWith(backgroundColor:
+                      MaterialStateProperty.all<Color>(Colors.red)),
                       onPressed: () {
                         setState(() {
                           _deliveredWel = false;
@@ -180,9 +177,7 @@ class _RecipientReview1 extends State<RecipientReview1> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     ElevatedButton(
-                      style:  ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xff3D8361),
-                      ),
+                      style: buttonStyle,
                       onPressed: () {
                         setState(() {
                           _fitCategory = true;
@@ -192,9 +187,8 @@ class _RecipientReview1 extends State<RecipientReview1> {
                     ),
 
                     ElevatedButton(
-                      style:  ElevatedButton.styleFrom(
-                        backgroundColor:  Colors.red,
-                      ),
+                      style: buttonStyle.copyWith(backgroundColor:
+                      MaterialStateProperty.all<Color>(Colors.red)),
                       onPressed: () {
                         setState(() {
                           _fitCategory= false;
@@ -227,7 +221,7 @@ class _RecipientReview1 extends State<RecipientReview1> {
                     selectedCategory = newValue!;
                   });
                 },
-                items: categories.map<DropdownMenuItem<String>>((String category) {
+                items: foodCategories.map<DropdownMenuItem<String>>((String category) {
                   return DropdownMenuItem<String>(
                     value: category,
                     child: Text(category),
@@ -239,13 +233,13 @@ class _RecipientReview1 extends State<RecipientReview1> {
               SizedBox(
               height: sizedBoxHeight1,
               child: ListView.builder(
-                itemCount: categories.length,
+                itemCount: foodCategories.length,
                 itemBuilder: (BuildContext context, int index) {
                   return ListTile(
-                    title: Text(categories[index]),
+                    title: Text(foodCategories[index]),
                     onTap: () {
                       setState(() {
-                        _preferredCategory = categories[index];
+                        _preferredCategory = foodCategories[index];
                       });
                       Navigator.pop(context);
                     },
@@ -263,9 +257,7 @@ class _RecipientReview1 extends State<RecipientReview1> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     ElevatedButton(
-                      style:  ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xff3D8361),
-                      ),
+                      style:  buttonStyle,
                       onPressed: () {
                         setState(() {
                           _quantityEnough= true;
@@ -275,9 +267,8 @@ class _RecipientReview1 extends State<RecipientReview1> {
                     ),
 
                     ElevatedButton(
-                      style:  ElevatedButton.styleFrom(
-                        backgroundColor:  Colors.red,
-                      ),
+                      style: buttonStyle.copyWith(backgroundColor:
+                      MaterialStateProperty.all<Color>(Colors.red)),
                       onPressed: () {
                         setState(() {
                           _quantityEnough = false;
