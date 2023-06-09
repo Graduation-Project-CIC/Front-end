@@ -26,7 +26,7 @@ class _RecipientSignUpState extends State<RecipientSignUp> {
   XFile? _imageFile2;
   XFile? _imageFile3;
   XFile? _imageFile4;
-  String? selectedType ;
+  String? selectedType;
   LatLng? _selectedLocation; // variable to store selected location
   int selectedChipIndex = 0;
   String name = '';
@@ -333,7 +333,7 @@ class _RecipientSignUpState extends State<RecipientSignUp> {
                           MaterialStateProperty.all<Size>(const Size(213, 50)),
                     ),
                     onPressed: () async {
-                      bool success = await createRecipient(
+                      String? id = await createRecipient(
                           name,
                           selectedType!,
                           chipLabels[selectedChipIndex],
@@ -343,15 +343,21 @@ class _RecipientSignUpState extends State<RecipientSignUp> {
                           File(_imageFile1!.path),
                           _selectedLocation!.longitude,
                           _selectedLocation!.latitude);
-                      success
-                          ? Navigator.pushNamed(
-                              context, RecipientPreferences.id)
+                      id != null
+                          ? Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    RecipientPreferences(recipientid: id),
+                              ),
+                            )
                           : showDialog(
                               context: context,
                               builder: (BuildContext dialogContext) {
                                 return AlertDialog(
                                   title: const Text('Error'),
-                                  content: const Text('Error adding organization'),
+                                  content:
+                                      const Text('Error adding organization'),
                                   actions: [
                                     TextButton(
                                       onPressed: () {
