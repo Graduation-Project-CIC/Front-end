@@ -77,19 +77,37 @@ class Picture {
   }
 }
 
-Future<List<Donation>> getDonations() async {
+// To get all donations: await getDonations();
+// To filter by userId: await getDonations(userId: '123');
+// To filter by driverId: await getDonations(driverId: 456);
+// To filter by status: await getDonations(status: 'pending');
+// To filter by multiple parameters: await getDonations(userId: '123', status: 'pending');
+
+Future<List<Donation>> getDonations({String? userId, int? driverId, String? status}) async {
   final url = '$apiUrl/donation';
 
-  final response = await http.get(Uri.parse(url));
+  final body = <String, dynamic>{};
+  if (userId != null) {
+    body['userId'] = userId;
+  }
+  if (driverId != null) {
+    body['driverId'] = driverId;
+  }
+  if (status != null) {
+    body['status'] = status;
+  }
+
+  final response = await http.post(Uri.parse(url), body: jsonEncode(body));
   if (response.statusCode == 200) {
     final json = jsonDecode(response.body) as List<dynamic>;
-    final donations =
-        json.map((donationJson) => Donation.fromJson(donationJson)).toList();
+    final donations = json.map((donationJson) => Donation.fromJson(donationJson)).toList();
     return donations;
   } else {
     throw Exception('Failed to load donations');
   }
 }
+
+
 
 Future<bool> createDonation(
   String title,
